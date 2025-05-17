@@ -1,0 +1,108 @@
+
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>두뇌 트레이닝 - 언어 이해 - 맞춤법</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pretendard@1.3.8/dist/web/static/pretendard.css">
+    <link rel="stylesheet" href="../../../problem-style-2.css">
+</head>
+<body>
+
+<header class="header">
+    <div class="logo">두뇌 트레이닝</div>
+    <nav class="menu">
+        <a href="../../../01_language/01_orthography/level-1/problem_01.html">언어 이해</a>
+        <a href="../../../02_current_affairs/01_society/level-1/problem_01.html">시사 상식</a>
+        <a href="../../../03_reasoning/01_matrix/level-1/problem_01.html">지각 추론</a>
+        <a href="../../../04_processing_speed/01_identical-find/level-1/problem_01.html">처리 속도</a>
+        <a href="../level-1/problem_01.html" class="active">작업 기억</a>
+        <a href="../../../06_spatial/01_rotation-puzzle/level-1/problem_01.html">공간 지각</a>
+    </nav>
+</header>
+
+<div class="page-content">
+    <aside class="sidebar">
+        <h2>작업 기억</h2>
+        <div class="category">
+            <div class="category-title">숫자 외우기</div>
+            <ul>
+                <li><a href="../../01_number-memory/level-1/problem_01.html">레벨 1</a></li>
+                <li><a href="../../01_number-memory/level-2/problem_01.html">레벨 2</a></li>
+                <li><a href="../../01_number-memory/level-3/problem_01.html">레벨 3</a></li>
+            </ul>
+        </div>
+        <div class="category">
+            <div class="category-title">자리 배치</div>
+            <ul>
+                <li><a href="../../02_seating-arrangement/level-1/problem_01.html">레벨 1</a></li>
+                <li><a href="../../02_seating-arrangement/level-2/problem_01.html">레벨 2</a></li>
+                <li><a href="../../02_seating-arrangement/level-3/problem_01.html">레벨 3</a></li>
+            </ul>
+        </div>
+        <div class="category active">
+            <div class="category-title active">도형의 개수</div>
+            <ul>
+                <li><a href="../../03_shape-counting/level-1/problem_01.html">레벨 1</a></li>
+                <li><a href="../../03_shape-counting/level-2/problem_01.html" class="active">레벨 2</a></li>
+                <li><a href="../../03_shape-counting/level-3/problem_01.html">레벨 3</a></li>
+            </ul>
+        </div>
+    </aside>
+
+    <main class="content-wrapper">
+        <div class="container">
+            <h2 class="instruction" id="instruction"></h2>
+            <div class="passage" id="passage"></div>
+            <div class="triangle-container">
+                <svg id="triangle-diagram" viewBox="0 0 200 150"></svg>
+            </div>
+            <div class="answer">정답: <span id="answer"></span></div>
+        </div>
+        <div class="button">
+            <a href="problem_01.html" class="btn">이전</a>
+            <a href="problem_02.html" class="btn">다음</a>
+        </div>
+    </main>
+</div>
+
+<script>
+    const problemData = {
+        instruction: "다음 그림에서 크고 작은 삼각형의 개수는?",
+        answer: 6,
+        triangle: {
+            outer: "100,10 10,140 190,140",
+            lines: [
+                { x1: 100, y1: 10, x2: 100, y2: 140 },
+                { x1: 100, y1: 10, x2: 55, y2: 140 },
+                { x1: 100, y1: 10, x2: 145, y2: 140 }
+            ]
+        }
+    };
+
+    document.getElementById('instruction').textContent = problemData.instruction;
+    document.getElementById('answer').textContent = problemData.answer;
+
+    const svg = document.getElementById('triangle-diagram');
+
+    // 외곽 삼각형
+    const polygon = document.createElementNS("http://www.w3.org/2000/svg", "polygon");
+    polygon.setAttribute("points", problemData.triangle.outer);
+    polygon.setAttribute("class", "triangle");
+    svg.appendChild(polygon);
+
+    // 내부 선들
+    problemData.triangle.lines.forEach(({x1, y1, x2, y2}) => {
+        const line = document.createElementNS("http://www.w3.org/2000/svg", "line");
+        line.setAttribute("x1", x1);
+        line.setAttribute("y1", y1);
+        line.setAttribute("x2", x2);
+        line.setAttribute("y2", y2);
+        line.setAttribute("class", "line");
+        svg.appendChild(line);
+    });
+</script>
+
+
+</body>
+</html>

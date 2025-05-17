@@ -81,3 +81,10 @@ body { margin: 0; font-family: 'Pretendard', sans-serif; background: #f8f9fa; co
     font-weight: 500; text-align: center; width: 100px;
     box-sizing: border-box; transition: all 0.2s ease;
 }
+
+.triangle-container { display: flex; justify-content: center; margin-top: 2rem; height: 320px }
+.triangle { fill: #f2f2f2; stroke: #333; stroke-width: 1px; }
+.line { stroke: #333; stroke-width: 1px; }
+
+.shape-container { display: flex; gap: 20px; justify-content: center; flex-wrap: wrap; margin-top: 2rem; }
+.shape { fill: #f2f2f2; stroke: #333; stroke-width: 1px; }
