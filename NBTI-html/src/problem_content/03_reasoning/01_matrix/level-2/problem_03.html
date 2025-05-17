@@ -12,6 +12,40 @@
         .circle.choice-circle { width: 60px; height: 60px;}
         .circle.filled { background: conic-gradient(#2d4a75 var(--percent, 100%), transparent 0); }
         .circle.question { background: #ffffff; font-weight: bold; font-size: 2rem; }
+        .shape { width: 80px; height: 80px; display: flex; align-items: center; justify-content: center; }
+        .shape svg { width: 60%; height: 60%; }
+        .matrix-grid, .choices-grid {
+            display: grid;
+            gap: 10px;
+        }
+        .matrix-grid { grid-template-columns: repeat(3, 80px); }
+        .choices-grid { grid-template-columns: repeat(2, 120px); }
+        .box {
+            width: 80px; height: 80px;
+            border: 2px solid #2d4a75;
+            position: relative;
+        }
+        .dot, .square {
+            position: absolute;
+            width: 14px; height: 14px;
+            background: #e67e22;
+        }
+        .dot { border-radius: 50%; }
+        .square { border-radius: 0; }
+        .question-box {
+            background: #ffffff;
+            display: flex; align-items: center; justify-content: center;
+            font-weight: bold; font-size: 2rem;
+        }
+        .choice .box {
+            width: 50px;
+            height: 50px;
+        }
+
+        .choice .dot, .choice .square {
+            width: 8px;
+            height: 8px;
+        }
 
     </style>
 </head>
@@ -35,9 +69,9 @@
         <div class="category active">
             <div class="category-title active">행렬 추론</div>
             <ul>
-                <li><a href="problem_01.html" class="active">레벨 1</a></li>
-                <li><a href="../level-2/problem_01.html">레벨 2</a></li>
-                <li><a href="../level-2/problem_03.html">레벨 3</a></li>
+                <li><a href="../level-1/problem_01.html">레벨 1</a></li>
+                <li><a href="problem_01.html" class="active">레벨 2</a></li>
+                <li><a href="../level-3/problem_01.html">레벨 3</a></li>
             </ul>
         </div>
         <div class="category">
@@ -69,63 +103,64 @@
             <div class="answer">정답: <span id="answer"></span></div>
         </div>
         <div class="button">
-            <a href="problem_01.html" class="btn">이전</a>
-            <a href="problem_03.html" class="btn">다음</a>
+            <a href="problem_02.html" class="btn">이전</a>
+            <a href="problem_04.html" class="btn">다음</a>
         </div>
     </main>
 </div>
 
+
 <script>
-    // 언어 이해 문제용
-    const orthographyData = {
-        instruction: "준비중",
-        passage : null,
-        choices: ["1", "2"],
+    const problemData = {
+        instruction: "?에는 어떤 모양이 들어가는 것이 적합한가?",
+        matrix: [
+            [{ type: 'dot', x: 5, y: 5 }],
+            [{ type: 'dot', x: 60, y: 5 }],
+            [{ type: 'dot', x: 5, y: 5 }, { type: 'dot', x: 60, y: 5 }],
+
+            [{ type: 'square', x: 5, y: 5 }],
+            [{ type: 'square', x: 60, y: 60 }],
+            [{ type: 'square', x: 5, y: 5 }, { type: 'square', x: 60, y: 60 }],
+
+            [{ type: 'dot', x: 5, y: 5 }],
+            [{ type: 'square', x: 60, y: 60 }],
+            'question'
+        ],
+        choices: [
+            [{ type: 'dot', x: 5, y: 5 }, { type: 'square', x: 60, y: 60 }],
+            [{ type: 'dot', x: 60, y: 60 }, { type: 'square', x: 5, y: 5 }],
+            [{ type: 'square', x: 5, y: 5 }, { type: 'dot', x: 60, y: 60 }],
+            [{ type: 'dot', x: 5, y: 60 }, { type: 'dot', x: 60, y: 60 }]
+        ],
         answer: 1
     };
 
-    // 지각 추론 문제용
-    const matrixData = {
-        instruction: "?에는 어떤 모양이 들어가는 것이 적합한가?",
-        matrix: [
-            66.6, 75, 83.3,
-            12.5, 25, 33.3,
-            75, 50, 'question'
-        ],
-        choices: [83.3, 66.6, 75, 12.5],
-        answer: 4
-    };
-
-    // 언어 이해 문제 렌더링 (필요시 사용)
-    document.getElementById('instruction').textContent = orthographyData.instruction;
-
-    const passageEl = document.getElementById('passage');
-    if (orthographyData.passage && orthographyData.passage.trim() !== '') {
-        passageEl.innerHTML = orthographyData.passage.replace(/\n/g, '<br>');
-        passageEl.style.display = 'block';
-    } else {
-        passageEl.style.display = 'none';
+    function createBox(content, size = 80) {
+        if (content === 'question') {
+            return `<div class="box question-box" style="width:${size}px;height:${size}px;">?</div>`;
+        }
+        const ratio = size / 80;
+        const items = content.map(({ type, x, y }) =>
+            `<div class="${type}" style="left:${x * ratio}px; top:${y * ratio}px;"></div>`
+        ).join('');
+        return `<div class="box" style="width:${size}px;height:${size}px;">${items}</div>`;
     }
 
-    // 지각 추론 렌더링
-    document.getElementById('instruction').textContent = matrixData.instruction;
-    document.getElementById('answer').textContent = matrixData.answer;
+    // 문제 매트릭스 (크기 80px)
+    document.getElementById('matrix-grid').innerHTML =
+        problemData.matrix.map(content => createBox(content, 80)).join('');
 
-    const matrixGrid = document.getElementById('matrix-grid');
-    matrixGrid.innerHTML = matrixData.matrix.map(item =>
-        item === 'question'
-            ? `<div class="circle question">?</div>`
-            : `<div class="circle filled" style="--percent: ${item}%"></div>`
-    ).join('');
+    // 보기 선택지 (크기 50px, 위치 스케일 다운)
+    document.getElementById('choices-grid').innerHTML =
+        problemData.choices.map((choice, idx) =>
+            `<div class="choice">
+                <div>${idx + 1}.</div>
+                ${createBox(choice, 50)}
+            </div>`
+        ).join('');
 
-    const choicesGrid = document.getElementById('choices-grid');
-    choicesGrid.innerHTML = matrixData.choices.map((item, idx) =>
-        `<div class="choice">
-        <div>${idx + 1}.</div>
-        <div class="circle choice-circle filled " style="--percent: ${item}%"></div>
-    </div>`
-    ).join('');
-
+    document.getElementById('instruction').textContent = problemData.instruction;
+    document.getElementById('answer').textContent = problemData.answer;
 </script>
 
 

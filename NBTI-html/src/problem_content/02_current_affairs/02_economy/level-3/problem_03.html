@@ -34,9 +34,9 @@
         <div class="category active">
             <div class="category-title active">경제</div>
             <ul>
-                <li><a href="../level-1/problem_01.html" class="active">레벨 1</a></li>
+                <li><a href="../level-1/problem_01.html">레벨 1</a></li>
                 <li><a href="../level-2/problem_01.html">레벨 2</a></li>
-                <li><a href="../level-3/problem_01.html">레벨 3</a></li>
+                <li><a href="../level-3/problem_01.html" class="active">레벨 3</a></li>
             </ul>
         </div>
     </aside>
@@ -51,17 +51,22 @@
             <div class="answer">정답: <span id="answer"></span></div>
         </div>
         <div class="button">
-            <a href="problem_01.html" class="btn">이전</a>
-            <a href="problem_02.html" class="btn">다음</a>
+            <a href="problem_02.html" class="btn">이전</a>
+            <a href="problem_03.html" class="btn">다음</a>
         </div>
     </main>
 </div>
 
 <script>
     const problemData = {
-        instruction: "물건의 가격이 오르면 일반적으로 사람들의 소비는 어떻게 될까요?",
-        choices: ["늘어난다.", "줄어든다.", "변하지 않는다.", "항상 줄어든다."],
-        answer: 2
+        instruction: "다음 중 '양적완화(Quantitative Easing)' 정책의 주요 효과로 가장 적절한 것은 무엇인가요?",
+        choices: [
+            "중앙은행이 시중에 유동성을 공급하여 금리를 낮추고 경기 부양을 유도한다.",
+            "물가 상승을 억제하기 위해 기준금리를 인상하고 통화량을 줄인다.",
+            "환율 안정을 위해 외환보유고를 늘리고 금리를 인상한다.",
+            "정부가 재정을 긴축해 국가 부채를 줄이는 정책이다."
+        ],
+        answer: 1
     };
 
     document.getElementById('instruction').textContent = problemData.instruction;

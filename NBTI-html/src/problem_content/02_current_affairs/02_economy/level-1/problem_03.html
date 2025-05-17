@@ -51,17 +51,22 @@
             <div class="answer">정답: <span id="answer"></span></div>
         </div>
         <div class="button">
-            <a href="problem_01.html" class="btn">이전</a>
-            <a href="problem_02.html" class="btn">다음</a>
+            <a href="problem_02.html" class="btn">이전</a>
+            <a href="problem_03.html" class="btn">다음</a>
         </div>
     </main>
 </div>
 
 <script>
     const problemData = {
-        instruction: "물건의 가격이 오르면 일반적으로 사람들의 소비는 어떻게 될까요?",
-        choices: ["늘어난다.", "줄어든다.", "변하지 않는다.", "항상 줄어든다."],
-        answer: 2
+        instruction: "다음 중 수요와 공급의 법칙에 대한 설명으로 옳은 것은 무엇인가요?",
+        choices: [
+            "공급이 많아지면 가격은 오른다.",
+            "수요가 줄어들면 가격은 오른다.",
+            "공급이 줄어들면 가격은 내린다.",
+            "수요가 늘어나면 가격은 오른다."
+        ],
+        answer: 4
     };
 
     document.getElementById('instruction').textContent = problemData.instruction;

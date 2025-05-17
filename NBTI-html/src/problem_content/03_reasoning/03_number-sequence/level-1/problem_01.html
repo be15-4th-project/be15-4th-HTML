@@ -11,9 +11,9 @@
 <header class="header">
     <div class="logo">두뇌 트레이닝</div>
     <nav class="menu">
-        <a href="../../../01_language/01_orthography/level-1/problem_01.html" class="active">언어 이해</a>
+        <a href="../../../01_language/01_orthography/level-1/problem_01.html">언어 이해</a>
         <a href="../../../02_current_affairs/01_society/level-1/problem_01.html">시사 상식</a>
-        <a href="../../01_matrix/level-1/problem_01.html">지각 추론</a>
+        <a href="../level-1/problem_01.html" class="active">지각 추론</a>
         <a href="../../../04_processing_speed/identical-find/level-1/problem_01.html">처리 속도</a>
         <a href="../../../05_working_memory/number-memory/level-1/problem_01.html">작업 기억</a>
         <a href="../../../06_spatial/rotation-puzzle/level-1/problem_01.html">공간 지각</a>
@@ -22,21 +22,29 @@
 
 <div class="page-content">
     <aside class="sidebar">
-        <h2>언어 이해</h2>
-        <div class="category active">
-            <div class="category-title active">맞춤법</div>
+        <h2>지각 추론</h2>
+        <div class="category">
+            <div class="category-title">행렬 추론</div>
             <ul>
-                <li><a href="problem_01.html" class="active">레벨 1</a></li>
+                <li><a href="problem_01.html">레벨 1</a></li>
                 <li><a href="../level-2/problem_01.html">레벨 2</a></li>
-                <li><a href="../level-3/problem_01.html">레벨 3</a></li>
+                <li><a href="../level-2/problem_03.html">레벨 3</a></li>
             </ul>
         </div>
         <div class="category">
-            <div class="category-title">어휘</div>
+            <div class="category-title">퍼즐</div>
             <ul>
-                <li><a href="../../vocabulary/level-1/problem_01.html">레벨 1</a></li>
-                <li><a href="../../vocabulary/level-2/problem_01.html">레벨 2</a></li>
-                <li><a href="../../vocabulary/level-1/problem_01.html">레벨 3</a></li>
+                <li><a href="../../02_puzzle/level-1/problem_01.html">레벨 1</a></li>
+                <li><a href="../../02_puzzle/level-2/problem_01.html">레벨 2</a></li>
+                <li><a href="../../02_puzzle/level-3/problem_01.html">레벨 3</a></li>
+            </ul>
+        </div>
+        <div class="category active">
+            <div class="category-title active">수의 규칙</div>
+            <ul>
+                <li><a href="../../03_number-sequence/level-1/problem_01.html" class="active">레벨 1</a></li>
+                <li><a href="../../03_number-sequence/level-2/problem_01.html">레벨 2</a></li>
+                <li><a href="../../03_number-sequence/level-3/problem_01.html">레벨 3</a></li>
             </ul>
         </div>
     </aside>
@@ -45,9 +53,7 @@
         <div class="container">
             <h2 class="instruction" id="instruction"></h2>
             <div class="passage" id="passage"></div>
-            <div class="text-content">
-                <div class="choices" id="choices"></div>
-            </div>
+            <div class="choices" id="choices"></div>
             <div class="answer">정답: <span id="answer"></span></div>
         </div>
         <div class="button">
@@ -60,10 +66,17 @@
 <script>
     // 문제 데이터 넣는 부분 (이것만 바꾸면 됨)
     const problemData = {
-        instruction: "다음 중 알맞은 문장은?",
-        passage : null,
-        choices: ["어이가 없다.", "어의가 없다."],
-        answer: 1
+        instruction: "다음 ( ? ) 안에 들어갈 수로 가장 적절한 것을 고르면?",
+        passage : "( 1 ) - ( 3 ) - ( 5 ) - ( 7 ) - ( ? )",
+        choices: [
+            "8",
+            "9",
+            "10",
+            "11",
+            "12"
+        ],
+        answer: 2,
+        explanation: "'덤벙대는 사람'은 생각 없이 말하거나 행동하는 사람을 의미합니다. 소심하다, 야무지다, 차분하다는 다른 의미입니다."
     };
 
     document.getElementById('instruction').textContent = problemData.instruction;
@@ -91,6 +104,7 @@
     document.getElementById('explanation').textContent = problemData.explanation;
 
 </script>
+
 
 </body>
 </html>

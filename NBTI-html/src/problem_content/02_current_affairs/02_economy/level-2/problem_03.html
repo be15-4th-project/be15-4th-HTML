@@ -34,8 +34,8 @@
         <div class="category active">
             <div class="category-title active">경제</div>
             <ul>
-                <li><a href="../level-1/problem_01.html" class="active">레벨 1</a></li>
-                <li><a href="../level-2/problem_01.html">레벨 2</a></li>
+                <li><a href="../level-1/problem_01.html">레벨 1</a></li>
+                <li><a href="../level-2/problem_01.html" class="active">레벨 2</a></li>
                 <li><a href="../level-3/problem_01.html">레벨 3</a></li>
             </ul>
         </div>
@@ -52,16 +52,21 @@
         </div>
         <div class="button">
             <a href="problem_01.html" class="btn">이전</a>
-            <a href="problem_02.html" class="btn">다음</a>
+            <a href="problem_03.html" class="btn">다음</a>
         </div>
     </main>
 </div>
 
 <script>
     const problemData = {
-        instruction: "물건의 가격이 오르면 일반적으로 사람들의 소비는 어떻게 될까요?",
-        choices: ["늘어난다.", "줄어든다.", "변하지 않는다.", "항상 줄어든다."],
-        answer: 2
+        instruction: "다음 중 '디플레이션'에 대한 설명으로 가장 적절한 것은 무엇인가요?",
+        choices: [
+            "물가가 지속적으로 상승하는 현상",
+            "화폐 가치가 떨어져 구매력이 낮아지는 현상",
+            "상품과 서비스의 가격이 전반적으로 하락하는 현상",
+            "물가와 임금이 함께 상승하는 현상"
+        ],
+        answer: 3
     };
 
     document.getElementById('instruction').textContent = problemData.instruction;

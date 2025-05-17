@@ -34,9 +34,9 @@
         <div class="category active">
             <div class="category-title active">경제</div>
             <ul>
-                <li><a href="../level-1/problem_01.html" class="active">레벨 1</a></li>
+                <li><a href="../level-1/problem_01.html">레벨 1</a></li>
                 <li><a href="../level-2/problem_01.html">레벨 2</a></li>
-                <li><a href="../level-3/problem_01.html">레벨 3</a></li>
+                <li><a href="../level-3/problem_01.html" class="active">레벨 3</a></li>
             </ul>
         </div>
     </aside>
@@ -59,9 +59,14 @@
 
 <script>
     const problemData = {
-        instruction: "물건의 가격이 오르면 일반적으로 사람들의 소비는 어떻게 될까요?",
-        choices: ["늘어난다.", "줄어든다.", "변하지 않는다.", "항상 줄어든다."],
-        answer: 2
+        instruction: "한국은행이 기준금리를 인상하면 일반적으로 기대되는 효과는 무엇인가요?",
+        choices: [
+            "대출이 쉬워지고 소비가 증가한다.",
+            "물가가 상승하고 환율이 불안정해진다.",
+            "소비가 줄고 물가 상승이 억제된다.",
+            "수출이 줄고 수입이 늘어난다."
+        ],
+        answer: 3
     };
 
     document.getElementById('instruction').textContent = problemData.instruction;

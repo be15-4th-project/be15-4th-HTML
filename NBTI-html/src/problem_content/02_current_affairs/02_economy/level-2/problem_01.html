@@ -34,8 +34,8 @@
         <div class="category active">
             <div class="category-title active">경제</div>
             <ul>
-                <li><a href="../level-1/problem_01.html" class="active">레벨 1</a></li>
-                <li><a href="../level-2/problem_01.html">레벨 2</a></li>
+                <li><a href="../level-1/problem_01.html">레벨 1</a></li>
+                <li><a href="../level-2/problem_01.html" class="active">레벨 2</a></li>
                 <li><a href="../level-3/problem_01.html">레벨 3</a></li>
             </ul>
         </div>
@@ -59,9 +59,14 @@
 
 <script>
     const problemData = {
-        instruction: "물건의 가격이 오르면 일반적으로 사람들의 소비는 어떻게 될까요?",
-        choices: ["늘어난다.", "줄어든다.", "변하지 않는다.", "항상 줄어든다."],
-        answer: 2
+        instruction: "다음 중 ‘수요와 공급의 법칙’에 대한 설명으로 가장 적절한 것은 무엇인가요?",
+        choices: [
+            "수요가 많을수록 가격은 떨어진다.",
+            "공급이 줄어들면 가격은 항상 오른다.",
+            "수요가 많고 공급이 적으면 가격이 상승한다.",
+            "공급이 많으면 수요도 반드시 많다."
+        ],
+        answer: 3
     };
 
     document.getElementById('instruction').textContent = problemData.instruction;

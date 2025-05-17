@@ -52,16 +52,19 @@
         </div>
         <div class="button">
             <a href="problem_01.html" class="btn">이전</a>
-            <a href="problem_02.html" class="btn">다음</a>
+            <a href="problem_03.html" class="btn">다음</a>
         </div>
     </main>
 </div>
 
 <script>
     const problemData = {
-        instruction: "물건의 가격이 오르면 일반적으로 사람들의 소비는 어떻게 될까요?",
-        choices: ["늘어난다.", "줄어든다.", "변하지 않는다.", "항상 줄어든다."],
-        answer: 2
+        instruction: "다음 중 인플레이션 상황에서 일반적으로 나타나는 현상으로 옳은 것은 무엇인가요?",
+        choices: ["같은 돈으로 살 수 있는 상품의 양이 줄어든다.",
+            "실질 구매력이 높아진다.",
+            "돈의 가치가 올라가고 물건 값이 떨어진다.",
+            "모든 사람의 소득이 균등하게 증가한다."],
+        answer: 1
     };
 
     document.getElementById('instruction').textContent = problemData.instruction;
