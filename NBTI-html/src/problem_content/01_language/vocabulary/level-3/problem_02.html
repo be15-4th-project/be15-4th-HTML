@@ -34,8 +34,8 @@
             <div class="category-title active">어휘</div>
             <ul>
                 <li><a href="../level-1/problem_01.html">레벨 1</a></li>
-                <li><a href="problem_01.html" class="active">레벨 2</a></li>
-                <li><a href="../level-3/problem_01.html">레벨 3</a></li>
+                <li><a href="../level-2/problem_01.html">레벨 2</a></li>
+                <li><a href="problem_01.html" class="active">레벨 3</a></li>
             </ul>
         </div>
     </aside>
@@ -51,7 +51,7 @@
         </div>
         <div class="button">
             <a href="problem_01.html" class="btn">이전</a>
-            <a href="problem_02.html" class="btn">다음</a>
+            <a href="problem_03.html" class="btn">다음</a>
         </div>
     </main>
 </div>
@@ -59,11 +59,17 @@
 <script>
     // 문제 데이터 넣는 부분 (이것만 바꾸면 됨)
     const problemData = {
-        instruction: "민지가 지난달에 도서관에서 빌린 책은 모두 몇 권인지 숫자로 적으세요",
-        passage : "민지는 매주 수요일마다 도서관에 가서 책을 두 권씩 빌린다. \n 지난달에는 네 번 도서관에 갔다.",
-        choices: [],
-        answer: 8
+        instruction: "다음 글을 읽고, 지문에서 알 수 있는 사실로 올바른 것을 고르시오.",
+        passage: "최근 도시 지역에서 자전거 이용이 증가하고 있다. 주된 이유로는 환경 보호와 건강 관리에 대한 관심이 높아졌기 때문이다. 이에 따라 지자체에서는 자전거 도로 확충과 대여 서비스 개선에 힘쓰고 있다. 그러나 여전히 출퇴근 시간대에는 자동차 이용이 압도적으로 많다는 점도 지적되고 있다.",
+        choices: [
+            "자전거 이용 증가의 가장 큰 원인은 대중교통 요금 인상이다.",
+            "자동차 이용은 출퇴근 시간대에 여전히 많다.",
+            "자전거 도로 확충은 아직 논의되지 않았다.",
+            "자전거 이용자는 주로 50대 이상이다."
+        ],
+        answer: 2
     };
+
 
     document.getElementById('instruction').textContent = problemData.instruction;
 

@@ -34,8 +34,8 @@
             <div class="category-title active">어휘</div>
             <ul>
                 <li><a href="../level-1/problem_01.html">레벨 1</a></li>
-                <li><a href="problem_01.html" class="active">레벨 2</a></li>
-                <li><a href="../level-3/problem_01.html">레벨 3</a></li>
+                <li><a href="../level-2/problem_01.html">레벨 2</a></li>
+                <li><a href="problem_01.html" class="active">레벨 3</a></li>
             </ul>
         </div>
     </aside>
@@ -50,8 +50,8 @@
             <div class="answer">정답: <span id="answer"></span></div>
         </div>
         <div class="button">
-            <a href="problem_01.html" class="btn">이전</a>
-            <a href="problem_02.html" class="btn">다음</a>
+            <a href="problem_02.html" class="btn">이전</a>
+            <a href="problem_03.html" class="btn">다음</a>
         </div>
     </main>
 </div>
@@ -59,11 +59,18 @@
 <script>
     // 문제 데이터 넣는 부분 (이것만 바꾸면 됨)
     const problemData = {
-        instruction: "민지가 지난달에 도서관에서 빌린 책은 모두 몇 권인지 숫자로 적으세요",
-        passage : "민지는 매주 수요일마다 도서관에 가서 책을 두 권씩 빌린다. \n 지난달에는 네 번 도서관에 갔다.",
-        choices: [],
-        answer: 8
+        instruction: "다음 글을 읽고, 지문에서 유추할 수 있는 사실로 적절하지 않은 것을 고르시오.",
+        passage: "스마트폰 과다 사용으로 인한 시력 저하가 사회적 문제로 떠오르고 있다. 특히 청소년층에서 눈의 피로와 건조 증상을 호소하는 사례가 늘고 있으며, 전문가들은 휴대전화 사용 시간을 줄이고, 1시간 사용 후 10분 휴식을 권장하고 있다.",
+        choices: [
+            "스마트폰 사용 시간은 청소년층의 건강에도 영향을 준다.",
+            "전문가들은 스마트폰 사용 시 휴식이 필요하다고 조언한다.",
+            "스마트폰은 시력 보호에 도움이 된다.",
+            "청소년층은 눈의 피로를 자주 경험한다."
+        ],
+        answer: 3
     };
+
+
 
     document.getElementById('instruction').textContent = problemData.instruction;
 

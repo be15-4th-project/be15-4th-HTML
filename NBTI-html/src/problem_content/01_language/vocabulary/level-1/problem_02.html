@@ -33,8 +33,8 @@
         <div class="category active">
             <div class="category-title active">어휘</div>
             <ul>
-                <li><a href="../level-1/problem_01.html">레벨 1</a></li>
-                <li><a href="problem_01.html" class="active">레벨 2</a></li>
+                <li><a href="problem_01.html" class="active">레벨 1</a></li>
+                <li><a href="../level-2/problem_01.html">레벨 2</a></li>
                 <li><a href="../level-3/problem_01.html">레벨 3</a></li>
             </ul>
         </div>
@@ -44,14 +44,12 @@
         <div class="container">
             <h2 class="instruction" id="instruction"></h2>
             <div class="passage" id="passage"></div>
-            <div class="text-content">
-                <div class="choices" id="choices"></div>
-            </div>
+            <div class="choices" id="choices"></div>
             <div class="answer">정답: <span id="answer"></span></div>
         </div>
         <div class="button">
             <a href="problem_01.html" class="btn">이전</a>
-            <a href="problem_02.html" class="btn">다음</a>
+            <a href="problem_03.html" class="btn">다음</a>
         </div>
     </main>
 </div>
@@ -59,11 +57,18 @@
 <script>
     // 문제 데이터 넣는 부분 (이것만 바꾸면 됨)
     const problemData = {
-        instruction: "민지가 지난달에 도서관에서 빌린 책은 모두 몇 권인지 숫자로 적으세요",
-        passage : "민지는 매주 수요일마다 도서관에 가서 책을 두 권씩 빌린다. \n 지난달에는 네 번 도서관에 갔다.",
-        choices: [],
-        answer: 8
+        instruction: "다음 글을 읽고 '성실하다'의 뜻과 가장 가까운 말을 고르시오.",
+        passage: "민수는 매일 아침 누구보다 일찍 등교하여 교실을 청소하고, 주어진 일은 끝까지 책임을 다하는 학생이다.",
+        choices: [
+            "게으르다",
+            "부지런하다",
+            "소홀하다",
+            "무책임하다"
+        ],
+        answer: 2,
+        explanation: "'성실하다'는 맡은 일을 열심히 하고, 부지런한 태도를 의미합니다."
     };
+
 
     document.getElementById('instruction').textContent = problemData.instruction;
 
