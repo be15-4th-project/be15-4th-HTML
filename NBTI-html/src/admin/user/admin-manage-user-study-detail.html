@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>서비스 관리 - 회원 관리</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pretendard@1.3.8/dist/web/static/pretendard.css">
+  <style>
+    body { font-family: 'Pretendard', sans-serif; margin: 0; background: #f8f9fa; color: #333; }
+    .header { background: #ffffff; border-bottom: 1px solid #ddd; padding: 1rem 2rem; display: flex; justify-content: space-between; align-items: center; }
+    .header .logo { font-size: 1.5rem; font-weight: bold; color: #007bff; }
+    .header .menu a { margin-left: 1rem; text-decoration: none; color: #333; }
+
+    .layout { display: flex; }
+    .sidebar { width: 220px; background: #ffffff; border-right: 1px solid #ddd; padding: 2rem 1rem; height: 100vh; box-sizing: border-box; position: sticky; top: 0; }
+    .sidebar h3 { font-size: 1.2rem; margin-bottom: 1rem; }
+    .sidebar a { display: block; padding: 0.75rem 1rem; margin-bottom: 0.5rem; border-radius: 8px; text-decoration: none; color: #333; }
+    .sidebar a:hover, .sidebar a.active { background: #e9f0ff; color: #007bff; font-weight: 500; }
+
+    .content { flex: 1; padding: 2rem; }
+
+    .section { margin-bottom: 3rem; }
+    .section h2 { margin-bottom: 1rem; font-size: 1.5rem; border-bottom: 2px solid #ddd; padding-bottom: 0.5rem; }
+
+    .problem-tabs { display: flex; gap: 1rem; margin-bottom: 1rem; }
+    .problem-tabs button { background: none; border: none; font-size: 1rem; cursor: pointer; padding: 0.5rem 1rem; border-bottom: 2px solid transparent; }
+    .problem-tabs button.active { font-weight: bold; border-bottom: 2px solid #007bff; color: #007bff; }
+
+    .problem-container { background: #fff; padding: 1rem; border-radius: 8px; display: none; }
+    .problem-container.active { display: block; }
+
+    .problem-title { font-weight: bold; margin-bottom: 0.5rem; }
+    .problem-box { display: flex; gap: 1rem; margin-top: 1rem; }
+    .problem-question, .problem-meta {
+      flex: 1;
+      background: #f1f1f1;
+      border-radius: 8px;
+      padding: 2rem;
+      text-align: center;
+      font-size: 1.25rem;
+    }
+
+    .back-btn {
+      margin-top: 2rem;
+      text-align: right;
+    }
+
+    .back-btn a {
+      text-decoration: none;
+      color: #000;
+      font-size: 1rem;
+    }
+
+    .top-summary {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 1rem;
+      font-weight: bold;
+      font-size: 1.2rem;
+    }
+  </style>
+  <script>
+    function showProblem(index) {
+      const containers = document.querySelectorAll('.problem-container');
+      const tabs = document.querySelectorAll('.problem-tabs button');
+      containers.forEach((c, i) => c.classList.toggle('active', i === index));
+      tabs.forEach((t, i) => t.classList.toggle('active', i === index));
+    }
+  </script>
+</head>
+<body>
+
+<!-- 헤더 -->
+<header class="header">
+  <div class="logo">로고</div>
+  <nav class="menu">
+    <a href="#">로그아웃</a>
+  </nav>
+</header>
+
+<div class="layout">
+  <!-- 사이드바 -->
+  <aside class="sidebar">
+    <h3>서비스 관리</h3>
+    <a href="admin-manage-user.html">회원 관리</a>
+    <ul>
+      <a href="admin-manage-user.html">회원</a>
+      <a href="admin-manage-user-test.html" >검사 결과</a>
+      <a href="admin-manage-user-study.html" class="active">학습 결과</a>
+    </ul>
+    <a href="../admin-manage-problem.html">문제 관리</a>
+    <a href="../admin-manage-objection.html">이의 제기 관리</a>
+  </aside>
+
+  <!-- 콘텐츠 -->
+  <main class="content">
+    <section class="section">
+      <h2>회원 관리 - 학습 결과 상세 조회</h2>
+
+      <div class="top-summary">
+        <div>상위 분야</div>
+        <div>정답 문제 수 / 총 문제수</div>
+      </div>
+
+      <div class="problem-tabs">
+        <button class="active" onclick="showProblem(0)">1번 문제</button>
+        <button onclick="showProblem(1)">2번 문제</button>
+        <button onclick="showProblem(2)">3번 문제</button>
+      </div>
+
+      <!-- 문제 1 -->
+      <div class="problem-container active">
+        <div class="problem-title">Title</div>
+        <small>Answer the frequently asked question in a simple sentence, a longish paragraph, or even in a list.</small>
+        <div class="problem-box">
+          <div class="problem-question">
+            <div>
+              문제 1
+            </div>
+            <div>
+              지문 내용
+            </div></div>
+          <div class="problem-meta">
+            <div>
+              난이도
+            </div>
+            <div>
+              문제 정답
+            </div>
+            <div>
+              제출 답안
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 문제 2 -->
+      <div class="problem-container">
+        <div class="problem-title">Title</div>
+        <small>Answer explanation or problem description 2.</small>
+        <div class="problem-box">
+          <div class="problem-question"><div>
+            문제 2
+          </div>
+            <div>
+              지문 내용
+            </div></div>
+          <div class="problem-meta"><div>
+            난이도
+          </div>
+            <div>
+              문제 정답
+            </div>
+            <div>
+              제출 답안
+            </div></div>
+        </div>
+      </div>
+
+      <!-- 문제 3 -->
+      <div class="problem-container">
+        <div class="problem-title">Title</div>
+        <small>Answer explanation or problem description 3.</small>
+        <div class="problem-box">
+          <div class="problem-question">
+            <div>
+              문제 3
+            </div>
+            <div>
+              지문 내용
+            </div>
+          </div>
+          <div class="problem-meta"><div>
+            난이도
+          </div>
+            <div>
+              문제 정답
+            </div>
+            <div>
+              제출 답안
+            </div></div>
+        </div>
+      </div>
+
+      <!-- 돌아가기 버튼 -->
+      <div class="back-btn">
+        <a href="#">돌아가기</a>
+      </div>
+    </section>
+  </main>
+</div>
+
+</body>
+</html>
