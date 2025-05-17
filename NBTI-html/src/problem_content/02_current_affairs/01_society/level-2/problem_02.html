@@ -12,8 +12,8 @@
     <div class="logo">두뇌 트레이닝</div>
     <nav class="menu">
         <a href="../../../01_language/01_orthography/level-1/problem_01.html">언어 이해</a>
-        <a href="../../../02_current_affairs/society/level-1/problem_01.html" class="active">시사 상식</a>
-        <a href="../../../03_reasoning/matrix/level-1/problem_01.html">지각 추론</a>
+        <a href="../level-1/problem_01.html" class="active">시사 상식</a>
+        <a href="../../../03_reasoning/01_matrix/level-1/problem_01.html">지각 추론</a>
         <a href="../../../04_processing_speed/identical-find/level-1/problem_01.html">처리 속도</a>
         <a href="../../../05_working_memory/number-memory/level-1/problem_01.html">작업 기억</a>
         <a href="../../../06_spatial/rotation-puzzle/level-1/problem_01.html">공간 지각</a>
@@ -23,20 +23,20 @@
 <div class="page-content">
     <aside class="sidebar">
         <h2>시사 상식</h2>
-        <div class="category">
-            <div class="category-title">사회</div>
+        <div class="category active">
+            <div class="category-title active">사회</div>
             <ul>
-                <li><a href="../../society/level-1/problem_01.html">레벨 1</a></li>
-                <li><a href="../../society/level-2/problem_01.html">레벨 2</a></li>
-                <li><a href="../../society/level-3/problem_01.html">레벨 3</a></li>
+                <li><a href="../level-1/problem_01.html">레벨 1</a></li>
+                <li><a href="../level-2/problem_01.html" class="active">레벨 2</a></li>
+                <li><a href="../level-3/problem_01.html">레벨 3</a></li>
             </ul>
         </div>
-        <div class="category active">
-            <div class="category-title active">경제</div>
+        <div class="category">
+            <div class="category-title">경제</div>
             <ul>
-                <li><a href="../../economy/level-1/problem_01.html" class="active">레벨 1</a></li>
-                <li><a href="../../economy/level-2/problem_01.html">레벨 2</a></li>
-                <li><a href="../../economy/level-3/problem_01.html">레벨 3</a></li>
+                <li><a href="../../02_economy/level-1/problem_01.html">레벨 1</a></li>
+                <li><a href="../../02_economy/level-2/problem_01.html">레벨 2</a></li>
+                <li><a href="../../02_economy/level-3/problem_01.html">레벨 3</a></li>
             </ul>
         </div>
     </aside>
@@ -59,10 +59,12 @@
 
 <script>
     const problemData = {
-        instruction: "최근 환경 이슈 중 '탄소중립'과 가장 밀접한 개념은?",
-        passage : "탄소중립은 온실가스 배출을 최대한 줄이고, 남은 배출량은 흡수하거나 제거하여 순 배출량을 '0'으로 만드는 것을 의미한다.",
-        choices: ["재생에너지", "전자화폐", "빅데이터", "자율주행차"],
-        answer: 1
+        instruction: "다음 중 ‘사법부의 독립’을 보장하기 위한 장치로 가장 적절한 것은 무엇인가요?",
+        choices: ["판사의 임기를 국민 투표로 결정한다.",
+            "대통령이 판결에 직접 관여할 수 있다.",
+            "법관의 신분을 보장한다.",
+            "국회가 판결문을 승인해야 한다."],
+        answer: 3
     };
 
     document.getElementById('instruction').textContent = problemData.instruction;
