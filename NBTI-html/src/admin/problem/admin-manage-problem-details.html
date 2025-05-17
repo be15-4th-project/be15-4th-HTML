@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>서비스 관리 - 문제 등록</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pretendard@1.3.8/dist/web/static/pretendard.css">
+    <style>
+        body { font-family: 'Pretendard', sans-serif; margin: 0; background: #f8f9fa; color: #333; }
+        .header { background: #ffffff; border-bottom: 1px solid #ddd; padding: 1rem 2rem; display: flex; justify-content: space-between; align-items: center; }
+        .header .logo { font-size: 1.5rem; font-weight: bold; color: #007bff; }
+        .header .menu a { margin-left: 1rem; text-decoration: none; color: #333; }
+
+        .layout { display: flex; }
+        .sidebar { width: 220px; background: #ffffff; border-right: 1px solid #ddd; padding: 2rem 1rem; height: 100vh; box-sizing: border-box; position: sticky; top: 0; }
+        .sidebar h3 { font-size: 1.2rem; margin-bottom: 1rem; }
+        .sidebar a { display: block; padding: 0.75rem 1rem; margin-bottom: 0.5rem; border-radius: 8px; text-decoration: none; color: #333; }
+        .sidebar a:hover, .sidebar a.active { background: #e9f0ff; color: #007bff; font-weight: 500; }
+
+        .content { flex: 1; padding: 2rem; }
+
+        .section { margin-bottom: 3rem; }
+        .section h2 { margin-bottom: 1rem; font-size: 1.5rem; border-bottom: 2px solid #ddd; padding-bottom: 0.5rem; }
+
+        .card { background: #fff; border-radius: 12px; padding: 2rem; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
+
+        .flex { display: flex; justify-content: space-between; align-items: center; }
+        .btn { padding: 0.5rem 1rem; border: none; background: #007bff; color: #fff; border-radius: 8px; cursor: pointer; font-size: 0.9rem; }
+        .btn.secondary { background: #6c757d; }
+
+        /* New row layout for paired fields */
+        .form-row { display: flex; gap: 1rem; margin-bottom: 1rem; }
+        .form-group {
+            display: flex;           /* row가 기본 방향 */
+            align-items: flex-start;     /* 세로 중앙 정렬 */
+            gap: 0.75rem;            /* 요소 간 간격 */
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label { margin-top: 0.5rem; font-weight: 500; }
+        .form-group input[type="text"],
+        .form-group select, .form-group input[type="file"] {
+            padding: 0.5rem;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+        }
+
+        .preview-box {
+            width: 200px;
+            height: 180px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            background: #f0f0f0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #999;
+            margin-bottom: 1rem;
+        }
+    </style>
+</head>
+<body>
+
+<!-- 헤더 -->
+<header class="header">
+    <div class="logo">로고</div>
+    <nav class="menu">
+        <a href="#">로그아웃</a>
+    </nav>
+</header>
+
+<div class="layout">
+    <!-- 사이드바 -->
+    <aside class="sidebar">
+        <h3>서비스 관리</h3>
+        <a href="admin-manage-user.html">회원 관리</a>
+        <a href="admin-manage-problem.html" class="active">문제 관리</a>
+        <a href="../repo/html/NBTI-html/src/admin/objection/admin-manage-objection.html">이의 제기 관리</a>
+    </aside>
+
+    <!-- 콘텐츠 -->
+    <main class="content">
+        <section class="section">
+            <h2>문제 상세 조회</h2>
+
+            <div class="card">
+                <!-- 상단 버튼 -->
+                <div class="flex" style="margin-bottom: 2rem;">
+                    <div></div>
+                    <div>
+                        <button class="btn">수정하기</button>
+                        <button class="btn">삭제</button>
+                        <button class="btn secondary">뒤로 가기</button>
+                    </div>
+                </div>
+
+                <!-- 폼 -->
+                <form>
+                    <div class="form-group" style="margin-bottom:1.5rem;">
+                        <label for="problem-id">문제 번호</label>
+                        <input type="text" id="problem-id" value="1" disabled>
+                    </div>
+
+                    <!-- 상위/하위 분야를 가로 배치 -->
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="category-parent">상위 분야</label>
+                            <select id="category-parent" disabled>
+                                <option>언어 이해</option>
+                                <option selected>시사 상식</option>
+                                <option>지각 추론</option>
+                                <option>작업 기억</option>
+                                <option>처리 속도</option>
+                                <option>공간 지각력</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="category-child">하위 분야</label>
+                            <select id="category-child" disabled>
+                                <option selected>사회 상식</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- 난이도/답안 유형 가로 배치 -->
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="difficulty">난이도</label>
+                            <select id="difficulty" disabled>
+                                <option value="1" selected>레벨 1</option>
+                                <option value="2">레벨 2</option>
+                                <option value="3">레벨 3</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="answer-type">답안 유형</label>
+                            <select id="answer-type" disabled>
+                                <option selected>선다형</option>
+                                <option>단답형</option>
+                                <option>다답형</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- 본문 이미지 업로드 -->
+                    <div class="form-group" style="margin-bottom:1.5rem;">
+                        <label for="image-upload">본문 이미지</label>
+                        <input type="file" id="image-upload" accept="image/*" disabled>
+                    </div>
+
+                    <div class="preview-box">
+                        미리보기
+                    </div>
+
+                    <div class="form-group">
+                        <label for="correct-answer">정답</label>
+                        <input type="text" id="correct-answer" value="3" disabled>
+                    </div>
+                </form>
+            </div>
+        </section>
+    </main>
+</div>
+
+</body>
+</html>
