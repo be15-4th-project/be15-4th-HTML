@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>개인정보 조회</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pretendard@1.3.8/dist/web/static/pretendard.css">
+  <style>
+    body { font-family: 'Pretendard', sans-serif; margin: 0; background: #f8f9fa; color: #333; }
+    .header { background: #ffffff; border-bottom: 1px solid #ddd; padding: 1rem 2rem; display: flex; justify-content: space-between; align-items: center; }
+    .header .logo { font-size: 1.5rem; font-weight: bold; color: #007bff; }
+    .header .menu a { margin-left: 1rem; text-decoration: none; color: #333; }
+
+    .layout { display: flex; }
+    .sidebar { width: 220px; background: #ffffff; border-right: 1px solid #ddd; padding: 2rem 1rem; height: 100vh; box-sizing: border-box; position: sticky; top: 0; }
+    .sidebar h3 { font-size: 1.2rem; margin-bottom: 1rem; }
+    .sidebar a { display: block; padding: 0.75rem 1rem; margin-bottom: 0.5rem; border-radius: 8px; text-decoration: none; color: #333; }
+    .sidebar a:hover, .sidebar a.active { background: #e9f0ff; color: #007bff; font-weight: 500; }
+
+    .content { flex: 1; padding: 2rem; }
+
+    .section { margin-bottom: 3rem; }
+    .section h2 { margin-bottom: 1rem; font-size: 1.5rem; border-bottom: 2px solid #ddd; padding-bottom: 0.5rem; }
+    .card { background: #e1e1e1; border-radius: 12px; padding: 2rem; margin-top: 1rem; }
+
+    .info-content {
+      background: #ffffff;
+      border-radius: 10px;
+      padding: 1rem;
+      margin-bottom: 1rem;
+      font-size: 1.1rem;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+    }
+    .info-title{
+      padding: 1rem;
+      font-weight : 800;
+    }
+  </style>
+</head>
+<body>
+
+<!-- 헤더 -->
+<header class="header">
+  <div class="logo">두뇌 트레이닝</div>
+  <nav class="menu">
+    <a href="Prosecutor.html">검사</a>
+    <a href="Practice.html">학습</a>
+    <a href="mypage.html">마이페이지</a>
+    <a href="#">로그아웃</a>
+  </nav>
+</header>
+
+<div class="layout">
+  <!-- 사이드바 -->
+  <aside class="sidebar">
+    <h3>마이페이지</h3>
+    <a href="mypage.html">검사 결과 및 통계</a>
+    <a href="problem_result.html">문제 풀이 결과</a>
+    <a href="user-info.html" class="active">개인정보 조회</a>
+  </aside>
+
+  <!-- 콘텐츠 -->
+  <main class="content">
+    <!-- 개인정보 조회 -->
+    <section class="section">
+      <h2>개인정보 조회</h2>
+      <div class="card">
+        <div class="info-title">아이디</div>
+        <div class="info-content">brain123</div>
+        <div class="info-title">이름</div>
+        <div class="info-content">김두뇌</div>
+        <div class="info-title">생년월일</div>
+        <div class="info-content">1990-01-01</div>
+        <div class="info-title">성별</div>
+        <div class="info-content">남</div>
+        <div class="info-title">포인트</div>
+        <div class="info-content">3,500P</div>
+      </div>
+    </section>
+  </main>
+</div>
+
+</body>
+</html>
