@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>검사</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pretendard@1.3.8/dist/web/static/pretendard.css">
+    <style>
+        body { font-family: 'Pretendard', sans-serif; margin: 0; background: #f8f9fa; color: #333; }
+        .header { background: #ffffff; border-bottom: 1px solid #ddd; padding: 1rem 2rem; display: flex; justify-content: space-between; align-items: center; }
+        .header .logo { font-size: 1.5rem; font-weight: bold; color: #007bff; }
+        .header .menu a { margin-left: 1rem; text-decoration: none; color: #333; }
+
+        .container {
+            max-width: 500px;
+            margin: 6rem auto;
+            background: #fff;
+            border-radius: 16px;
+            box-shadow: 0 6px 20px rgba(0,0,0,0.08);
+            padding: 3rem 2rem;
+            text-align: center;
+        }
+        .container h2 { font-size: 1.8rem; font-weight: 600; margin-bottom: 0.5rem; }
+        .container p { color: #666; font-size: 1rem; margin-bottom: 2rem; line-height: 1.5; }
+
+        .btn {
+            display: inline-block;
+            padding: 0.75rem 1.5rem;
+            background: #007aff;
+            color: #fff;
+            border-radius: 12px;
+            font-weight: 500;
+            text-align: center;
+            width: 100%;
+            box-sizing: border-box;
+            transition: all 0.2s ease;
+        }
+        .btn:hover { background: #005fd4; }
+        .btn:active { transform: scale(0.98); filter: brightness(0.95); }
+
+        .modal-overlay {
+            display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0, 0, 0, 0.4); justify-content: center; align-items: center;
+            z-index: 1000;
+        }
+        .modal {
+            background: #fff;
+            border-radius: 16px;
+            padding: 2rem;
+            width: 90%;
+            max-width: 480px;
+            box-shadow: 0 6px 20px rgba(0,0,0,0.08);
+            position: relative;
+            animation: fadeIn 0.3s ease;
+        }
+        .close-btn {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            font-size: 1.25rem;
+            color: #bbb;
+            cursor: pointer;
+            transition: color 0.2s ease;
+        }
+        .close-btn:hover { color: #333; }
+
+        .modal h2, .modal h3 {
+            font-weight: 600;
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+        .modal p { color: #555; font-size: 0.95rem; line-height: 1.5; margin-bottom: 1.5rem; }
+
+        .choices { display: flex; flex-direction: column; gap: 0.75rem; }
+        .choice {
+            background: #f9f9f9;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            padding: 0.8rem 1rem;
+            cursor: pointer;
+            font-size: 0.95rem;
+            transition: background 0.2s ease, box-shadow 0.2s ease;
+        }
+        .choice:hover {
+            background: #eef5ff;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+        }
+
+        .modal-footer {
+            margin-top: 2rem;
+            padding-top: 1rem;
+            border-top: 1px solid #eee;
+        }
+
+        .chart-placeholder {
+            height: 180px;
+            background: #f0f0f0;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #999;
+            margin-top: 1rem;
+        }
+
+        .result-summary {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+        .result-card {
+            flex: 1;
+            background: #f9fafb;
+            border-radius: 12px;
+            padding: 0.75rem 1rem;
+            text-align: center;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.03);
+            transition: box-shadow 0.2s ease;
+        }
+        .result-card:hover {
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+        }
+        .result-card p { font-size: 0.85rem; color: #666; margin: 0; }
+        .result-card h3 { margin-top: 0.5rem; font-size: 1.2rem; font-weight: 600; color: #222; }
+
+        .summary-text {
+            color: #444;
+            font-size: 0.95rem;
+            line-height: 1.6;
+            margin-top: 2rem;
+            text-align: left;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+
+<header class="header">
+    <div class="logo">두뇌 트레이닝</div>
+    <nav class="menu">
+        <a href="Prosecutor.html">검사</a>
+        <a href="Practice.html">학습</a>
+        <a href="mypage.html">마이페이지</a>
+        <a href="#">로그아웃</a>
+    </nav>
+</header>
+
+<div class="container">
+    <h2>두뇌 검사 안내</h2>
+    <p>18문제의 간단한 두뇌 테스트를 통해<br>나의 인지 능력을 확인해보세요.</p>
+    <a class="btn" id="startTestBtn">검사 시작하기</a>
+</div>
+
+<!-- 문제풀이 모달 -->
+<div class="modal-overlay" id="testModal">
+    <div class="modal">
+        <span class="close-btn" onclick="closeModal('testModal')">×</span>
+        <h3>지각 추론 - 문제 3 / 18</h3>
+        <p>다음 도형의 규칙을 찾아 빈칸에 올바른 도형을 선택하세요.</p>
+        <div class="choices">
+            <div class="choice">① 정사각형</div>
+            <div class="choice">② 삼각형</div>
+            <div class="choice">③ 원</div>
+            <div class="choice">④ 육각형</div>
+        </div>
+        <div class="modal-footer">
+            <a class="btn" id="submitAnswerBtn">제출하기</a>
+        </div>
+    </div>
+</div>
+
+<!-- 결과 모달 -->
+<div class="modal-overlay" id="resultModal">
+    <div class="modal">
+        <span class="close-btn" onclick="closeModal('resultModal')">×</span>
+        <h2>검사 결과</h2>
+        <div class="chart-placeholder">[육각형 통계 그래프]</div>
+        <div class="result-summary">
+            <div class="result-card">
+                <p>강점</p>
+                <h3>언어 이해</h3>
+            </div>
+            <div class="result-card">
+                <p>보완</p>
+                <h3>처리 속도</h3>
+            </div>
+        </div>
+        <p class="summary-text">
+            지각 추론은 우수하나 작업 기억과 처리 속도는 개선이 필요합니다.<br>
+            숫자 외우기 및 기호 찾기 훈련을 추천합니다.
+        </p>
+        <div class="modal-footer">
+            <a class="btn" onclick="closeModal('resultModal')">확인</a>
+        </div>
+    </div>
+</div>
+
+<script>
+    const openModal = (id) => document.getElementById(id).style.display = 'flex';
+    const closeModal = (id) => document.getElementById(id).style.display = 'none';
+
+    document.getElementById('startTestBtn').addEventListener('click', () => openModal('testModal'));
+    document.getElementById('submitAnswerBtn').addEventListener('click', () => {
+        closeModal('testModal');
+        openModal('resultModal');
+    });
+</script>
+
+</body>
+</html>

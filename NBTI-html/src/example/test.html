@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>K-WAIS-IV 체크박스</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pretendard@1.3.8/dist/web/static/pretendard.css">
+    <style>
+        body {
+            margin: 0;
+            background: #f8f9fa;
+            font-family: 'Pretendard', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .container {
+            position: relative;
+            width: 600px;
+            height: auto;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.1);
+            background: #fff;
+        }
+
+        .background-img {
+            width: 100%;
+            display: block;
+        }
+
+        .checkbox {
+            position: absolute;
+            transform: translate(-50%, -50%);
+            width: 20px;
+            height: 20px;
+            accent-color: #007bff;
+            cursor: pointer;
+        }
+
+        /* 체크박스 정확한 위치 조정 */
+        .cb-1 { top: 18.5%; left: 88%; }
+        .cb-2 { top: 26%; left: 88%; }
+        .cb-3 { top: 33.5%; left: 88%; }
+        .cb-4 { top: 41%; left: 88%; }
+        .cb-5 { top: 54%; left: 88%; }
+        .cb-6 { top: 62%; left: 88%; }
+        .cb-7 { top: 70%; left: 88%; }
+        .cb-8 { top: 78%; left: 88%; }
+
+    </style>
+</head>
+<body>
+<div class="container">
+    <img src="check.png" alt="K-WAIS" class="background-img">
+
+    <!-- 체크박스 위치 -->
+    <input type="checkbox" class="checkbox cb-1">
+    <input type="checkbox" class="checkbox cb-2">
+    <input type="checkbox" class="checkbox cb-3">
+    <input type="checkbox" class="checkbox cb-4">
+    <input type="checkbox" class="checkbox cb-5">
+    <input type="checkbox" class="checkbox cb-6">
+    <input type="checkbox" class="checkbox cb-7">
+    <input type="checkbox" class="checkbox cb-8">
+</div>
+</body>
+</html>
