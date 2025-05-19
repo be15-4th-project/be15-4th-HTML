@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>개인정보 조회</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pretendard@1.3.8/dist/web/static/pretendard.css">
+    <style>
+        body {
+            font-family: 'Pretendard', sans-serif;
+            margin: 0;
+            background: #f8f9fa;
+            color: #333;
+        }
+
+        .header {
+            background: #fff;
+            border-bottom: 1px solid #ddd;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .header .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #007bff;
+        }
+
+        .header .menu a {
+            margin-left: 1rem;
+            text-decoration: none;
+            color: #333;
+        }
+
+        .layout {
+            display: flex;
+        }
+
+        .sidebar {
+            width: 220px;
+            background: #ffffff;
+            border-right: 1px solid #ddd;
+            padding: 2rem 1rem;
+            height: 100vh;
+            box-sizing: border-box;
+            position: sticky;
+            top: 0;
+        }
+
+        .sidebar h3 {
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+        }
+
+        .sidebar a {
+            display: block;
+            padding: 0.75rem 1rem;
+            margin-bottom: 0.5rem;
+            border-radius: 8px;
+            text-decoration: none;
+            color: #333;
+        }
+
+        .sidebar a:hover,
+        .sidebar a.active {
+            background: #e9f0ff;
+            color: #007bff;
+            font-weight: 500;
+        }
+
+        .content {
+            flex: 1;
+            padding: 2rem;
+        }
+
+        .section h2 {
+            font-size: 1.5rem;
+            border-bottom: 2px solid #ddd;
+            padding-bottom: 0.5rem;
+            margin-bottom: 2rem;
+        }
+
+        /* Profile UI */
+        .profile-wrapper {
+            max-width: 640px;
+            margin: 0 auto;
+            padding: 2rem;
+            background: #fff;
+            border-radius: 16px;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.05);
+        }
+
+        .profile-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 2rem;
+        }
+
+        .avatar {
+            width: 64px;
+            height: 64px;
+            border-radius: 50%;
+            background: #e0e0e0;
+            margin-right: 1.5rem;
+        }
+
+        .user-info h2 {
+            font-size: 1.6rem;
+            margin-bottom: 0.3rem;
+        }
+
+        .user-info .welcome {
+            color: #666;
+            font-size: 0.95rem;
+        }
+
+        .profile-card {
+            border-top: 1px solid #eee;
+            padding-top: 1rem;
+        }
+
+        .info-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 1rem 0;
+            border-bottom: 1px solid #f0f0f0;
+        }
+
+        .label {
+            font-size: 0.95rem;
+            color: #888;
+        }
+
+        .value {
+            font-weight: 600;
+            font-size: 1rem;
+            color: #111;
+        }
+    </style>
+</head>
+<body>
+
+<header class="header">
+    <div class="logo">두뇌 트레이닝</div>
+    <nav class="menu">
+        <a href="test_study.html">검사 및 학습</a>
+        <a href="mypage.html">마이페이지</a>
+        <a href="#">로그아웃</a>
+    </nav>
+</header>
+
+<div class="layout">
+    <aside class="sidebar">
+        <h3>마이페이지</h3>
+        <a href="mypage.html">검사 결과 및 통계</a>
+        <a href="study_list.html">학습 결과 내역</a>
+        <a href="objection_list.html">이의제기 내역</a>
+        <a href="userinfo.html" class="active">개인정보 조회</a>
+    </aside>
+
+    <main class="content">
+        <section class="section">
+            <h2>개인정보 조회</h2>
+
+            <div class="profile-wrapper">
+                <div class="profile-header">
+                    <div class="avatar"></div>
+                    <div class="user-info">
+                        <h2>홍길동님</h2>
+                        <p class="welcome">반갑습니다! 아래는 현재 등록된 회원정보입니다.</p>
+                    </div>
+                </div>
+
+                <div class="profile-card">
+                    <div class="info-item">
+                        <span class="label">아이디</span>
+                        <span class="value">user1234</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="label">생년월일</span>
+                        <span class="value">1995-06-15</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="label">성별</span>
+                        <span class="value">남성</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="label">보유 포인트</span>
+                        <span class="value">10P</span>
+                    </div>
+                </div>
+            </div>
+
+        </section>
+    </main>
+</div>
+
+</body>
+</html>
