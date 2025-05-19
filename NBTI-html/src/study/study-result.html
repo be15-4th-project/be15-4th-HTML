@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8" />
+    <title>학습 문제 풀이</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pretendard@1.3.8/dist/web/static/pretendard.css" />
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Pretendard', sans-serif;
+            background: #f8f9fa;
+            color: #333;
+            font-size: 1.1rem;
+        }
+
+        .header {
+            background: #ffffff;
+            border-bottom: 1px solid #ddd;
+            padding: 1.5rem 2.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .header .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .header .logo img {
+            height: 40px;
+        }
+
+        .logo-text {
+            font-size: 1.6rem;
+            font-weight: 700;
+            color: #3b82f6;
+        }
+
+        .header .menu a {
+            margin-left: 1.5rem;
+            text-decoration: none;
+            color: #333;
+            font-size: 1rem;
+        }
+
+        .container {
+            max-width: 1080px;
+            margin: 3rem auto;
+            background: #fff;
+            border-radius: 20px;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+            padding: 2.5rem 3rem;
+            position: relative;
+        }
+
+        .top-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 1.1rem;
+            margin-bottom: 2rem;
+        }
+
+        .tabs {
+            display: flex;
+            gap: 1.2rem;
+        }
+
+        .tab {
+            cursor: pointer;
+            padding: 0.7rem 1.4rem;
+            background: #e0e7ff;
+            border-radius: 10px;
+            font-weight: 600;
+            font-size: 1rem;
+        }
+
+        .tab.active {
+            background: #3b82f6;
+            color: white;
+        }
+
+        .correct-count {
+            position: absolute;
+            top: -2rem;
+            right: 2rem;
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: #10b981;
+        }
+
+        .question-box {
+            display: flex;
+            gap: 2.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .question-content, .question-side {
+            padding: 2rem;
+            border-radius: 16px;
+        }
+
+        .question-content {
+            flex: 3;
+            background: #f9fafb;
+            min-height: 320px;
+        }
+
+        .question-side {
+            flex: 1;
+            background: #f1f3f5;
+        }
+
+        .question-side p {
+            margin: 0.7rem 0;
+            font-size: 1rem;
+        }
+
+        .alert-icon {
+            text-align: right;
+            font-size: 1.3rem;
+            color: #f87171;
+        }
+
+        .btn {
+            margin-top: 2rem;
+            padding: 1rem 2rem;
+            background: #3b82f6;
+            color: white;
+            border: none;
+            border-radius: 14px;
+            font-size: 1.1rem;
+            cursor: pointer;
+        }
+
+        .btn:hover {
+            background: #1e3a8a;
+        }
+
+        .modal-backdrop {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.4);
+            z-index: 999;
+        }
+
+        .modal {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: white;
+            border-radius: 12px;
+            padding: 2rem;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
+            z-index: 1000;
+            max-width: 400px;
+            width: 80%;
+        }
+
+        .modal-content .btn {
+            font-size: 1rem;
+            padding: 0.6rem 1.2rem;
+        }
+    </style>
+</head>
+<body>
+<header class="header">
+    <div class="logo">
+        <img src="../assets/nbti-logo.png" alt="로고">
+        <span class="logo-text">NBTI</span>
+    </div>
+    <nav class="menu">
+        <a href="#">마이페이지</a>
+        <a href="#">로그아웃</a>
+    </nav>
+</header>
+
+<div class="container">
+    <div class="correct-count" id="correctCount">2 / 3 문제 정답</div>
+
+    <div class="top-bar">
+        <div class="tabs">
+            <div class="tab active" onclick="changeQuestion(0)">1번</div>
+            <div class="tab" onclick="changeQuestion(1)">2번</div>
+            <div class="tab" onclick="changeQuestion(2)">3번</div>
+        </div>
+    </div>
+
+    <div class="question-box">
+        <div class="question-content" id="questionContent"></div>
+        <div class="question-side" id="questionSide"></div>
+    </div>
+
+    <div style="text-align: center;">
+        <button class="btn" onclick="goToMain()">메인으로</button>
+    </div>
+</div>
+
+<!-- 신고 모달 -->
+<div id="modalBackdrop" class="modal-backdrop" style="display: none;"></div>
+<div id="reportModal" class="modal" style="display: none;">
+    <div class="modal-content">
+        <p style="margin-bottom: 1.5rem; font-size: 1.1rem;">이의제기 하시겠습니까?</p>
+        <div style="text-align: right;">
+            <button class="btn" style="margin-right: 1rem;" onclick="closeReportModal()">취소</button>
+            <button class="btn" style="background-color: #ef4444;" onclick="submitReport()">확인</button>
+        </div>
+    </div>
+</div>
+
+<script>
+    const questions = [
+        {
+            image: "check.png",
+            difficulty: "레벨 1",
+            correctAnswer: "4",
+            submittedAnswer: "4"
+        },
+        {
+            image: "check.png",
+            difficulty: "레벨 2",
+            correctAnswer: "2",
+            submittedAnswer: "3"
+        },
+        {
+            image: "check.png",
+            difficulty: "레벨 3",
+            correctAnswer: "1",
+            submittedAnswer: "1"
+        }
+    ];
+
+    const tabs = document.querySelectorAll(".tab");
+    const questionContent = document.getElementById("questionContent");
+    const questionSide = document.getElementById("questionSide");
+    const correctCountElement = document.getElementById("correctCount");
+
+    function renderQuestion(index) {
+        const q = questions[index];
+
+        questionContent.innerHTML = `
+      <p><strong>문제 이미지:</strong></p>
+      <img src="${q.image}" alt="문제 이미지" style="max-width:100%; border-radius: 12px;" />
+    `;
+
+        questionSide.innerHTML = `
+  <div class="alert-icon" onclick="openReportModal()" style="cursor: pointer;" title="문제 신고하기">⚠️</div>
+  <p><strong>난이도</strong>: ${q.difficulty}</p>
+  <p><strong>문제 정답</strong>: ${q.correctAnswer}</p>
+  <p><strong>제출 답안</strong>: ${q.submittedAnswer}</p>
+`;
+
+        tabs.forEach((tab, i) => {
+            tab.classList.toggle("active", i === index);
+        });
+    }
+
+    function updateScore() {
+        const correct = questions.filter(q => q.correctAnswer === q.submittedAnswer).length;
+        correctCountElement.textContent = `${correct} / ${questions.length} 문제 정답`;
+    }
+
+    function changeQuestion(index) {
+        renderQuestion(index);
+    }
+
+    function goToMain() {
+        window.location.href = "study-main.html";
+    }
+
+    function openReportModal() {
+        document.getElementById("reportModal").style.display = "block";
+        document.getElementById("modalBackdrop").style.display = "block";
+    }
+
+    function closeReportModal() {
+        document.getElementById("reportModal").style.display = "none";
+        document.getElementById("modalBackdrop").style.display = "none";
+    }
+
+    function submitReport() {
+        closeReportModal();
+        alert("신고가 접수되었습니다.");
+    }
+
+    // 초기 렌더링
+    renderQuestion(0);
+    updateScore();
+</script>
+</body>
+</html>
