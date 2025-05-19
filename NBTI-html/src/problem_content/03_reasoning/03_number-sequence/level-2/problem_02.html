@@ -42,8 +42,8 @@
         <div class="category active">
             <div class="category-title active">수의 규칙</div>
             <ul>
-                <li><a href="../../03_number-sequence/level-1/problem_01.html" class="active">레벨 1</a></li>
-                <li><a href="../../03_number-sequence/level-2/problem_01.html">레벨 2</a></li>
+                <li><a href="../../03_number-sequence/level-1/problem_01.html">레벨 1</a></li>
+                <li><a href="../../03_number-sequence/level-2/problem_01.html" class="active">레벨 2</a></li>
                 <li><a href="../../03_number-sequence/level-3/problem_01.html">레벨 3</a></li>
             </ul>
         </div>
@@ -67,16 +67,16 @@
     // 문제 데이터 넣는 부분 (이것만 바꾸면 됨)
     const problemData = {
         instruction: "다음 ( ? ) 안에 들어갈 수로 가장 적절한 것을 고르면?",
-        passage : "( 1 ) - ( 2 ) - ( 4 ) - ( 8 ) - ( ? )",
+        passage : "( 3 ) - ( 6 ) - ( 12 ) - ( 24 ) - ( ? )",
         choices: [
-            "13",
-            "14",
-            "15",
-            "16",
-            "17"
+            "30",
+            "36",
+            "42",
+            "48",
+            "50"
         ],
-        answer: 2,
-        explanation: "'덤벙대는 사람'은 생각 없이 말하거나 행동하는 사람을 의미합니다. 소심하다, 야무지다, 차분하다는 다른 의미입니다."
+        answer: 4,
+        explanation: "각 수는 이전 수에 2를 곱한 값입니다. 3 → 6 → 12 → 24 → 48"
     };
 
     document.getElementById('instruction').textContent = problemData.instruction;

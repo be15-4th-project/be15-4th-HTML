@@ -43,9 +43,9 @@
         <div class="category active">
             <div class="category-title active">도형의 개수</div>
             <ul>
-                <li><a href="../../03_shape-counting/level-1/problem_01.html">레벨 1</a></li>
+                <li><a href="../../03_shape-counting/level-1/problem_01.html" class="active">레벨 1</a></li>
                 <li><a href="../../03_shape-counting/level-2/problem_01.html">레벨 2</a></li>
-                <li><a href="../../03_shape-counting/level-3/problem_01.html" class="active">레벨 3</a></li>
+                <li><a href="../../03_shape-counting/level-3/problem_01.html">레벨 3</a></li>
             </ul>
         </div>
     </aside>
@@ -54,56 +54,69 @@
         <div class="container">
             <h2 class="instruction" id="instruction"></h2>
             <div class="passage" id="passage"></div>
-            <div class="triangle-container">
-                <svg id="triangle-diagram" viewBox="0 0 200 150"></svg>
-            </div>
+            <div class="shape-container" id="shapes"></div>
             <div class="answer">정답: <span id="answer"></span></div>
         </div>
         <div class="button">
             <a href="problem_01.html" class="btn">이전</a>
-            <a href="problem_02.html" class="btn">다음</a>
+            <a href="problem_03.html" class="btn">다음</a>
         </div>
     </main>
 </div>
 
 <script>
     const problemData = {
-        instruction: "다음 그림에서 크고 작은 삼각형의 개수는?",
-        answer: 20,
-        triangle: {
-            outer: "100,10 10,140 190,140",
-            lines: [
-                { x1: 100, y1: 10, x2: 100, y2: 140 },
-                { x1: 100, y1: 10, x2: 55, y2: 140 },
-                { x1: 100, y1: 10, x2: 145, y2: 140 },
-                { x1: 10, y1: 140, x2: 163, y2: 100 }
-            ]
-        }
+        instruction: "다음 그림에서 원의 개수는?",
+        answer: 3,
+        shapes: [
+            { type: "circle", cx: 50, cy: 50, r: 40 },
+            { type: "circle", cx: 25, cy: 25, r: 20 },
+            { type: "circle", cx: 75, cy: 75, r: 15 },
+            { type: "triangle", points: "0,100 100,100 50,0" },
+            { type: "rectangle", points: "0,0 100,0 100,100 0,100" }
+        ]
     };
 
     document.getElementById('instruction').textContent = problemData.instruction;
     document.getElementById('answer').textContent = problemData.answer;
 
-    const svg = document.getElementById('triangle-diagram');
+    const container = document.getElementById('shapes');
 
-    // 외곽 삼각형
-    const polygon = document.createElementNS("http://www.w3.org/2000/svg", "polygon");
-    polygon.setAttribute("points", problemData.triangle.outer);
-    polygon.setAttribute("class", "triangle");
-    svg.appendChild(polygon);
+    problemData.shapes.forEach(shape => {
+        const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+        svg.setAttribute("viewBox", "0 0 100 100");
+        svg.setAttribute("width", "100");
+        svg.setAttribute("height", "100");
 
-    // 내부 선들
-    problemData.triangle.lines.forEach(({x1, y1, x2, y2}) => {
-        const line = document.createElementNS("http://www.w3.org/2000/svg", "line");
-        line.setAttribute("x1", x1);
-        line.setAttribute("y1", y1);
-        line.setAttribute("x2", x2);
-        line.setAttribute("y2", y2);
-        line.setAttribute("class", "line");
-        svg.appendChild(line);
+        let element;
+        switch (shape.type) {
+            case "triangle":
+            case "pentagon":
+            case "hexagon":
+            case "star":
+                element = document.createElementNS("http://www.w3.org/2000/svg", "polygon");
+                element.setAttribute("points", shape.points);
+                break;
+            case "circle":
+                element = document.createElementNS("http://www.w3.org/2000/svg", "circle");
+                element.setAttribute("cx", shape.cx);
+                element.setAttribute("cy", shape.cy);
+                element.setAttribute("r", shape.r);
+                break;
+            case "ellipse":
+                element = document.createElementNS("http://www.w3.org/2000/svg", "ellipse");
+                element.setAttribute("cx", shape.cx);
+                element.setAttribute("cy", shape.cy);
+                element.setAttribute("rx", shape.rx);
+                element.setAttribute("ry", shape.ry);
+                break;
+        }
+
+        element.setAttribute("class", "shape");
+        svg.appendChild(element);
+        container.appendChild(svg);
     });
 </script>
-
 
 </body>
 </html>

@@ -1,115 +1,205 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-    <meta charset="UTF-8" />
+    <meta charset="UTF-8">
     <title>마이페이지 - 검사 결과 조회</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pretendard@1.3.8/dist/web/static/pretendard.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pretendard@1.3.8/dist/web/static/pretendard.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
-        body { font-family: 'Pretendard', sans-serif; margin: 0; background: #f8f9fa; color: #333; }
-        .header { background: #fff; border-bottom: 1px solid #ddd; padding: 1rem 2rem; display: flex; justify-content: space-between; align-items: center; }
-        .header .logo { font-size: 1.5rem; font-weight: bold; color: #007bff; }
-        .header .menu a { margin-left: 1rem; text-decoration: none; color: #333; }
-
-        .layout { display: flex; }
-        .sidebar { width: 220px; background: #ffffff; border-right: 1px solid #ddd; padding: 2rem 1rem; height: 100vh; box-sizing: border-box; position: sticky; top: 0; }
-        .sidebar h3 { font-size: 1.2rem; margin-bottom: 1rem; }
-        .sidebar a { display: block; padding: 0.75rem 1rem; margin-bottom: 0.5rem; border-radius: 8px; text-decoration: none; color: #333; }
-        .sidebar a:hover, .sidebar a.active { background: #e9f0ff; color: #007bff; font-weight: 500; }
-
-        .content { flex: 1; padding: 2rem; }
-
-        .section { margin-bottom: 3rem; }
-        .section h2 { margin-bottom: 1rem; font-size: 1.5rem; border-bottom: 2px solid #ddd; padding-bottom: 0.5rem; }
-        .card { background: #fff; border-radius: 12px; padding: 1.5rem; box-shadow: 0 2px 5px rgba(0,0,0,0.1); margin-bottom: 1.5rem; }
-
-        .chart-row { display: flex; gap: 1.5rem; margin-bottom: 1.5rem; }
-        .chart-placeholder { flex: 1; height: 300px; background: #e9ecef; border-radius: 12px; display: flex; align-items: center; justify-content: center; color: #6c757d; }
-
-        .score-cards { display: flex; gap: 1rem; flex-wrap: wrap; margin-bottom: 1rem; }
-        .score-card {
-            flex: 1 1 180px;
-            background: #f9f9f9;
-            border-radius: 12px;
-            padding: 1rem;
-            text-align: center;
-            box-shadow: inset 0 0 0 1px #eee;
+        :root {
+            --color-deep: #1e3a8a;
+            --color-main: #3b82f6;
+            --color-light: #93c5fd;
         }
-        .score-card h4 {
-            margin-bottom: 0.5rem;
-            font-size: 0.95rem;
-            color: #666;
+        body {
+            font-family: 'Pretendard', sans-serif;
+            margin: 0;
+            background: #f8f9fa;
+            color: #333;
         }
-        .score-card p {
-            font-size: 1.2rem;
+        .header {
+            background: #fff;
+            border-bottom: 1px solid #ddd;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .header .logo {
+            font-size: 1.5rem;
             font-weight: bold;
-            color: #222;
+            color: var(--color-main);
         }
-
-        .filters { display: flex; gap: 1rem; align-items: center; margin-bottom: 1.5rem; flex-wrap: wrap; }
+        .header .menu a {
+            margin-left: 1rem;
+            text-decoration: none;
+            color: #333;
+        }
+        .layout {
+            display: flex;
+        }
+        .sidebar {
+            width: 220px;
+            background: #ffffff;
+            border-right: 1px solid #ddd;
+            padding: 2rem 1rem;
+            height: 100vh;
+            box-sizing: border-box;
+            position: sticky;
+            top: 0;
+        }
+        .sidebar h3 {
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+        }
+        .sidebar a {
+            display: block;
+            padding: 0.75rem 1rem;
+            margin-bottom: 0.5rem;
+            border-radius: 8px;
+            text-decoration: none;
+            color: #333;
+        }
+        .sidebar a:hover, .sidebar a.active {
+            background: #e9f0ff;
+            color: var(--color-main);
+            font-weight: 500;
+        }
+        .content {
+            flex: 1;
+            padding: 2rem 3rem;
+        }
+        .section-title {
+            font-size: 1.4rem;
+            font-weight: bold;
+            margin-bottom: 1.2rem;
+            color: var(--color-deep);
+        }
+        .card {
+            background: #fff;
+            border-radius: 16px;
+            padding: 2rem;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.04);
+            margin-bottom: 3rem;
+        }
+        .chart-row {
+            display: flex;
+            gap: 2rem;
+            margin-bottom: 2.5rem;
+        }
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.8rem;
+            margin-bottom: 2rem;
+        }
+        .grid-item {
+            background: #f9fafb;
+            border-radius: 16px;
+            padding: 1.5rem;
+            border: 1px solid #e5e7eb;
+        }
+        .score-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 0.75rem;
+        }
+        .category-title {
+            font-weight: 600;
+            color: var(--color-deep);
+        }
+        .score-num {
+            color: var(--color-main);
+            font-weight: 500;
+        }
+        .score-bar {
+            height: 10px;
+            background: #f1f5f9;
+            border-radius: 8px;
+            overflow: hidden;
+            margin-bottom: 0.75rem;
+        }
+        .score-bar .bar {
+            height: 100%;
+            background: linear-gradient(to right, var(--color-main), var(--color-light));
+        }
+        .category-content {
+            font-size: 0.92rem;
+            color: #555;
+        }
+        .ai-summary-card {
+            background: #f0f4ff;
+            padding: 1.8rem;
+            border-radius: 16px;
+            border: 1px solid #dbeafe;
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+        .filters {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+        }
         .filters select {
             padding: 0.5rem 1rem;
             border: 1px solid #ccc;
             border-radius: 8px;
-            font-size: 0.95rem;
         }
-
         .results-list {
             display: flex;
             flex-direction: column;
-            gap: 1rem;
+            gap: 1.5rem;
         }
 
-        .result-item {
-            background: #fff;
-            padding: 1.2rem 1.5rem;
+        .result-entry {
+            background: #ffffff;
+            padding: 1.5rem 2rem;
             border-radius: 16px;
-            box-shadow: 0 2px 6px rgba(0,0,0,0.05);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
             transition: box-shadow 0.2s ease;
         }
 
-        .result-item:hover {
-            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+        .result-entry:hover {
+            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08);
         }
 
-        .result-info p {
-            margin: 0.3rem 0;
+        .result-date {
             font-size: 0.95rem;
+            color: #555;
+            margin-bottom: 0.7rem;
         }
 
-        .view-btn {
-            padding: 0.5rem 1rem;
-            background: #ff385c;
-            color: #fff;
-            border: none;
-            border-radius: 8px;
-            font-weight: 500;
-            text-decoration: none;
+        .result-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+            font-size: 0.97rem;
         }
 
-        .view-btn:hover {
-            background: #e02745;
+        .result-fields {
+            flex-grow: 1;
         }
 
-        .ai-summary-card {
-            background: #fff4f4;
-            padding: 1.5rem;
-            border-radius: 16px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
-            color: #444;
-            font-size: 0.95rem;
-            line-height: 1.6;
-        }
-
-        .ai-summary-card p {
-            margin-bottom: 0.6rem;
-        }
-
-        .ai-summary-card .highlight {
+        .result-score {
             font-weight: 600;
-            color: #c0392b;
+            color: #1e3a8a;
+        }
+
+        .btn-detail {
+            background: #3b82f6;
+            color: #fff;
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
+        .btn-detail:hover {
+            background: #1e3a8a;
         }
     </style>
 </head>
@@ -118,8 +208,7 @@
 <header class="header">
     <div class="logo">두뇌 트레이닝</div>
     <nav class="menu">
-        <a href="Prosecutor.html">검사</a>
-        <a href="Practice.html">학습</a>
+        <a href="test_study.html">검사 및 학습</a>
         <a href="mypage.html">마이페이지</a>
         <a href="#">로그아웃</a>
     </nav>
@@ -131,109 +220,220 @@
         <a href="mypage.html" class="active">검사 결과 및 통계</a>
         <a href="study_list.html">학습 결과 내역</a>
         <a href="objection_list.html">이의제기 내역</a>
-        <a href="userinfo.html">개인정보 수정</a>
+        <a href="userinfo.html">개인정보 조회</a>
     </aside>
-
     <main class="content">
-        <section class="section">
-            <h2>검사 결과 및 통계</h2>
-
-            <div class="card">
-                <h3>최근 검사 결과 (2025-05-10 14:32)</h3>
-                <div class="chart-row">
-                    <div class="chart-placeholder">[육각형 통계 그래프]</div>
-                    <div class="chart-placeholder">[검사 기간별 추이]</div>
-                </div>
-
-                <div class="score-cards">
-                    <div class="score-card">
-                        <h4>언어 이해</h4>
-                        <p>78점</p>
-                    </div>
-                    <div class="score-card">
-                        <h4>시사 상식</h4>
-                        <p>70점</p>
-                    </div>
-                    <div class="score-card">
-                        <h4>지각 추론</h4>
-                        <p>92점</p>
-                    </div>
-                    <div class="score-card">
-                        <h4>작업 기억</h4>
-                        <p>65점</p>
-                    </div>
-                    <div class="score-card">
-                        <h4>처리 속도</h4>
-                        <p>70점</p>
-                    </div>
-                    <div class="score-card">
-                        <h4>공간 지각력</h4>
-                        <p>70점</p>
-                    </div>
-                </div>
-
-                <section>
-                    <h2 class="section-title">AI 총평</h2>
-                    <div class="ai-summary-card">
-                        <p><strong>AI 분석 결과:</strong></p>
-                        <p>지각 추론 분야는 우수하나 <span class="highlight">작업 기억</span>과 <span class="highlight">처리 속도</span>에서 보완이 필요합니다.</p>
-                        <p>추천 학습: <span class="highlight">숫자 외우기</span> 및 <span class="highlight">기호 찾기</span> 훈련을 꾸준히 해보세요.</p>
-                    </div>
-                </section>
+        <h2 class="section-title">최근 검사 결과</h2>
+        <div class="card">
+            <div class="chart-row">
+                <canvas id="radarChart" width="400" height="280"></canvas>
+                <canvas id="lineChart" width="400" height="280"></canvas>
             </div>
 
-            <section>
-                <h2 class="section-title">검사 결과 목록</h2>
 
-                <div class="filters">
-                    <select>
-                        <option selected>2025년</option>
-                        <option>2024년</option>
-                    </select>
-                    <select>
-                        <option>전체 월</option>
-                        <option>1월</option>
-                        <option>2월</option>
-                        <option>3월</option>
-                    </select>
-                    <select>
-                        <option>최신순</option>
-                        <option>과거순</option>
-                    </select>
+            <div class="grid">
+                <div class="grid-item">
+                    <div class="score-header">
+                        <div class="category-title">언어 이해</div>
+                        <div class="score-num">6점</div>
+                    </div>
+                    <div class="score-bar">
+                        <div class="bar" style="width: 100%"></div>
+                    </div>
+                    <div class="category-content">단어와 문장을 정확하게 해석하고 의미를 파악하는 능력</div>
+                </div>
+                <div class="grid-item">
+                    <div class="score-header">
+                        <div class="category-title">시사 상식</div>
+                        <div class="score-num">5점</div>
+                    </div>
+                    <div class="score-bar">
+                        <div class="bar" style="width: 83.3%"></div>
+                    </div>
+                    <div class="category-content">다양한 분야의 기본적인 배경 지식과 사회적 이해도</div>
+                </div>
+                <div class="grid-item">
+                    <div class="score-header">
+                        <div class="category-title">지각 추론</div>
+                        <div class="score-num">1점</div>
+                    </div>
+                    <div class="score-bar">
+                        <div class="bar" style="width: 16.6%"></div>
+                    </div>
+                    <div class="category-content">복잡한 시각 정보를 분석하고 규칙을 찾아내는 능력</div>
+                </div>
+                <div class="grid-item">
+                    <div class="score-header">
+                        <div class="category-title">공간 지각력</div>
+                        <div class="score-num">6점</div>
+                    </div>
+                    <div class="score-bar">
+                        <div class="bar" style="width: 100%"></div>
+                    </div>
+                    <div class="category-content">공간의 형태와 관계를 파악하고 시각적으로 변형하는 능력</div>
+                </div>
+                <div class="grid-item">
+                    <div class="score-header">
+                        <div class="category-title">작업 기억</div>
+                        <div class="score-num">4점</div>
+                    </div>
+                    <div class="score-bar">
+                        <div class="bar" style="width: 66.6%"></div>
+                    </div>
+                    <div class="category-content">정보를 일시적으로 저장하고 동시에 조작할 수 있는 능력</div>
+                </div>
+                <div class="grid-item">
+                    <div class="score-header">
+                        <div class="category-title">처리 속도</div>
+                        <div class="score-num">5점</div>
+                    </div>
+                    <div class="score-bar">
+                        <div class="bar" style="width: 83.3%"></div>
+                    </div>
+                    <div class="category-content">주어진 과제를 빠르고 정확하게 수행하는 능력</div>
+                </div>
+            </div>
+            <div class="ai-summary-card">
+                <p><strong>AI 분석 결과:</strong></p>
+                <p>지각 추론 분야는 우수하나 작업 기억과 처리 속도에서 보완이 필요합니다.</p>
+                <p>추천 학습: 숫자 외우기 및 기호 찾기 훈련을 꾸준히 해보세요.</p>
+            </div>
+        </div>
+        <section>
+            <h2 class="section-title">검사 결과 목록</h2>
+
+            <div class="filters">
+                <select>
+                    <option selected>2025년</option>
+                    <option>2024년</option>
+                </select>
+                <select>
+                    <option>전체 월</option>
+                    <option>1월</option>
+                    <option>2월</option>
+                    <option>3월</option>
+                </select>
+                <select>
+                    <option>최신순</option>
+                    <option>과거순</option>
+                </select>
+            </div>
+
+            <div class="results-list">
+                <div class="result-entry">
+                    <div class="result-date">📅 2025년 5월 10일</div>
+                    <div class="result-content">
+                        <div class="result-fields">
+                            높은 분야: 지각 추론 / 낮은 분야: 작업 기억
+                        </div>
+                        <div class="result-score">총점: 85점</div>
+                        <a href="#" class="btn-detail">상세보기</a>
+                    </div>
                 </div>
 
-                <div class="results-list">
-                    <div class="result-item">
-                        <div class="result-info">
-                            <p><strong>검사 일시:</strong> 2025-05-10</p>
-                            <p><strong>높은 분야:</strong> 지각 추론 / <strong>낮은 분야:</strong> 작업 기억</p>
-                            <p><strong>점수:</strong> 85점</p>
+                <div class="result-entry">
+                    <div class="result-date">📅 2025년 4월 25일</div>
+                    <div class="result-content">
+                        <div class="result-fields">
+                            높은 분야: 언어 이해 / 낮은 분야: 공간 지각력
                         </div>
-                        <a href="test_result_detail.html?id=T20250510" class="view-btn">상세보기</a>
-                    </div>
-
-                    <div class="result-item">
-                        <div class="result-info">
-                            <p><strong>검사 일시:</strong> 2025-04-25</p>
-                            <p><strong>높은 분야:</strong> 언어 이해 / <strong>낮은 분야:</strong> 공간 지각력</p>
-                            <p><strong>점수:</strong> 78점</p>
-                        </div>
-                        <a href="test_result_detail.html?id=T20250425" class="view-btn">상세보기</a>
-                    </div>
-
-                    <div class="result-item">
-                        <div class="result-info">
-                            <p><strong>검사 일시:</strong> 2025-04-10</p>
-                            <p><strong>높은 분야:</strong> 시사 상식 / <strong>낮은 분야:</strong> 처리 속도</p>
-                            <p><strong>점수:</strong> 82점</p>
-                        </div>
-                        <a href="test_result_detail.html?id=T20250410" class="view-btn">상세보기</a>
+                        <div class="result-score">총점: 78점</div>
+                        <a href="#" class="btn-detail">상세보기</a>
                     </div>
                 </div>
-            </section>
+
+                <div class="result-entry">
+                    <div class="result-date">📅 2025년 4월 10일</div>
+                    <div class="result-content">
+                        <div class="result-fields">
+                            높은 분야: 시사 상식 / 낮은 분야: 처리 속도
+                        </div>
+                        <div class="result-score">총점: 82점</div>
+                        <a href="#" class="btn-detail">상세보기</a>
+                    </div>
+                </div>
+            </div>
+
         </section>
     </main>
 </div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js">
+
+
+    const scoreData = {
+        "언어 이해": 6,
+        "시사 상식": 4,
+        "지각 추론": 5,
+        "작업 기억": 1,
+        "처리 속도": 4,
+        "공간 지각력": 3
+    };
+    const scoreLabels = Object.keys(scoreData);
+    const scoreValues100 = Object.values(scoreData);
+
+    const scoreValues6 = scoreValues100.map(score => Math.round((score / 100) * 6 * 10) / 10);
+
+    new Chart(document.getElementById('radarChart'), {
+        type: 'radar',
+        data: {
+            labels: scoreLabels,
+            datasets: [{
+                label: '검사 점수 (6점 만점 환산)',
+                data: scoreValues6,
+                backgroundColor: 'rgba(59, 130, 246, 0.2)',
+                borderColor: '#3b82f6',
+                pointBackgroundColor: '#3b82f6',
+                borderWidth: 2
+            }]
+        },
+        options: {
+            responsive: true,
+            plugins: {legend: {display: false}},
+            scales: {
+                r: {
+                    min: 0,
+                    max: 6,
+                    ticks: {stepSize: 1, color: '#888'},
+                    grid: {color: '#ddd'},
+                    pointLabels: {color: '#333', font: {size: 13}}
+                }
+            }
+        }
+    });
+    new Chart(document.getElementById('lineChart'), {
+        type: 'line',
+        data: {
+            labels: ['04-10', '04-25', '05-10'],
+            datasets: [{
+                label: '총점',
+                data: [82, 78, 85],
+                borderColor: '#3b82f6',
+                backgroundColor: 'rgba(147, 197, 253, 0.3)',
+                tension: 0.4,
+                fill: true,
+                pointRadius: 4,
+                pointBackgroundColor: '#1e3a8a'
+            }]
+        },
+        options: {
+            responsive: true,
+            plugins: {legend: {display: false}},
+            scales: {
+                y: {
+                    min: 0,
+                    max: 100,
+                    ticks: {stepSize: 20, color: '#888'},
+                    grid: {color: '#eee'}
+                },
+                x: {
+                    ticks: {color: '#888'},
+                    grid: {display: false}
+                }
+            }
+        }
+    });
+</script>
 
 </body>
 </html>

@@ -1,0 +1,536 @@
+-- 외래 키 제약 조건 해제
+SET FOREIGN_KEY_CHECKS = 0;
+
+-- 하위 테이블부터 초기화 (의존 관계 순서)
+TRUNCATE TABLE `refresh_token`;
+
+TRUNCATE TABLE `objection`;
+TRUNCATE TABLE `study_result`;
+TRUNCATE TABLE `study`;
+TRUNCATE TABLE `test_problem`;
+TRUNCATE TABLE `test_result`;
+TRUNCATE TABLE `point_history`;
+TRUNCATE TABLE `problem`;
+
+TRUNCATE TABLE `user`;
+TRUNCATE TABLE `category`;
+TRUNCATE TABLE `answer_type`;
+
+-- 외래 키 제약 조건 복원
+SET FOREIGN_KEY_CHECKS = 1;
+
+
+-- answer_type 초기 데이터 삽입
+INSERT INTO `answer_type` (`answer_type_id`, `description`)
+VALUES
+    (1, 'MULTIPLE_CHOICE'),  -- 선다형 (객관식)
+    (2, 'SHORT_ANSWER'),     -- 단답형 (주관식)
+    (3, 'MULTIPLE_RESPONSE'); -- 다답형 (확장성용)
+
+-- category 초기 데이터 삽입
+INSERT INTO `category` (`category_id`, `name`, `parent_category_id`, `time_limit`, `description`)
+VALUES
+    (1, '언어 이해', NULL, 60, '단어와 문장을 정확하게 해석하고 의미를 파악하는 능력'),
+    (2, '시사 상식', NULL, 60, '다양한 분야의 기본적인 배경 지식과 사회적 이해도'),
+    (3, '지각 추론', NULL, 60, '복잡한 시각 정보를 분석하고 규칙을 찾아내는 능력'),
+    (4, '처리 속도', NULL, 60, '공간의 형태와 관계를 파악하고 시각적으로 변형하는 능력'),
+    (5, '작업 기억', NULL, 60, '정보를 일시적으로 저장하고 동시에 조작할 수 있는 능력'),
+    (6, '공간 지각력', NULL, 60, '주어진 과제를 빠르고 정확하게 수행하는 능력');
+
+INSERT INTO `category` (`category_id`, `name`, `parent_category_id`, `time_limit`)
+VALUES
+    (7, '맞춤법', 1, 60),
+    (8, '어휘', 1, 60),
+
+    (9, '사회', 2, 60),
+    (10, '경제', 2, 60),
+
+    (11, '행렬 추론', 3, 60),
+    (12, '퍼즐', 3, 60),
+    (13, '수의 규칙', 3, 60),
+
+    (14, '동형 찾기', 4, 60),
+    (15, '기호 찾기', 4, 60),
+
+    (16, '숫자 외우기', 5, 60),
+    (17, '자리 배치', 5, 60),
+    (18, '도형의 개수', 5, 60),
+
+    (19, '회전 퍼즐', 6, 60),
+    (20, '거울 대칭', 6, 60),
+    (21, '전개도', 6, 60);
+
+-- user 기초 데이터 삽입 (관리자 10명)
+INSERT INTO `user` (`user_id`, `account_id`, `password`, `name`, `gender`, `birthdate`, `point`, `ai_text`, `authority`, `is_deleted`, `deleted_at`)
+VALUES
+(1, 'mijuckboon', '$2a$10$zVWI4eSon.typqE7NBgCyOflAbdCyrhDsAfMflTdj9CsSVrLKQIb2', '곽진웅', 'M', '1995-01-01', 0, NULL, 'ADMIN', 'N', NULL),
+(2, 'meowdule', '$2a$10$zVWI4eSon.typqE7NBgCyOflAbdCyrhDsAfMflTdj9CsSVrLKQIb2', '김여진', 'F', '2002-02-01', 0, NULL, 'ADMIN', 'N', NULL),
+(3, 'Taein5415', '$2a$10$zVWI4eSon.typqE7NBgCyOflAbdCyrhDsAfMflTdj9CsSVrLKQIb2', '김태인', 'M', '1999-03-01', 0, NULL, 'ADMIN', 'N', NULL),
+(4, 'splguyjr', '$2a$10$zVWI4eSon.typqE7NBgCyOflAbdCyrhDsAfMflTdj9CsSVrLKQIb2', '김운경', 'M', '1999-04-01', 0, NULL, 'ADMIN', 'N', NULL),
+(5, 'devyujinjeong', '$2a$10$zVWI4eSon.typqE7NBgCyOflAbdCyrhDsAfMflTdj9CsSVrLKQIb2', '정유진', 'F', '2001-05-01', 0, NULL, 'ADMIN', 'N', NULL);
+
+-- user 기초 데이터 삽입 (일반 사용자 15명)
+INSERT INTO `user` (`user_id`, `account_id`, `password`, `name`, `gender`, `birthdate`, `point`, `ai_text`, `authority`, `is_deleted`, `deleted_at`)
+VALUES
+(11, 'user01', '$2a$10$zVWI4eSon.typqE7NBgCyOflAbdCyrhDsAfMflTdj9CsSVrLKQIb2', '홍길동', 'M', '1995-01-01', 1, NULL, 'USER', 'N', NULL),
+(12, 'user02', '$2a$10$zVWI4eSon.typqE7NBgCyOflAbdCyrhDsAfMflTdj9CsSVrLKQIb2', '김영희', 'F', '1996-02-02', 1, NULL, 'USER', 'N', NULL),
+(13, 'user03', '$2a$10$zVWI4eSon.typqE7NBgCyOflAbdCyrhDsAfMflTdj9CsSVrLKQIb2', '박철수', 'M', '1997-03-03', 1, NULL, 'USER', 'N', NULL),
+(14, 'user04', '$2a$10$zVWI4eSon.typqE7NBgCyOflAbdCyrhDsAfMflTdj9CsSVrLKQIb2', '이민정', 'F', '1998-04-04', 1, NULL, 'USER', 'N', NULL),
+(15, 'user05', '$2a$10$zVWI4eSon.typqE7NBgCyOflAbdCyrhDsAfMflTdj9CsSVrLKQIb2', '최지훈', 'M', '1999-05-05', 5, NULL, 'USER', 'N', NULL),
+(16, 'user06', '$2a$10$zVWI4eSon.typqE7NBgCyOflAbdCyrhDsAfMflTdj9CsSVrLKQIb2', '정수빈', 'F', '2000-06-06', 5, NULL, 'USER', 'N', NULL),
+(17, 'user07', '$2a$10$zVWI4eSon.typqE7NBgCyOflAbdCyrhDsAfMflTdj9CsSVrLKQIb2', '한지민', 'F', '1994-07-07', 5, NULL, 'USER', 'N', NULL),
+(18, 'user08', '$2a$10$zVWI4eSon.typqE7NBgCyOflAbdCyrhDsAfMflTdj9CsSVrLKQIb2', '오세훈', 'M', '1993-08-08', 5, NULL, 'USER', 'N', NULL),
+(19, 'user09', '$2a$10$zVWI4eSon.typqE7NBgCyOflAbdCyrhDsAfMflTdj9CsSVrLKQIb2', '이소라', 'F', '1992-09-09', 5, NULL, 'USER', 'N', NULL),
+(20, 'user10', '$2a$10$zVWI4eSon.typqE7NBgCyOflAbdCyrhDsAfMflTdj9CsSVrLKQIb2', '장준혁', 'M', '1991-10-10', 5, NULL, 'USER', 'N', NULL),
+(21, 'user11', '$2a$10$zVWI4eSon.typqE7NBgCyOflAbdCyrhDsAfMflTdj9CsSVrLKQIb2', '배지현', 'F', '1990-11-11', 5, NULL, 'USER', 'N', NULL),
+(22, 'user12', '$2a$10$zVWI4eSon.typqE7NBgCyOflAbdCyrhDsAfMflTdj9CsSVrLKQIb2', '강현수', 'M', '1989-12-12', 5, NULL, 'USER', 'N', NULL),
+(23, 'user13', '$2a$10$zVWI4eSon.typqE7NBgCyOflAbdCyrhDsAfMflTdj9CsSVrLKQIb2', '서지훈', 'M', '1998-03-21', 5, NULL, 'USER', 'N', NULL),
+(24, 'user14', '$2a$10$zVWI4eSon.typqE7NBgCyOflAbdCyrhDsAfMflTdj9CsSVrLKQIb2', '윤하영', 'F', '1997-06-14', 5, NULL, 'USER', 'N', NULL),
+(25, 'user15', '$2a$10$zVWI4eSon.typqE7NBgCyOflAbdCyrhDsAfMflTdj9CsSVrLKQIb2', '백서준', 'M', '1996-09-05', 5, NULL, 'USER', 'N', NULL);
+
+-- 포인트 내역: point ≥ 5 → SAVE + SPEND / point < 5 → SAVE만
+-- 유저 11~14: point = 1 → SAVE만
+INSERT INTO `point_history` (`user_id`, `point`, `point_type`, `created_at`) VALUES
+(11, 1, 'SAVE', '2025-05-14 09:00:00'),
+(12, 1, 'SAVE', '2025-05-14 09:00:00'),
+(13, 1, 'SAVE', '2025-05-14 09:00:00'),
+(14, 1, 'SAVE', '2025-05-14 09:00:00'),
+
+-- 유저 15~25: point = 5 → SAVE 후 SPEND
+INSERT INTO `point_history` (`user_id`, `point`, `point_type`, `created_at`) VALUES
+-- 2025-05-15
+(15, 1, 'SAVE', '2025-05-15 09:00:00'), (15, 1, 'SAVE', '2025-05-15 10:00:00'),
+(16, 1, 'SAVE', '2025-05-15 09:01:00'), (16, 1, 'SAVE', '2025-05-15 10:01:00'),
+(17, 1, 'SAVE', '2025-05-15 09:02:00'), (17, 1, 'SAVE', '2025-05-15 10:02:00'),
+(18, 1, 'SAVE', '2025-05-15 09:03:00'), (18, 1, 'SAVE', '2025-05-15 10:03:00'),
+(19, 1, 'SAVE', '2025-05-15 09:04:00'), (19, 1, 'SAVE', '2025-05-15 10:04:00'),
+(20, 1, 'SAVE', '2025-05-15 09:05:00'), (20, 1, 'SAVE', '2025-05-15 10:05:00'),
+(21, 1, 'SAVE', '2025-05-15 09:06:00'), (21, 1, 'SAVE', '2025-05-15 10:06:00'),
+(22, 1, 'SAVE', '2025-05-15 09:07:00'), (22, 1, 'SAVE', '2025-05-15 10:07:00'),
+(23, 1, 'SAVE', '2025-05-15 09:08:00'), (23, 1, 'SAVE', '2025-05-15 10:08:00'),
+(24, 1, 'SAVE', '2025-05-15 09:09:00'), (24, 1, 'SAVE', '2025-05-15 10:09:00'),
+(25, 1, 'SAVE', '2025-05-15 09:10:00'), (25, 1, 'SAVE', '2025-05-15 10:10:00'),
+
+-- 2025-05-16
+(15, 1, 'SAVE', '2025-05-16 09:00:00'), (15, 1, 'SAVE', '2025-05-16 10:00:00'),
+(16, 1, 'SAVE', '2025-05-16 09:01:00'), (16, 1, 'SAVE', '2025-05-16 10:01:00'),
+(17, 1, 'SAVE', '2025-05-16 09:02:00'), (17, 1, 'SAVE', '2025-05-16 10:02:00'),
+(18, 1, 'SAVE', '2025-05-16 09:03:00'), (18, 1, 'SAVE', '2025-05-16 10:03:00'),
+(19, 1, 'SAVE', '2025-05-16 09:04:00'), (19, 1, 'SAVE', '2025-05-16 10:04:00'),
+(20, 1, 'SAVE', '2025-05-16 09:05:00'), (20, 1, 'SAVE', '2025-05-16 10:05:00'),
+(21, 1, 'SAVE', '2025-05-16 09:06:00'), (21, 1, 'SAVE', '2025-05-16 10:06:00'),
+(22, 1, 'SAVE', '2025-05-16 09:07:00'), (22, 1, 'SAVE', '2025-05-16 10:07:00'),
+(23, 1, 'SAVE', '2025-05-16 09:08:00'), (23, 1, 'SAVE', '2025-05-16 10:08:00'),
+(24, 1, 'SAVE', '2025-05-16 09:09:00'), (24, 1, 'SAVE', '2025-05-16 10:09:00'),
+(25, 1, 'SAVE', '2025-05-16 09:10:00'), (25, 1, 'SAVE', '2025-05-16 10:10:00'),
+
+-- 2025-05-17
+(15, 1, 'SAVE', '2025-05-17 09:00:00'), (15, 1, 'SAVE', '2025-05-17 10:00:00'),
+(16, 1, 'SAVE', '2025-05-17 09:01:00'), (16, 1, 'SAVE', '2025-05-17 10:01:00'),
+(17, 1, 'SAVE', '2025-05-17 09:02:00'), (17, 1, 'SAVE', '2025-05-17 10:02:00'),
+(18, 1, 'SAVE', '2025-05-17 09:03:00'), (18, 1, 'SAVE', '2025-05-17 10:03:00'),
+(19, 1, 'SAVE', '2025-05-17 09:04:00'), (19, 1, 'SAVE', '2025-05-17 10:04:00'),
+(20, 1, 'SAVE', '2025-05-17 09:05:00'), (20, 1, 'SAVE', '2025-05-17 10:05:00'),
+(21, 1, 'SAVE', '2025-05-17 09:06:00'), (21, 1, 'SAVE', '2025-05-17 10:06:00'),
+(22, 1, 'SAVE', '2025-05-17 09:07:00'), (22, 1, 'SAVE', '2025-05-17 10:07:00'),
+(23, 1, 'SAVE', '2025-05-17 09:08:00'), (23, 1, 'SAVE', '2025-05-17 10:08:00'),
+(24, 1, 'SAVE', '2025-05-17 09:09:00'), (24, 1, 'SAVE', '2025-05-17 10:09:00'),
+(25, 1, 'SAVE', '2025-05-17 09:10:00'), (25, 1, 'SAVE', '2025-05-17 10:10:00'),
+
+-- 2025-05-18
+(15, 1, 'SAVE', '2025-05-18 09:00:00'), (15, 1, 'SAVE', '2025-05-18 10:00:00'),
+(16, 1, 'SAVE', '2025-05-18 09:01:00'), (16, 1, 'SAVE', '2025-05-18 10:01:00'),
+(17, 1, 'SAVE', '2025-05-18 09:02:00'), (17, 1, 'SAVE', '2025-05-18 10:02:00'),
+(18, 1, 'SAVE', '2025-05-18 09:03:00'), (18, 1, 'SAVE', '2025-05-18 10:03:00'),
+(19, 1, 'SAVE', '2025-05-18 09:04:00'), (19, 1, 'SAVE', '2025-05-18 10:04:00'),
+(20, 1, 'SAVE', '2025-05-18 09:05:00'), (20, 1, 'SAVE', '2025-05-18 10:05:00'),
+(21, 1, 'SAVE', '2025-05-18 09:06:00'), (21, 1, 'SAVE', '2025-05-18 10:06:00'),
+(22, 1, 'SAVE', '2025-05-18 09:07:00'), (22, 1, 'SAVE', '2025-05-18 10:07:00'),
+(23, 1, 'SAVE', '2025-05-18 09:08:00'), (23, 1, 'SAVE', '2025-05-18 10:08:00'),
+(24, 1, 'SAVE', '2025-05-18 09:09:00'), (24, 1, 'SAVE', '2025-05-18 10:09:00'),
+(25, 1, 'SAVE', '2025-05-18 09:10:00'), (25, 1, 'SAVE', '2025-05-18 10:10:00'),
+
+-- 2025-05-19
+(15, 1, 'SAVE', '2025-05-19 09:00:00'), (15, 1, 'SAVE', '2025-05-19 10:00:00'),
+(16, 1, 'SAVE', '2025-05-19 09:01:00'), (16, 1, 'SAVE', '2025-05-19 10:01:00'),
+(17, 1, 'SAVE', '2025-05-19 09:02:00'), (17, 1, 'SAVE', '2025-05-19 10:02:00'),
+(18, 1, 'SAVE', '2025-05-19 09:03:00'), (18, 1, 'SAVE', '2025-05-19 10:03:00'),
+(19, 1, 'SAVE', '2025-05-19 09:04:00'), (19, 1, 'SAVE', '2025-05-19 10:04:00'),
+(20, 1, 'SAVE', '2025-05-19 09:05:00'), (20, 1, 'SAVE', '2025-05-19 10:05:00'),
+(21, 1, 'SAVE', '2025-05-19 09:06:00'), (21, 1, 'SAVE', '2025-05-19 10:06:00'),
+(22, 1, 'SAVE', '2025-05-19 09:07:00'), (22, 1, 'SAVE', '2025-05-19 10:07:00'),
+(23, 1, 'SAVE', '2025-05-19 09:08:00'), (23, 1, 'SAVE', '2025-05-19 10:08:00'),
+(24, 1, 'SAVE', '2025-05-19 09:09:00'), (24, 1, 'SAVE', '2025-05-19 10:09:00'),
+(25, 1, 'SAVE', '2025-05-19 09:10:00'), (25, 1, 'SAVE', '2025-05-19 10:10:00'),
+
+-- 2025-05-20 (SPEND -5)
+(15, -5, 'SPEND', '2025-05-20 09:00:00'),
+(16, -5, 'SPEND', '2025-05-20 09:01:00'),
+(17, -5, 'SPEND', '2025-05-20 09:02:00'),
+(18, -5, 'SPEND', '2025-05-20 09:03:00'),
+(19, -5, 'SPEND', '2025-05-20 09:04:00'),
+(20, -5, 'SPEND', '2025-05-20 09:05:00'),
+(21, -5, 'SPEND', '2025-05-20 09:06:00'),
+(22, -5, 'SPEND', '2025-05-20 09:07:00'),
+(23, -5, 'SPEND', '2025-05-20 09:08:00'),
+(24, -5, 'SPEND', '2025-05-20 09:09:00'),
+(25, -5, 'SPEND', '2025-05-20 09:10:00');
+
+
+
+
+INSERT INTO `problem` (`category_id`, `answer_type_id`, `content_image_url`, `correct_answer`, `level`, `is_deleted`) VALUES
+(7, 1, 'https://a3.nbti.ai/images/problem_lang_07_01.png', '1', 1, 'N'), -- 어이가 없다.
+(7, 1, 'https://a3.nbti.ai/images/problem_lang_07_02.png', '2', 1, 'N'), -- 되레
+(7, 1, 'https://a3.nbti.ai/images/problem_lang_07_03.png', '1', 1, 'N'), -- 눅눅
+
+(7, 1, 'https://a3.nbti.ai/images/problem_lang_07_04.png', '2', 2, 'N'), -- 승률
+(7, 1, 'https://a3.nbti.ai/images/problem_lang_07_05.png', '2', 2, 'N'), -- 일찍이
+(7, 1, 'https://a3.nbti.ai/images/problem_lang_07_06.png', '4', 2, 'N'), -- 약속했다
+(7, 1, 'https://a3.nbti.ai/images/problem_lang_07_07.png', '3', 2, 'N'), -- 왠만하면 (틀림)
+
+(7, 1, 'https://a3.nbti.ai/images/problem_lang_07_08.png', '2', 3, 'N'), -- 파투를 내다
+(7, 1, 'https://a3.nbti.ai/images/problem_lang_07_09.png', '1', 3, 'N'), -- 제 선에서
+(7, 1, 'https://a3.nbti.ai/images/problem_lang_07_10.png', '4', 3, 'N'); -- 한결 가벼워졌다
+
+
+INSERT INTO `problem` (`category_id`, `answer_type_id`, `content_image_url`, `correct_answer`, `level`, `is_deleted`) VALUES
+(8, 1, 'https://a3.nbti.ai/images/problem_rc_08_01.png', '3', 1, 'N'), -- 철수가 도착했을 때 친구들은 무엇을 하고 있었는가? → 축구하고 있었다
+(8, 1, 'https://a3.nbti.ai/images/problem_rc_08_02.png', '2', 1, 'N'), -- '성실하다'의 뜻과 가까운 말? → 부지런하다
+(8, 1, 'https://a3.nbti.ai/images/problem_rc_08_03.png', '2', 1, 'N'), -- '쾌활하다'와 비슷한 말? → 활발하다
+
+(8, 2, 'https://a3.nbti.ai/images/problem_rc_08_04.png', '8', 2, 'N'), -- 민지가 빌린 책 수는? (2권 × 4번) → 8
+(8, 2, 'https://a3.nbti.ai/images/problem_rc_08_05.png', '7', 2, 'N'), -- 지훈이가 받은 사과는? (2×3)+1 → 7
+(8, 1, 'https://a3.nbti.ai/images/problem_rc_08_06.png', '2', 2, 'N'), -- '쾌적하다'를 설명하는 가장 적절한 것? → 시원하고 좋다
+
+(8, 1, 'https://a3.nbti.ai/images/problem_rc_08_07.png', '2', 3, 'N'), -- 온라인 플랫폼 이용률
+(8, 1, 'https://a3.nbti.ai/images/problem_rc_08_08.png', '2', 3, 'N'), -- 자동차 이용은 출퇴근 시간대에도 많다 → 사실 판단
+(8, 1, 'https://a3.nbti.ai/images/problem_rc_08_09.png', '3', 3, 'N'); -- 스마트폰은 시력 보호에 도움? → 틀림 (유추할 수 없음)
+
+
+INSERT INTO `problem` (`category_id`, `answer_type_id`, `content_image_url`, `correct_answer`, `level`, `is_deleted`) VALUES
+(9, 1, 'https://a3.nbti.ai/images/problem_rc_09_01.png', '2', 1, 'N'), -- 덤벙대는 사람
+(9, 1, 'https://a3.nbti.ai/images/problem_rc_09_02.png', '2', 1, 'N'), -- 양의 탈을 쓴 늑대
+(9, 1, 'https://a3.nbti.ai/images/problem_rc_09_03.png', '3', 1, 'N'), -- 골치 아픈 일
+
+(9, 1, 'https://a3.nbti.ai/images/problem_rc_09_04.png', '2', 2, 'N'), -- 융통성
+(9, 1, 'https://a3.nbti.ai/images/problem_rc_09_05.png', '2', 2, 'N'), -- 세심하다
+(9, 1, 'https://a3.nbti.ai/images/problem_rc_09_06.png', '1', 2, 'N'), -- 경청
+(9, 1, 'https://a3.nbti.ai/images/problem_rc_09_06.png', '2', 2, 'N'), -- 기만
+
+(9, 1, 'https://a3.nbti.ai/images/problem_rc_09_07.png', '2', 3, 'N'), -- 디지털 노마드
+(9, 1, 'https://a3.nbti.ai/images/problem_rc_09_08.png', '2', 3, 'N'), -- 순자산
+(9, 1, 'https://a3.nbti.ai/images/problem_rc_09_09.png', '3', 3, 'N'); -- ESG 경영
+
+
+INSERT INTO `problem` (`category_id`, `answer_type_id`, `content_image_url`, `correct_answer`, `level`, `is_deleted`) VALUES
+(10, 1, 'https://a3.nbti.ai/images/problem_ca_10_01.png', '3', 1, 'N'), -- 지방자치단체의 역할은? → 주민을 위한 행정 서비스 제공
+(10, 1, 'https://a3.nbti.ai/images/problem_ca_10_02.png', '4', 1, 'N'), -- 지방선거에서 선출되지 않는 공직자는? → 국회의원
+
+(10, 1, 'https://a3.nbti.ai/images/problem_ca_10_03.png', '3', 2, 'N'), -- 지방자치제도의 목적은? → 지역 문제를 스스로 해결
+(10, 1, 'https://a3.nbti.ai/images/problem_ca_10_04.png', '3', 2, 'N'), -- 사법부 독립 보장 장치? → 법관의 신분 보장
+
+(10, 1, 'https://a3.nbti.ai/images/problem_ca_10_05.png', '3', 3, 'N'), -- 기준금리 인상 효과? → 소비 감소, 물가 억제
+(10, 1, 'https://a3.nbti.ai/images/problem_ca_10_06.png', '2', 3, 'N'); -- 스태그플레이션 설명? → 경기 나쁨 + 물가 상승
+
+
+INSERT INTO `problem` (`category_id`, `answer_type_id`, `content_image_url`, `correct_answer`, `level`, `is_deleted`) VALUES
+(11, 1, 'https://a3.nbti.ai/images/problem_ca_11_01.png', '2', 1, 'N'), -- 줄어든다
+(11, 1, 'https://a3.nbti.ai/images/problem_ca_11_02.png', '1', 1, 'N'), -- 같은 돈으로 살 수 있는 상품의 양이 줄어든다.
+(11, 1, 'https://a3.nbti.ai/images/problem_ca_11_03.png', '4', 1, 'N'), -- 수요가 늘어나면 가격은 오른다.
+
+(11, 1, 'https://a3.nbti.ai/images/problem_ca_11_04.png', '3', 2, 'N'), -- 수요가 많고 공급이 적으면 가격이 상승한다.
+(11, 1, 'https://a3.nbti.ai/images/problem_ca_11_05.png', '2', 2, 'N'), -- 외국에서 벌어들인 소득
+(11, 1, 'https://a3.nbti.ai/images/problem_ca_11_06.png', '3', 2, 'N'), -- 상품과 서비스의 가격이 전반적으로 하락하는 현상
+
+(11, 1, 'https://a3.nbti.ai/images/problem_ca_11_07.png', '3', 3, 'N'), -- 소비가 줄고 물가 상승이 억제된다.
+(11, 1, 'https://a3.nbti.ai/images/problem_ca_11_08.png', '2', 3, 'N'); -- 경기가 나쁘지만 물가는 계속 오르는 상태
+(11, 1, 'https://a3.nbti.ai/images/problem_ca_11_08.png', '1', 3, 'N'); -- 중앙은행이 시중에 유동성을 공급하여 금리를 낮추고 경기 부양을 유도한다.
+
+
+-- 행렬 추론
+INSERT INTO `problem` (`category_id`, `answer_type_id`, `content_image_url`, `correct_answer`, `level`, `is_deleted`) VALUES
+(12, 1, 'https://a3.nbti.ai/images/problem_reasoning_12_01.png', '4', 1, 'N'),
+(12, 1, 'https://a3.nbti.ai/images/problem_reasoning_12_02.png', '4', 1, 'N'),
+(12, 1, 'https://a3.nbti.ai/images/problem_reasoning_12_03.png', '4', 1, 'N'),
+
+(12, 1, 'https://a3.nbti.ai/images/problem_reasoning_12_04.png', '3', 2, 'N'),
+(12, 1, 'https://a3.nbti.ai/images/problem_reasoning_12_05.png', '1', 2, 'N'),
+(12, 1, 'https://a3.nbti.ai/images/problem_reasoning_12_06.png', '1', 2, 'N'),
+(12, 1, 'https://a3.nbti.ai/images/problem_reasoning_12_07.png', '1', 2, 'N'),
+
+(12, 1, 'https://a3.nbti.ai/images/problem_reasoning_12_08.png', '1', 3, 'N');
+(12, 1, 'https://a3.nbti.ai/images/problem_reasoning_12_09.png', '3', 3, 'N');
+(12, 1, 'https://a3.nbti.ai/images/problem_reasoning_12_10.png', '4', 3, 'N');
+
+
+-- 퍼즐
+INSERT INTO `problem` (`category_id`, `answer_type_id`, `content_image_url`, `correct_answer`, `level`, `is_deleted`) VALUES
+(13, 1, 'https://a3.nbti.ai/images/problem_reasoning_13_01.png', '3', 1, 'N'),
+(13, 1, 'https://a3.nbti.ai/images/problem_reasoning_13_02.png', '4', 1, 'N'),
+(13, 1, 'https://a3.nbti.ai/images/problem_reasoning_13_03.png', '1', 1, 'N'),
+
+-- 임시 데이터
+(13, 1, 'https://a3.nbti.ai/images/problem_reasoning_13_04.png', '3', 2, 'N'),
+(13, 1, 'https://a3.nbti.ai/images/problem_reasoning_13_05.png', '1', 2, 'N'),
+(13, 1, 'https://a3.nbti.ai/images/problem_reasoning_13_06.png', '1', 2, 'N'),
+
+(13, 1, 'https://a3.nbti.ai/images/problem_reasoning_13_08.png', '1', 3, 'N');
+(13, 1, 'https://a3.nbti.ai/images/problem_reasoning_13_09.png', '3', 3, 'N');
+(13, 1, 'https://a3.nbti.ai/images/problem_reasoning_13_10.png', '4', 3, 'N');
+
+
+-- 수의 규칙
+INSERT INTO `problem` (`category_id`, `answer_type_id`, `content_image_url`, `correct_answer`, `level`, `is_deleted`) VALUES
+(14, 1, 'https://a3.nbti.ai/images/problem_reasoning_14_01.png', '2', 1, 'N'),  -- "( 1 ) - ( 3 ) - ( 5 ) - ( 7 ) - ( ? )"
+(14, 1, 'https://a3.nbti.ai/images/problem_reasoning_14_02.png', '2', 1, 'N'),  -- "( 1 ) - ( 2 ) - ( 4 ) - ( 8 ) - ( ? )"
+(14, 1, 'https://a3.nbti.ai/images/problem_reasoning_14_03.png', '2', 1, 'N'),  -- "( 2 ) - ( 5 ) - ( 8 ) - ( 11 ) - ( ? )"
+
+(14, 1, 'https://a3.nbti.ai/images/problem_reasoning_14_04.png', '2', 2, 'N'),  -- "( 1 ) - ( 2 ) - ( 4 ) - ( 7 ) - ( 11 ) - ( ? )"
+(14, 1, 'https://a3.nbti.ai/images/problem_reasoning_14_05.png', '4', 2, 'N'),  -- "( 3 ) - ( 6 ) - ( 12 ) - ( 24 ) - ( ? )"
+(14, 1, 'https://a3.nbti.ai/images/problem_reasoning_14_06.png', '2', 2, 'N'),  -- "( 81 ) - ( 27 ) - ( 9 ) - ( 3 ) - ( ? )"
+
+(14, 1, 'https://a3.nbti.ai/images/problem_reasoning_14_08.png', '2', 3, 'N');  -- "( 5 ) - ( 8 ) - ( 14 ) - ( 26 ) - ( 50 ) - ( ? )"
+(14, 1, 'https://a3.nbti.ai/images/problem_reasoning_14_09.png', '4', 3, 'N');  -- "( 2 ) - ( 5 ) - ( 10 ) - ( 17 ) - ( 26 ) - ( ? )"
+(14, 1, 'https://a3.nbti.ai/images/problem_reasoning_14_10.png', '3', 3, 'N');  -- "( 1 ) - ( 4 ) - ( 9 ) - ( 16 ) - ( 25 ) - ( ? )"
+
+
+-- 동형 찾기
+INSERT INTO `problem` (`category_id`, `answer_type_id`, `content_image_url`, `correct_answer`, `level`, `is_deleted`) VALUES
+ -- 임시 데이터
+(15, 1, 'https://a3.nbti.ai/images/problem_speed_15_01.png', '1', 1, 'N');
+(15, 1, 'https://a3.nbti.ai/images/problem_speed_15_02.png', '3', 1, 'N');
+(15, 1, 'https://a3.nbti.ai/images/problem_speed_15_03.png', '4', 1, 'N');
+
+(15, 1, 'https://a3.nbti.ai/images/problem_speed_15_04.png', '1', 2, 'N');
+(15, 1, 'https://a3.nbti.ai/images/problem_speed_15_05.png', '3', 2, 'N');
+(15, 1, 'https://a3.nbti.ai/images/problem_speed_15_06.png', '4', 2, 'N');
+
+(15, 1, 'https://a3.nbti.ai/images/problem_speed_15_07.png', '1', 3, 'N');
+(15, 1, 'https://a3.nbti.ai/images/problem_speed_15_08.png', '3', 3, 'N');
+(15, 1, 'https://a3.nbti.ai/images/problem_speed_15_09.png', '4', 3, 'N');
+
+
+-- 기호 찾기
+INSERT INTO `problem` (`category_id`, `answer_type_id`, `content_image_url`, `correct_answer`, `level`, `is_deleted`) VALUES
+ -- 임시 데이터
+(16, 1, 'https://a3.nbti.ai/images/problem_speed_16_01.png', '1', 1, 'N');
+(16, 1, 'https://a3.nbti.ai/images/problem_speed_16_02.png', '3', 1, 'N');
+(16, 1, 'https://a3.nbti.ai/images/problem_speed_16_03.png', '4', 1, 'N');
+
+(16, 1, 'https://a3.nbti.ai/images/problem_speed_16_04.png', '1', 2, 'N');
+(16, 1, 'https://a3.nbti.ai/images/problem_speed_16_05.png', '3', 2, 'N');
+(16, 1, 'https://a3.nbti.ai/images/problem_speed_16_06.png', '4', 2, 'N');
+
+(16, 1, 'https://a3.nbti.ai/images/problem_speed_16_07.png', '1', 3, 'N');
+(16, 1, 'https://a3.nbti.ai/images/problem_speed_16_08.png', '3', 3, 'N');
+(16, 1, 'https://a3.nbti.ai/images/problem_speed_16_09.png', '4', 3, 'N');
+
+
+INSERT INTO `problem` (`category_id`, `answer_type_id`, `content_image_url`, `correct_answer`, `level`, `is_deleted`) VALUES
+-- 숫자 외우기, 순서대로 기입
+(17, 2, 'https://a3.nbti.ai/images/problem_memory_17_01.png', '3658471290', 1, 'N');
+(17, 2, 'https://a3.nbti.ai/images/problem_memory_17_02.png', '9182736450', 1, 'N');
+(17, 2, 'https://a3.nbti.ai/images/problem_memory_17_03.png', '2046813579', 1, 'N');
+-- 숫자 외우기, 거꾸로 기입
+(17, 2, 'https://a3.nbti.ai/images/problem_memory_17_04.png', '7391026485', 2, 'N');
+(17, 2, 'https://a3.nbti.ai/images/problem_memory_17_05.png', '5823479610', 2, 'N');
+(17, 2, 'https://a3.nbti.ai/images/problem_memory_17_06.png', '4601982735', 2, 'N');
+-- 숫자 외우기, 제시 상관없이 숫자 크기순
+(17, 2, 'https://a3.nbti.ai/images/problem_memory_17_07.png', '1937468205', 3, 'N');
+(17, 2, 'https://a3.nbti.ai/images/problem_memory_17_08.png', '8273619540', 3, 'N');
+(17, 2, 'https://a3.nbti.ai/images/problem_memory_17_09.png', '5102947836', 3, 'N');
+
+
+INSERT INTO `problem` (`category_id`, `answer_type_id`, `content_image_url`, `correct_answer`, `level`, `is_deleted`) VALUES
+(18, 2, 'https://a3.nbti.ai/images/problem_memory_18_01.png', 'ACB', 1, 'N');
+(18, 2, 'https://a3.nbti.ai/images/problem_memory_18_02.png', 'BAC', 1, 'N');
+(18, 2, 'https://a3.nbti.ai/images/problem_memory_18_03.png', 'CAB', 1, 'N');
+
+(18, 2, 'https://a3.nbti.ai/images/problem_memory_18_04.png', 'ACBD', 2, 'N');
+(18, 2, 'https://a3.nbti.ai/images/problem_memory_18_05.png', 'ABCD', 2, 'N');
+(18, 2, 'https://a3.nbti.ai/images/problem_memory_18_06.png', 'ADCB', 2, 'N');
+
+(18, 2, 'https://a3.nbti.ai/images/problem_memory_18_07.png', 'ABCDE', 3, 'N');
+(18, 2, 'https://a3.nbti.ai/images/problem_memory_18_08.png', 'ACDEB', 3, 'N');
+(18, 2, 'https://a3.nbti.ai/images/problem_memory_18_09.png', 'ABCDE', 3, 'N');
+
+
+INSERT INTO `problem` (`category_id`, `answer_type_id`, `content_image_url`, `correct_answer`, `level`, `is_deleted`) VALUES
+(19, 1, 'https://a3.nbti.ai/images/problem_memory_19_01.png', '3', 1, 'N');
+(19, 1, 'https://a3.nbti.ai/images/problem_memory_19_02.png', '2', 1, 'N');
+(19, 1, 'https://a3.nbti.ai/images/problem_memory_19_03.png', '3', 1, 'N');
+
+(19, 2, 'https://a3.nbti.ai/images/problem_memory_19_04.png', '10', 2, 'N');
+(19, 2, 'https://a3.nbti.ai/images/problem_memory_19_05.png', '6', 2, 'N');
+(19, 2, 'https://a3.nbti.ai/images/problem_memory_19_06.png', '6', 2, 'N');
+
+(19, 2, 'https://a3.nbti.ai/images/problem_memory_19_07.png', '24', 3, 'N');
+(19, 2, 'https://a3.nbti.ai/images/problem_memory_19_08.png', '20', 3, 'N');
+(19, 2, 'https://a3.nbti.ai/images/problem_memory_19_09.png', '24', 3, 'N');
+
+
+INSERT INTO `problem` (`category_id`, `answer_type_id`, `content_image_url`, `correct_answer`, `level`, `is_deleted`) VALUES
+-- 임시 데이터
+(20, 1, 'https://a3.nbti.ai/images/problem_spatial_20_01.png', '3', 1, 'N');
+(20, 1, 'https://a3.nbti.ai/images/problem_spatial_20_02.png', '2', 1, 'N');
+(20, 1, 'https://a3.nbti.ai/images/problem_spatial_20_03.png', '3', 1, 'N');
+
+(20, 1, 'https://a3.nbti.ai/images/problem_spatial_20_04.png', '1', 2, 'N');
+(20, 1, 'https://a3.nbti.ai/images/problem_spatial_20_05.png', '4', 2, 'N');
+(20, 1, 'https://a3.nbti.ai/images/problem_spatial_20_06.png', '3', 2, 'N');
+
+(20, 1, 'https://a3.nbti.ai/images/problem_spatial_20_07.png', '1', 3, 'N');
+(20, 1, 'https://a3.nbti.ai/images/problem_spatial_20_08.png', '2', 3, 'N');
+(20, 1, 'https://a3.nbti.ai/images/problem_spatial_20_09.png', '3', 3, 'N');
+
+
+INSERT INTO `problem` (`category_id`, `answer_type_id`, `content_image_url`, `correct_answer`, `level`, `is_deleted`) VALUES
+-- 임시 데이터
+(21, 1, 'https://a3.nbti.ai/images/problem_spatial_21_01.png', '3', 1, 'N');
+(21, 1, 'https://a3.nbti.ai/images/problem_spatial_21_02.png', '2', 1, 'N');
+(21, 1, 'https://a3.nbti.ai/images/problem_spatial_21_03.png', '3', 1, 'N');
+
+(21, 1, 'https://a3.nbti.ai/images/problem_spatial_21_04.png', '1', 2, 'N');
+(21, 1, 'https://a3.nbti.ai/images/problem_spatial_21_05.png', '4', 2, 'N');
+(21, 1, 'https://a3.nbti.ai/images/problem_spatial_21_06.png', '3', 2, 'N');
+
+(21, 1, 'https://a3.nbti.ai/images/problem_spatial_21_07.png', '1', 3, 'N');
+(21, 1, 'https://a3.nbti.ai/images/problem_spatial_21_08.png', '2', 3, 'N');
+(21, 1, 'https://a3.nbti.ai/images/problem_spatial_21_09.png', '3', 3, 'N');
+
+INSERT INTO `problem` (`category_id`, `answer_type_id`, `content_image_url`, `correct_answer`, `level`, `is_deleted`) VALUES
+-- 임시 데이터
+(22, 1, 'https://a3.nbti.ai/images/problem_spatial_22_01.png', '3', 1, 'N');
+(22, 1, 'https://a3.nbti.ai/images/problem_spatial_22_02.png', '2', 1, 'N');
+(22, 1, 'https://a3.nbti.ai/images/problem_spatial_22_03.png', '3', 1, 'N');
+
+(22, 1, 'https://a3.nbti.ai/images/problem_spatial_22_04.png', '1', 2, 'N');
+(22, 1, 'https://a3.nbti.ai/images/problem_spatial_22_05.png', '4', 2, 'N');
+(22, 1, 'https://a3.nbti.ai/images/problem_spatial_22_06.png', '3', 2, 'N');
+
+(22, 1, 'https://a3.nbti.ai/images/problem_spatial_22_07.png', '1', 3, 'N');
+(22, 1, 'https://a3.nbti.ai/images/problem_spatial_22_08.png', '2', 3, 'N');
+(22, 1, 'https://a3.nbti.ai/images/problem_spatial_22_09.png', '3', 3, 'N');
+
+
+-- 검사 결과 테이블
+INSERT INTO `test_result` (
+    `user_id`,
+    `lang_comp`,
+    `general_knowledge`,
+    `perc_reason`,
+    `proc_speed`,
+    `work_memory`,
+    `spatial_perception`,
+    `ai_text`,
+    `created_at`,
+    `is_saved`
+) VALUES
+(15, 6, 3, 4, 2, 5, 6, '언어 이해와 공간 지각력이 매우 뛰어나며, 처리 속도는 개선이 필요합니다.', '2025-05-20 09:00:00', 'Y'),
+(16, 4, 6, 5, 3, 2, 5, '시사 상식과 지각 추론이 강점이며, 작업 기억은 약간 부족합니다.', '2025-05-20 09:01:00', 'Y'),
+(17, 5, 4, 6, 6, 4, 3, '지각 추론과 처리 속도가 매우 뛰어납니다.', '2025-05-20 09:02:00', 'Y'),
+(18, 3, 5, 2, 4, 6, 5, '작업 기억에서 좋은 성과를 보였고, 지각 추론은 보완이 필요합니다.', '2025-05-20 09:03:00', 'Y'),
+(19, 2, 4, 6, 5, 3, 2, '지각 추론은 뛰어나나, 언어 이해와 공간 지각력은 다소 부족합니다.', '2025-05-20 09:04:00', 'Y'),
+(20, 6, 5, 6, 5, 6, 6, '모든 영역에서 우수한 성취를 보였습니다.', '2025-05-20 09:05:00', 'Y'),
+(21, 1, 2, 3, 3, 4, 2, '전반적으로 향상이 필요한 상태입니다.', '2025-05-20 09:06:00', 'Y'),
+(22, 4, 3, 2, 6, 5, 3, '처리 속도가 특히 뛰어납니다.', '2025-05-20 09:07:00', 'Y'),
+(23, 5, 4, 3, 2, 1, 6, '공간 지각력은 우수하며, 작업 기억은 개선이 필요합니다.', '2025-05-20 09:08:00', 'Y'),
+(24, 6, 2, 1, 3, 2, 4, '언어 이해는 매우 뛰어나고, 지각 추론은 보완이 필요합니다.', '2025-05-20 09:09:00', 'Y'),
+(25, 3, 4, 5, 2, 6, 5, '작업 기억과 지각 추론에서 높은 성과를 보였습니다.', '2025-05-20 09:10:00', 'Y'),
+(NULL, 3, 2, 0, 3, 0, 3, '언어 이해는 매우 뛰어나고, 지각 추론은 보완이 필요합니다.', '2025-05-20 09:19:00', 'Y'),
+(NULL, 0, 3, 3, 0, 3, 3, '작업 기억과 지각 추론에서 높은 성과를 보였습니다.', '2025-05-20 09:20:00', 'Y');
+
+
+-- 검사 문제 테이블
+INSERT INTO `test_problem` (`test_result_id`, `problem_id`, `is_correct`, `answer`) VALUES
+(1, 1, 'Y', '1'), (1, 4, 'Y', '2'), (1, 8, 'Y', '2'),
+(1, 24, 'Y', '3'), (1, 26, 'Y', '3'), (1, 28, 'N', '2'),
+(1, 45, 'Y', '4'), (1, 49, 'Y', '1'), (1, 52, 'N', '3'),
+(1, 81, 'Y', '1'), (1, 84, 'N', '4'), (1, 88, 'N', '3'),
+(1, 93, 'Y', '3658471290'), (1, 95, 'Y', '5823479610'), (1, 97, 'N', '8273619540'),
+(1, 108, 'Y', '3'), (1, 111, 'Y', '4'), (1, 115, 'Y', '2'),
+
+(2, 1, 'Y', '1'), (2, 4, 'Y', '2'), (2, 8, 'N', '2'),
+(2, 24, 'Y', '3'), (2, 26, 'Y', '3'), (2, 28, 'Y', '2'),
+(2, 45, 'Y', '4'), (2, 49, 'Y', '1'), (2, 52, 'N', '3'),
+(2, 81, 'Y', '1'), (2, 84, 'Y', '4'), (2, 88, 'N', '3'),
+(2, 93, 'Y', '3658471290'), (2, 95, 'N', '5823479610'), (2, 97, 'N', '8273619540'),
+(2, 108, 'Y', '3'), (2, 111, 'Y', '4'), (2, 115, 'Y', '2'),
+
+(3, 1, 'Y', '1'), (3, 4, 'Y', '2'), (3, 8, 'N', '2'),
+(3, 24, 'Y', '3'), (3, 26, 'N', '3'), (3, 28, 'Y', '2'),
+(3, 45, 'Y', '4'), (3, 49, 'Y', '1'), (3, 52, 'Y', '3'),
+(3, 81, 'Y', '1'), (3, 84, 'Y', '4'), (3, 88, 'Y', '3'),
+(3, 93, 'Y', '3658471290'), (3, 95, 'Y', '5823479610'), (3, 97, 'N', '8273619540'),
+(3, 108, 'Y', '3'), (3, 111, 'N', '4'), (3, 115, 'Y', '2'),
+
+(4, 1, 'Y', '1'), (4, 4, 'N', '2'), (4, 8, 'Y', '2'),
+(4, 24, 'Y', '3'), (4, 26, 'Y', '3'), (4, 28, 'N', '2'),
+(4, 45, 'Y', '4'), (4, 49, 'N', '1'), (4, 52, 'N', '3'),
+(4, 81, 'Y', '1'), (4, 84, 'Y', '4'), (4, 88, 'Y', '3'),
+(4, 93, 'Y', '3658471290'), (4, 95, 'Y', '5823479610'), (4, 97, 'Y', '8273619540'),
+(4, 108, 'Y', '3'), (4, 111, 'Y', '4'), (4, 115, 'N', '2'),
+
+(5, 1, 'Y', '1'), (5, 4, 'N', '2'), (5, 8, 'N', '2'),
+(5, 24, 'Y', '3'), (5, 26, 'Y', '3'), (5, 28, 'Y', '2'),
+(5, 45, 'Y', '4'), (5, 49, 'Y', '1'), (5, 52, 'Y', '3'),
+(5, 81, 'Y', '1'), (5, 84, 'Y', '4'), (5, 88, 'N', '3'),
+(5, 93, 'Y', '3658471290'), (5, 95, 'Y', '5823479610'), (5, 97, 'N', '8273619540'),
+(5, 108, 'N', '3'), (5, 111, 'N', '4'), (5, 115, 'Y', '2'),
+
+(6, 1, 'Y', '1'), (6, 4, 'Y', '2'), (6, 8, 'Y', '2'),
+(6, 24, 'Y', '3'), (6, 26, 'Y', '3'), (6, 28, 'Y', '2'),
+(6, 45, 'Y', '4'), (6, 49, 'Y', '1'), (6, 52, 'Y', '3'),
+(6, 81, 'Y', '1'), (6, 84, 'Y', '4'), (6, 88, 'Y', '3'),
+(6, 93, 'Y', '3658471290'), (6, 95, 'Y', '5823479610'), (6, 97, 'Y', '8273619540'),
+(6, 108, 'Y', '3'), (6, 111, 'Y', '4'), (6, 115, 'Y', '2'),
+
+(7, 1, 'Y', '1'), (7, 4, 'N', '2'), (7, 8, 'N', '2'),
+(7, 24, 'N', '3'), (7, 26, 'Y', '3'), (7, 28, 'N', '2'),
+(7, 45, 'Y', '4'), (7, 49, 'Y', '1'), (7, 52, 'N', '3'),
+(7, 81, 'Y', '1'), (7, 84, 'Y', '4'), (7, 88, 'N', '3'),
+(7, 93, 'Y', '3658471290'), (7, 95, 'Y', '5823479610'), (7, 97, 'N', '8273619540'),
+(7, 108, 'N', '3'), (7, 111, 'N', '4'), (7, 115, 'Y', '2'),
+
+(8, 1, 'Y', '1'), (8, 4, 'Y', '2'), (8, 8, 'N', '2'),
+(8, 24, 'Y', '3'), (8, 26, 'N', '3'), (8, 28, 'N', '2'),
+(8, 45, 'N', '4'), (8, 49, 'Y', '1'), (8, 52, 'N', '3'),
+(8, 81, 'Y', '1'), (8, 84, 'Y', '4'), (8, 88, 'Y', '3'),
+(8, 93, 'Y', '3658471290'), (8, 95, 'Y', '5823479610'), (8, 97, 'N', '8273619540'),
+(8, 108, 'Y', '3'), (8, 111, 'N', '4'), (8, 115, 'Y', '2'),
+
+(9, 1, 'Y', '1'), (9, 4, 'Y', '2'), (9, 8, 'N', '2'),
+(9, 24, 'Y', '3'), (9, 26, 'Y', '3'), (9, 28, 'N', '2'),
+(9, 45, 'Y', '4'), (9, 49, 'N', '1'), (9, 52, 'N', '3'),
+(9, 81, 'Y', '1'), (9, 84, 'N', '4'), (9, 88, 'N', '3'),
+(9, 93, 'Y', '3658471290'), (9, 95, 'N', '5823479610'), (9, 97, 'N', '8273619540'),
+(9, 108, 'Y', '3'), (9, 111, 'Y', '4'), (9, 115, 'Y', '2'),
+
+(10, 1, 'Y', '1'), (10, 4, 'Y', '2'), (10, 8, 'Y', '2'),
+(10, 24, 'N', '3'), (10, 26, 'N', '3'), (10, 28, 'Y', '2'),
+(10, 45, 'N', '4'), (10, 49, 'N', '1'), (10, 52, 'Y', '3'),
+(10, 81, 'Y', '1'), (10, 84, 'Y', '4'), (10, 88, 'N', '3'),
+(10, 93, 'Y', '3658471290'), (10, 95, 'Y', '5823479610'), (10, 97, 'Y', '8273619540'),
+(10, 108, 'Y', '3'), (10, 111, 'Y', '4'), (10, 115, 'N', '2'),
+
+(11, 1, 'Y', '1'), (11, 4, 'Y', '2'), (11, 8, 'N', '2'),
+(11, 24, 'Y', '3'), (11, 26, 'Y', '3'), (11, 28, 'Y', '2'),
+(11, 45, 'Y', '4'), (11, 49, 'Y', '1'), (11, 52, 'Y', '3'),
+(11, 81, 'Y', '1'), (11, 84, 'N', '4'), (11, 88, 'N', '3'),
+(11, 93, 'Y', '3658471290'), (11, 95, 'Y', '5823479610'), (11, 97, 'Y', '8273619540'),
+(11, 108, 'Y', '3'), (11, 111, 'Y', '4'), (11, 115, 'Y', '2'),
+
+(12, 1, 'Y', '1'), (12, 4, 'Y', '2'), (12, 8, 'Y', '2'),
+(12, 24, 'N', '3'), (12, 26, 'N', '3'), (12, 28, 'Y', '2'),
+(12, 45, 'N', '4'), (12, 49, 'N', '1'), (12, 52, 'Y', '3'),
+(12, 81, 'Y', '1'), (12, 84, 'Y', '4'), (12, 88, 'N', '3'),
+(12, 93, 'Y', '3658471290'), (12, 95, 'Y', '5823479610'), (12, 97, 'Y', '8273619540'),
+(12, 108, 'Y', '3'), (12, 111, 'Y', '4'), (12, 115, 'N', '2'),
+
+(13, 1, 'Y', '1'), (13, 4, 'Y', '2'), (13, 8, 'N', '2'),
+(13, 24, 'Y', '3'), (13, 26, 'Y', '3'), (13, 28, 'Y', '2'),
+(13, 45, 'Y', '4'), (13, 49, 'Y', '1'), (13, 52, 'Y', '3'),
+(13, 81, 'Y', '1'), (13, 84, 'N', '4'), (13, 88, 'N', '3'),
+(13, 93, 'Y', '3658471290'), (13, 95, 'Y', '5823479610'), (13, 97, 'Y', '8273619540'),
+(13, 108, 'Y', '3'), (13, 111, 'Y', '4'), (13, 115, 'Y', '2');

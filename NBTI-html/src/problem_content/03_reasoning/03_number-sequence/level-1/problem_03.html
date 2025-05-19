@@ -57,7 +57,7 @@
             <div class="answer">정답: <span id="answer"></span></div>
         </div>
         <div class="button">
-            <a href="problem_01.html" class="btn">이전</a>
+            <a href="problem_02.html" class="btn">이전</a>
             <a href="problem_03.html" class="btn">다음</a>
         </div>
     </main>
@@ -67,16 +67,16 @@
     // 문제 데이터 넣는 부분 (이것만 바꾸면 됨)
     const problemData = {
         instruction: "다음 ( ? ) 안에 들어갈 수로 가장 적절한 것을 고르면?",
-        passage : "( 1 ) - ( 2 ) - ( 4 ) - ( 8 ) - ( ? )",
+        passage : "( 2 ) - ( 5 ) - ( 8 ) - ( 11 ) - ( ? )",
         choices: [
+            "12",
             "13",
             "14",
             "15",
-            "16",
-            "17"
+            "16"
         ],
         answer: 2,
-        explanation: "'덤벙대는 사람'은 생각 없이 말하거나 행동하는 사람을 의미합니다. 소심하다, 야무지다, 차분하다는 다른 의미입니다."
+        explanation: "3씩 증가하는 등차수열입니다. 2 → 5 → 8 → 11 → 14"
     };
 
     document.getElementById('instruction').textContent = problemData.instruction;
