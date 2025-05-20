@@ -70,10 +70,10 @@
             padding: 2rem 3rem;
         }
         .section-title {
+            margin-bottom: 1.5rem;
             font-size: 1.4rem;
-            font-weight: bold;
-            margin-bottom: 1.2rem;
-            color: var(--color-deep);
+            border-bottom: 2px solid #ddd;
+            padding-bottom: 0.5rem;
         }
         .card {
             background: #fff;
@@ -135,57 +135,90 @@
             font-size: 0.95rem;
             line-height: 1.6;
         }
-        .filters {
+        .filter-bar {
             display: flex;
-            gap: 1rem;
-            margin-bottom: 2rem;
             flex-wrap: wrap;
+            gap: 0.75rem;
+            margin-bottom: 2rem;
+            align-items: center;
         }
-        .filters select {
-            padding: 0.5rem 1rem;
+
+        .filter-bar label {
+            font-size: 0.95rem;
+        }
+
+        .filter-bar select {
+            padding: 0.4rem 0.6rem;
             border: 1px solid #ccc;
-            border-radius: 8px;
+            border-radius: 6px;
+            background: #fff;
+        }
+
+        .filter-bar button {
+            padding: 0.45rem 1.2rem;
+            background: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
         }
         .results-list {
             display: flex;
             flex-direction: column;
             gap: 1.5rem;
         }
-
         .result-entry {
             background: #ffffff;
             padding: 1.5rem 2rem;
             border-radius: 16px;
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
             transition: box-shadow 0.2s ease;
-        }
-
-        .result-entry:hover {
-            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08);
-        }
-
-        .result-date {
-            font-size: 0.95rem;
-            color: #555;
-            margin-bottom: 0.7rem;
-        }
-
-        .result-content {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            flex-wrap: wrap;
-            gap: 1rem;
-            font-size: 0.97rem;
         }
-
-        .result-fields {
-            flex-grow: 1;
+        .result-entry:hover {
+            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08);
         }
-
-        .result-score {
+        .card-left {
+            display: flex;
+            flex-direction: column;
+            gap: 0.4rem;
+        }
+        .card-left .field {
+            font-size: 1.1rem;
             font-weight: 600;
-            color: #1e3a8a;
+            color: var(--color-deep);
+        }
+        .card-left .score {
+            font-size: 1rem;
+            font-weight: 500;
+            color: #111;
+            margin-left: 10px;
+        }
+        .card-right {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+        }
+        .card-right .datetime {
+            font-size: 0.85rem;
+            color: #888;
+        }
+        .card-right .btn-detail {
+            background: var(--color-main);
+            color: #fff;
+            padding: 0.45rem 1rem;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            border: none;
+            text-decoration: none;
+            white-space: nowrap;
+        }
+        .card-right .btn-detail:hover {
+            background: var(--color-deep);
         }
 
         .btn-detail {
@@ -201,6 +234,29 @@
         .btn-detail:hover {
             background: #1e3a8a;
         }
+        .tags {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+        }
+
+        .badge {
+            padding: 0.3rem 0.7rem;
+            font-size: 0.85rem;
+            border-radius: 999px;
+            font-weight: 500;
+        }
+
+        .badge-strong {
+            background-color: #e0f2fe;
+            color: #2563eb;
+        }
+
+        .badge-weak {
+            background-color: #fef2f2;
+            color: #dc2626;
+        }
+
     </style>
 </head>
 <body>
@@ -302,7 +358,7 @@
         <section>
             <h2 class="section-title">검사 결과 목록</h2>
 
-            <div class="filters">
+            <div class="filter-bar">
                 <select>
                     <option selected>2025년</option>
                     <option>2024년</option>
@@ -317,39 +373,47 @@
                     <option>최신순</option>
                     <option>과거순</option>
                 </select>
+                <button>검색</button>
             </div>
 
             <div class="results-list">
                 <div class="result-entry">
-                    <div class="result-date">📅 2025년 5월 10일</div>
-                    <div class="result-content">
-                        <div class="result-fields">
-                            높은 분야: 지각 추론 / 낮은 분야: 작업 기억
+                    <div class="card-left">
+                        <div class="tags">
+                            <span class="badge badge-strong">강점: 지각 추론</span>
+                            <span class="badge badge-weak">약점: 작업 기억</span>
                         </div>
-                        <div class="result-score">총점: 85점</div>
-                        <a href="#" class="btn-detail">상세보기</a>
+                        <div class="score">총점: 85점</div>
+                    </div>
+                    <div class="card-right">
+                        <div class="datetime">2025년 5월 10일</div>
+                        <a href="#" class="btn-detail">상세 보기</a>
                     </div>
                 </div>
-
                 <div class="result-entry">
-                    <div class="result-date">📅 2025년 4월 25일</div>
-                    <div class="result-content">
-                        <div class="result-fields">
-                            높은 분야: 언어 이해 / 낮은 분야: 공간 지각력
+                    <div class="card-left">
+                        <div class="tags">
+                            <span class="badge badge-strong">강점: 언어 이해</span>
+                            <span class="badge badge-weak">약점: 공간 지각력</span>
                         </div>
-                        <div class="result-score">총점: 78점</div>
-                        <a href="#" class="btn-detail">상세보기</a>
+                        <div class="score">총점: 78점</div>
+                    </div>
+                    <div class="card-right">
+                        <div class="datetime">2025년 4월 25일</div>
+                        <a href="#" class="btn-detail">상세 보기</a>
                     </div>
                 </div>
-
                 <div class="result-entry">
-                    <div class="result-date">📅 2025년 4월 10일</div>
-                    <div class="result-content">
-                        <div class="result-fields">
-                            높은 분야: 시사 상식 / 낮은 분야: 처리 속도
+                    <div class="card-left">
+                        <div class="tags">
+                            <span class="badge badge-strong">강점: 시사 상식</span>
+                            <span class="badge badge-weak">약점: 처리 속도</span>
                         </div>
-                        <div class="result-score">총점: 82점</div>
-                        <a href="#" class="btn-detail">상세보기</a>
+                        <div class="score">총점: 82점</div>
+                    </div>
+                    <div class="card-right">
+                        <div class="datetime">2025년 4월 10일</div>
+                        <a href="#" class="btn-detail">상세 보기</a>
                     </div>
                 </div>
             </div>

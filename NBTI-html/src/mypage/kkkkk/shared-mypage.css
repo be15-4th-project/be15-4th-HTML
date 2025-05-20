@@ -1,0 +1,407 @@
+/* =========================================
+   🌐 색상 변수 정의
+========================================= */
+:root {
+    --color-deep: #1e3a8a;
+    --color-main: #3b82f6;
+    --color-light: #93c5fd;
+    --color-error: #d32f2f;
+    --color-success: #2e7d32;
+    --color-warning: #ff9800;
+    --color-muted: #888;
+    --bg-light: #f8f9fa;
+    --bg-white: #fff;
+}
+
+/* =========================================
+   🧱 기본 레이아웃
+========================================= */
+body {
+    font-family: 'Pretendard', sans-serif;
+    margin: 0;
+    background: var(--bg-light);
+    color: #333;
+}
+
+.header {
+    background: var(--bg-white);
+    border-bottom: 1px solid #ddd;
+    padding: 1rem 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.header .logo {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: var(--color-main);
+}
+
+.header .menu a {
+    margin-left: 1rem;
+    text-decoration: none;
+    color: #333;
+}
+
+.layout {
+    display: flex;
+}
+
+.sidebar {
+    width: 220px;
+    background: var(--bg-white);
+    border-right: 1px solid #ddd;
+    padding: 2rem 1rem;
+    height: 100vh;
+    box-sizing: border-box;
+    position: sticky;
+    top: 0;
+}
+
+.sidebar h3 {
+    font-size: 1.2rem;
+    margin-bottom: 1rem;
+}
+
+.sidebar a {
+    display: block;
+    padding: 0.75rem 1rem;
+    margin-bottom: 0.5rem;
+    border-radius: 8px;
+    text-decoration: none;
+    color: #333;
+}
+
+.sidebar a:hover,
+.sidebar a.active {
+    background: #e9f0ff;
+    color: var(--color-main);
+    font-weight: 500;
+}
+
+.content {
+    flex: 1;
+    padding: 2rem 3rem;
+}
+
+/* =========================================
+   📌 섹션
+========================================= */
+.section {
+    margin-bottom: 80px;
+}
+
+.section-title,
+.section h2 {
+    font-size: 1.4rem;
+    margin-bottom: 1.5rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 2px solid #ddd;
+}
+
+/* =========================================
+   🔍 필터 바
+========================================= */
+.filter-bar {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    margin-bottom: 2rem;
+    align-items: center;
+}
+
+.filter-bar label {
+    font-size: 0.95rem;
+}
+
+.filter-bar select {
+    padding: 0.4rem 0.6rem;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    background: #fff;
+}
+
+.filter-bar button {
+    padding: 0.45rem 1.2rem;
+    background: var(--color-main);
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+/* =========================================
+   📊 최근 검사 결과 카드
+========================================= */
+.card {
+    background: var(--bg-white);
+    border-radius: 16px;
+    padding: 2rem;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.04);
+    margin-bottom: 3rem;
+}
+
+
+.chart-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2rem;
+    margin-bottom: 2.5rem;
+    justify-content: space-between;
+}
+
+.chart-box {
+    flex: 1 1 480px;
+    max-width: 100%;
+    min-width: 300px;
+    aspect-ratio: 4 / 3; /* 비율 기반 */
+    background: #fff;
+    padding: 1rem;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.chart-box canvas {
+    width: 100% !important;
+    height: 100% !important;
+}
+
+.chart-box.radar {
+    display: flex;
+    justify-content: center;
+}
+
+.chart-box.line {
+    display: flex;
+    align-items: flex-end;
+}
+
+.chart-box.radar canvas {
+    width: auto !important;
+    height: 100% !important;
+}
+
+.chart-box.line canvas {
+    width: 100% !important;
+    height: auto !important;
+}
+
+
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(280px, 1fr));
+    gap: 1.8rem;
+    margin-bottom: 2rem;
+}
+
+.grid-item {
+    background: #f9fafb;
+    border-radius: 16px;
+    padding: 1.5rem;
+    border: 1px solid #e5e7eb;
+}
+
+.score-header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 0.75rem;
+}
+
+.category-title {
+    font-weight: 600;
+    color: var(--color-deep);
+}
+
+.score-num {
+    color: var(--color-main);
+    font-weight: 500;
+}
+
+.score-bar {
+    height: 10px;
+    background: #f1f5f9;
+    border-radius: 8px;
+    overflow: hidden;
+    margin-bottom: 0.75rem;
+}
+
+.score-bar .bar {
+    height: 100%;
+    background: linear-gradient(to right, var(--color-main), var(--color-light));
+}
+
+.category-content {
+    font-size: 0.92rem;
+    color: #555;
+}
+
+.ai-summary-card {
+    background: #f0f4ff;
+    padding: 1.8rem;
+    border-radius: 16px;
+    border: 1px solid #dbeafe;
+    font-size: 0.95rem;
+    line-height: 1.6;
+}
+
+/* =========================================
+   📋 결과 카드 (검사/학습 공용)
+========================================= */
+.result-card,
+.result-entry {
+    background: var(--bg-white);
+    border-radius: 16px;
+    padding: 1.5rem 2rem;
+    margin-bottom: 1rem;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.06);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: box-shadow 0.2s ease;
+}
+
+.result-card:hover,
+.result-entry:hover {
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+}
+
+.card-left {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.card-left .field {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--color-deep);
+}
+
+.card-left .score {
+    font-size: 1rem;
+    font-weight: 500;
+    color: #111;
+}
+
+.card-right {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 12px;
+}
+
+.card-right .datetime {
+    font-size: 0.85rem;
+    color: var(--color-muted);
+}
+
+.card-right .btn-detail,
+.card-right .btn-view,
+.btn {
+    background: var(--color-main);
+    color: #fff;
+    padding: 0.45rem 1rem;
+    border-radius: 8px;
+    font-size: 0.9rem;
+    border: none;
+    text-decoration: none;
+    white-space: nowrap;
+    cursor: pointer;
+}
+
+.card-right .btn-detail:hover,
+.card-right .btn-view:hover,
+.btn:hover {
+    background: var(--color-deep);
+}
+
+/* =========================================
+   🏷️ 검사 결과 뱃지
+========================================= */
+.tags {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+}
+
+.badge {
+    padding: 0.3rem 0.7rem;
+    font-size: 0.85rem;
+    border-radius: 999px;
+    font-weight: 500;
+}
+
+.badge-strong {
+    background-color: #e0f2fe;
+    color: #2563eb;
+}
+
+.badge-weak {
+    background-color: #fef2f2;
+    color: var(--color-error);
+}
+
+/* =========================================
+   🧾 이의제기 테이블
+========================================= */
+.table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.95rem;
+}
+
+.table thead {
+    background: #f1f5f9;
+}
+
+.table th,
+.table td {
+    padding: 0.9rem 1rem;
+    text-align: left;
+    border-bottom: 1px solid #e5e7eb;
+}
+
+.table td:last-child {
+    text-align: right;
+}
+
+.table tbody tr:hover {
+    background-color: #f9fbff;
+}
+
+/* =========================================
+   🚦 상태 뱃지
+========================================= */
+.status {
+    padding: 0.35rem 0.75rem;
+    border-radius: 999px;
+    font-size: 0.82rem;
+    font-weight: 500;
+    display: inline-block;
+}
+
+.status.pending {
+    background: #e0f3ff;
+    color: #007bff;
+}
+
+.status.accepted {
+    background: #e8f5e9;
+    color: var(--color-success);
+}
+
+.status.rejected {
+    background: #fdecea;
+    color: var(--color-error);
+}
+
+.status.processing {
+    background: #fff3cd;
+    color: var(--color-warning);
+}
