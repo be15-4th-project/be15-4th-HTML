@@ -7,9 +7,9 @@
   <link rel="stylesheet" href="../../../problem-style-2.css">
   <style>
     :root {
-      --top-color: #e0f2fe;
-      --left-color: #93c5fd;
-      --right-color: #3b82f6;
+      --top-color: #d1fae5;   /* 연한 민트 */
+      --left-color: #6ee7b7;  /* 상큼한 연초록 */
+      --right-color: #10b981; /* 진한 에메랄드 그린 */
     }
     .choice {
       gap: 2rem;
@@ -106,8 +106,8 @@
       <div class="choices" id="choices"></div>
       <div class="answer">정답: 3<span id="answer"></span></div>
       <div class="button">
-        <a href="problem_01.html" class="btn">이전</a>
-        <a href="problem_02.html" class="btn">다음</a>
+        <a href="problem_02.html" class="btn">이전</a>
+        <a href="problem_03.html" class="btn">다음</a>
       </div>
     </div>
   </main>
@@ -115,10 +115,10 @@
 
 <script>
   const choiceData = [
-    { top: 'var(--top-color)', left: 'var(--left-color)', right: 'var(--right-color)' }, // 1
-    { top: 'var(--left-color)', left: 'var(--right-color)', right: 'var(--top-color)' }, // 2
-    { top: 'var(--top-color)', left: 'var(--right-color)', right: 'var(--left-color)' }, // 3
-    { top: 'var(--right-color)', left: 'var(--top-color)', right: 'var(--left-color)' } // 4
+    { top: 'var(--left-color)', left: 'var(--right-color)', right: 'var(--top-color)' }, // 1
+    { top: 'var(--top-color)', left: 'var(--left-color)', right: 'var(--right-color)' }, //4
+    { top: 'var(--top-color)', left: 'var(--right-color)', right: 'var(--left-color)' }, // 2
+    { top: 'var(--right-color)', left: 'var(--top-color)', right: 'var(--left-color)' }, // 3
   ];
 
   const topColor = 'var(--top-color)';

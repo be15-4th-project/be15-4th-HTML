@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8" />
+    <title>두뇌 트레이닝 - 공간지각력 - 퍼즐</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pretendard@1.3.8/dist/web/static/pretendard.css" />
+    <link rel="stylesheet" href="../../../problem-style-2.css">
+    <style>
+        .main-figure {
+            width: 210px;
+            height: 90px;
+            background: #776397;
+            border: 2px solid #000;
+            margin-bottom: 2.5rem;
+        }
+
+        .choices-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 120px);
+            gap: 2.5rem 4rem;
+            justify-content: center;
+            margin-bottom: 2rem;
+        }
+
+        .shape {
+            width: 70px;
+            height: 70px;
+            background: #776397;
+            position: relative;
+            margin-top : 20px;
+            margin-bottom: 10px;
+            margin-left: 10px;
+            margin-right: 10px;
+        }
+
+        .cut-square-bottom {
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 20px;
+            height: 20px;
+            background: white;
+        }
+
+        .cut-semicircle-bottom {
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 28px;
+            height: 18px;
+            background: white;
+            border-radius: 14px 14px 0 0;
+        }
+
+        .pillar-top {
+            position: absolute;
+            top: -18px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 20px;
+            height: 18px;
+            background: #776397;
+        }
+
+        .cut-semicircle-right {
+            position: absolute;
+            top: 50%;
+            right: 0;
+            transform: translateY(-50%);
+            width: 20px;
+            height: 24px;
+            background: white;
+            border-radius: 12px 0 0 12px;
+        }
+
+        .round-right {
+            position: absolute;
+            top: 50%;
+            right: -16px;
+            transform: translateY(-50%);
+            width: 28px;
+            height: 28px;
+            background: #776397;
+            border-radius: 50%;
+        }
+
+        .round-left {
+            position: absolute;
+            top: 50%;
+            left: -16px;
+            transform: translateY(-50%);
+            width: 28px;
+            height: 28px;
+            background: #776397;
+            border-radius: 50%;
+        }
+    </style>
+</head>
+<body>
+
+<header class="header">
+    <div class="logo">두뇌 트레이닝</div>
+    <nav class="menu">
+        <a href="../../../01_language/01_orthography/level-1/problem_01.html">언어 이해</a>
+        <a href="../../../02_current_affairs/01_society/level-1/problem_01.html">시사 상식</a>
+        <a href="../level-1/problem_01.html" class="active">지각 추론</a>
+        <a href="../../../04_processing_speed/01_identical-find/level-1/problem_01.html">처리 속도</a>
+        <a href="../../../05_working_memory/01_number-memory/level-1/problem_01.html">작업 기억</a>
+        <a href="../../../06_spatial/01_rotation-puzzle/level-1/problem_01.html">공간 지각</a>
+    </nav>
+</header>
+
+<div class="page-content">
+    <aside class="sidebar">
+        <h2>지각 추론</h2>
+        <div class="category">
+            <div class="category-title">행렬 추론</div>
+            <ul>
+                <li><a href="../../01_matrix/level-1/problem_01.html">레벨 1</a></li>
+                <li><a href="../../01_matrix/level-2/problem_01.html">레벨 2</a></li>
+                <li><a href="../../01_matrix/level-2/problem_03.html">레벨 3</a></li>
+            </ul>
+        </div>
+        <div class="category active">
+            <div class="category-title active">퍼즐</div>
+            <ul>
+                <li><a href="../../02_puzzle/level-1/problem_01.html">레벨 1</a></li>
+                <li><a href="../../02_puzzle/level-2/problem_01.html">레벨 2</a></li>
+                <li><a href="../../02_puzzle/level-3/problem_01.html" class="active">레벨 3</a></li>
+            </ul>
+        </div>
+        <div class="category">
+            <div class="category-title">수의 규칙</div>
+            <ul>
+                <li><a href="../../03_number-sequence/level-1/problem_01.html">레벨 1</a></li>
+                <li><a href="../../03_number-sequence/level-2/problem_01.html">레벨 2</a></li>
+                <li><a href="../../03_number-sequence/level-3/problem_01.html">레벨 3</a></li>
+            </ul>
+        </div>
+    </aside>
+
+    <main class="content-wrapper">
+        <div class="container">
+            <h2 class="instruction">다음 중 이 도형의 구성 요소가 아닌 유일한 것은?</h2>
+            <div class="content">
+                <div class="main-figure"></div>
+                <div class="choices" id="choices-grid"></div>
+            </div>
+            <div class="answer">정답: <span id="answer">4</span></div>
+            <div class="button">
+                <a href="problem_02.html" class="btn">이전</a>
+                <a href="problem_03.html" class="btn">다음</a>
+            </div>
+        </div>
+    </main>
+</div>
+
+<script>
+    const options = [
+        function shape1(container) {
+            const cut = document.createElement('div');
+            cut.className = 'cut-semicircle-bottom';
+            container.appendChild(cut);
+        },
+        function shape2(container) {
+            const cut = document.createElement('div');
+            cut.className = 'cut-semicircle-right';
+            container.appendChild(cut);
+        },
+        function shape3(container) {
+            const round = document.createElement('div');
+            round.className = 'round-right';
+            const round2 = document.createElement('div');
+            round2.className = 'round-left';
+            container.appendChild(round);
+            container.appendChild(round2);
+        },
+        function shape4(container) {
+            const horn = document.createElement('div');
+            horn.style.position = 'absolute';
+            horn.style.top = '-20px';
+            horn.style.left = '10px';
+            horn.style.width = '50px';
+            horn.style.height = '20px';
+            horn.style.background = '#776397';
+            horn.style.clipPath = 'polygon(0 100%, 50% 0, 100% 100%)';
+            container.appendChild(horn);
+        }
+    ];
+
+    const grid = document.getElementById('choices-grid');
+    document.getElementById('answer').textContent = '4';
+    grid.innerHTML = '';
+    options.forEach((renderShape, idx) => {
+        const option = document.createElement('div');
+        option.className = 'choice';
+
+        const shape = document.createElement('div');
+        shape.className = 'shape';
+
+        renderShape(shape);
+
+        const label = document.createElement('div');
+        label.textContent = `${idx + 1}.`;
+
+        option.appendChild(label);
+        option.appendChild(shape);
+        grid.appendChild(option);
+    });
+</script>
+
+
+</body>
+</html>

@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>두뇌 트레이닝 - 공간지각력</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pretendard@1.3.8/dist/web/static/pretendard.css">
+  <link rel="stylesheet" href="../../../problem-style-2.css">
+  <style>
+    .container {
+      width: 750px;
+    }
+    .figure-box {
+      width: 180px;
+      height: 180px;
+      position: relative;
+      border: 2px solid #ccc;
+      background: white;
+    }
+
+    .triangle {
+      width: 0;
+      height: 0;
+      position: absolute;
+      border-left: 35px solid transparent;
+      border-right: 35px solid transparent;
+      border-bottom: 60px solid #333;
+    }
+
+    .triangle.small {
+      border-left-width: 20px;
+      border-right-width: 20px;
+      border-bottom-width: 30px;
+    }
+
+    .circle {
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      border: 2px solid #000;
+      position: absolute;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .square {
+      width: 36px;
+      height: 36px;
+      background: #000;
+      transform: rotate(45deg);
+    }
+
+    .choice {
+      width: 100%;
+    }
+    .figure-box.shrink {
+      width: 180px;
+      height: 180px;
+      /*transform: scale(0.6);*/
+      /*transform-origin: top left;*/
+    }
+
+  </style>
+</head>
+<body>
+<header class="header">
+  <div class="logo">두뇌 트레이닝</div>
+  <nav class="menu">
+    <a href="../../../01_language/01_orthography/level-1/problem_01.html">언어 이해</a>
+    <a href="../../../02_current_affairs/01_society/level-1/problem_01.html">시사 상식</a>
+    <a href="../../../03_reasoning/01_matrix/level-1/problem_01.html">지각 추론</a>
+    <a href="../../../04_processing_speed/01_identical-find/level-1/problem_01.html">처리 속도</a>
+    <a href="../../../05_working_memory/01_number-memory/level-1/problem_01.html">작업 기억</a>
+    <a href="../level-1/problem_01.html" class="active">공간 지각</a>
+  </nav>
+</header>
+
+<div class="page-content">
+  <aside class="sidebar">
+    <h2>공간 지각</h2>
+    <div class="category active">
+      <div class="category-title active">회전 퍼즐</div>
+      <ul>
+        <li><a href="../../01_rotation-puzzle/level-1/problem_01.html">레벨 1</a></li>
+        <li><a href="../../01_rotation-puzzle/level-2/problem_01.html">레벨 2</a></li>
+        <li><a href="../../01_rotation-puzzle/level-3/problem_01.html" class="active">레벨 3</a></li>
+      </ul>
+    </div>
+    <div class="category">
+      <div class="category-title">거울 대칭</div>
+      <ul>
+        <li><a href="../../02_mirror-symmetry/level-1/problem_01.html">레벨 1</a></li>
+        <li><a href="../../02_mirror-symmetry/level-2/problem_01.html">레벨 2</a></li>
+        <li><a href="../../02_mirror-symmetry/level-3/problem_01.html">레벨 3</a></li>
+      </ul>
+    </div>
+    <div class="category">
+      <div class="category-title">전개도</div>
+      <ul>
+        <li><a href="../../03_unfolded/level-1/problem_01.html">레벨 1</a></li>
+        <li><a href="../../03_unfolded/level-2/problem_01.html">레벨 2</a></li>
+        <li><a href="../../03_unfolded/level-3/problem_01.html">레벨 3</a></li>
+      </ul>
+    </div>
+  </aside>
+
+  <main class="content-wrapper">
+    <div class="container">
+      <h2 class="instruction">아래의 도형을 시계방향으로 180도 회전한 결과를 고르세요.</h2>
+
+      <div class="content">
+        <div id="question" class="figure-box"></div>
+
+        <div class="choices" id="choices"></div>
+      </div>
+      <div class="answer">정답: 2</div>
+      <div class="button">
+        <a href="problem_01.html" class="btn">이전</a>
+        <a href="problem_03.html" class="btn">다음</a>
+      </div>
+    </div>
+  </main>
+</div>
+
+<script>
+  const FIGURES = {
+    question: [
+      { cls: 'triangle big', style: 'top:30px; left:30px; transform:rotate(30deg);' },
+      { cls: 'triangle small', style: 'top:40px; right:20px; transform:rotate(60deg);' },
+      { cls: 'circle', style: 'bottom:20px; left:40px;', square: 'rotate(45deg)' }
+    ],
+    choices: [
+      [
+        { cls: 'triangle big', style: 'bottom:30px; right:30px; transform:rotate(210deg);' },
+        { cls: 'triangle small', style: 'bottom:40px; left:20px; transform:rotate(240deg);' },
+        { cls: 'circle', style: 'top:20px; right:40px;', square: 'rotate(45deg)' }
+      ],
+      [
+        { cls: 'triangle big', style: 'bottom:30px; right:30px; transform:rotate(90deg);' },
+        { cls: 'triangle small', style: 'bottom:40px; left:20px; transform:rotate(240deg);' },
+        { cls: 'circle', style: 'top:20px; right:40px;', square: 'rotate(45deg)' }
+      ],
+      [
+        { cls: 'triangle big', style: 'bottom:30px; left:30px; transform:rotate(210deg);' },
+        { cls: 'triangle small', style: 'bottom:40px; right:20px; transform:rotate(120deg);' },
+        { cls: 'circle', style: 'top:20px; left:40px;', square: 'rotate(45deg)' }
+      ],
+      [
+        { cls: 'triangle big', style: 'bottom:30px; right:30px; transform:rotate(210deg);' },
+        { cls: 'triangle small', style: 'bottom:40px; left:20px; transform:rotate(120deg);' },
+        { cls: 'circle', style: 'top:20px; right:40px;', square: 'rotate(225deg)' }
+      ]
+    ]
+  };
+
+  function createFigure(container, elements, shrink = false) {
+    const box = document.createElement('div');
+    box.className = 'figure-box' + (shrink ? ' shrink' : '');
+    elements.forEach(({ cls, style, square }) => {
+      const el = document.createElement('div');
+      el.className = cls;
+      el.style = style;
+      if (cls === 'circle' && square) {
+        const sq = document.createElement('div');
+        sq.className = 'square';
+        sq.style.transform = square;
+        el.appendChild(sq);
+      }
+      box.appendChild(el);
+    });
+    container.appendChild(box);
+  }
+
+  // Render question
+  createFigure(document.getElementById('question'), FIGURES.question);
+
+  // Render choices
+  FIGURES.choices.forEach((fig, i) => {
+    const choice = document.createElement('div');
+    choice.className = 'choice';
+    const label = document.createElement('div');
+    label.className = 'label';
+    label.innerText = `${i + 1}${i === 3 ? '. ' : '. '}`;
+    choice.appendChild(label);
+    createFigure(choice, fig, true);
+    document.getElementById('choices').appendChild(choice);
+  });
+</script>
+</body>
+</html>

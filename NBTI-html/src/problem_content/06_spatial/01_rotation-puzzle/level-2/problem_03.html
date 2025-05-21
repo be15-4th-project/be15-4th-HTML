@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>두뇌 트레이닝 - 공간지각력</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pretendard@1.3.8/dist/web/static/pretendard.css">
+  <link rel="stylesheet" href="../../../problem-style-2.css">
+  <style>
+    .choice {
+      gap: 1.5rem;
+    }
+    .cube { position: relative; width: 60px; height: 60px; }
+    canvas { width: 160px; height: 160px; margin-top: 0.5rem; }
+  </style>
+</head>
+<body>
+<header class="header">
+  <div class="logo">두뇌 트레이닝</div>
+  <nav class="menu">
+    <a href="../../../01_language/01_orthography/level-1/problem_01.html">언어 이해</a>
+    <a href="../../../02_current_affairs/01_society/level-1/problem_01.html">시사 상식</a>
+    <a href="../../../03_reasoning/01_matrix/level-1/problem_01.html">지각 추론</a>
+    <a href="../../../04_processing_speed/01_identical-find/level-1/problem_01.html">처리 속도</a>
+    <a href="../../../05_working_memory/01_number-memory/level-1/problem_01.html">작업 기억</a>
+    <a href="../level-1/problem_01.html" class="active">공간 지각</a>
+  </nav>
+</header>
+
+<div class="page-content">
+  <aside class="sidebar">
+    <h2>공간 지각</h2>
+    <div class="category active">
+      <div class="category-title active">회전 퍼즐</div>
+      <ul>
+        <li><a href="../../01_rotation-puzzle/level-1/problem_01.html">레벨 1</a></li>
+        <li><a href="../../01_rotation-puzzle/level-2/problem_01.html" class="active">레벨 2</a></li>
+        <li><a href="../../01_rotation-puzzle/level-3/problem_01.html">레벨 3</a></li>
+      </ul>
+    </div>
+    <div class="category">
+      <div class="category-title">거울 대칭</div>
+      <ul>
+        <li><a href="../../02_mirror-symmetry/level-1/problem_01.html">레벨 1</a></li>
+        <li><a href="../../02_mirror-symmetry/level-2/problem_01.html">레벨 2</a></li>
+        <li><a href="../../02_mirror-symmetry/level-3/problem_01.html">레벨 3</a></li>
+      </ul>
+    </div>
+    <div class="category">
+      <div class="category-title">전개도</div>
+      <ul>
+        <li><a href="../../03_unfolded/level-1/problem_01.html">레벨 1</a></li>
+        <li><a href="../../03_unfolded/level-2/problem_01.html">레벨 2</a></li>
+        <li><a href="../../03_unfolded/level-3/problem_01.html">레벨 3</a></li>
+      </ul>
+    </div>
+  </aside>
+
+  <main class="content-wrapper">
+    <div class="container">
+      <h2 class="instruction">다음 그림 중 다른 도형을 고르세요.</h2>
+      <div class="choices">
+        <div class="choice">1.<canvas id="canvas1" width="180" height="180"></canvas></div>
+        <div class="choice">2.<canvas id="canvas2" width="180" height="180"></canvas></div>
+        <div class="choice">3.<canvas id="canvas3" width="180" height="180"></canvas></div>
+        <div class="choice">4.<canvas id="canvas4" width="180" height="180"></canvas></div>
+      </div>
+      <div class="answer">정답: 3<span id="answer"></span></div>
+      <div class="button">
+        <a href="problem_02.html" class="btn">이전</a>
+        <a href="problem_03.html" class="btn">다음</a>
+      </div>
+    </div>
+  </main>
+</div>
+
+<script>
+  const isoX = (x, y) => (x - y) * Math.cos(Math.PI / 6);
+  const isoY = (x, y, z) => (x + y) * Math.sin(Math.PI / 6) - z;
+
+  function drawCube(ctx, x, y, z, unit = 30, offsetX = 90, offsetY = 90) {
+    const px = isoX(x, y) * unit + offsetX;
+    const py = isoY(x, y, z) * unit + offsetY;
+
+    ctx.lineWidth = 0.6;
+    ctx.strokeStyle = '#333';
+
+    ctx.beginPath();
+    ctx.moveTo(px, py);
+    ctx.lineTo(px + unit * 0.866, py - unit * 0.5);
+    ctx.lineTo(px, py - unit);
+    ctx.lineTo(px - unit * 0.866, py - unit * 0.5);
+    ctx.closePath();
+    ctx.fillStyle = '#f0f0f0';
+    ctx.fill();
+    ctx.stroke();
+
+    ctx.beginPath();
+    ctx.moveTo(px - unit * 0.866, py - unit * 0.5);
+    ctx.lineTo(px - unit * 0.866, py + unit * 0.5);
+    ctx.lineTo(px, py + unit);
+    ctx.lineTo(px, py);
+    ctx.closePath();
+    ctx.fillStyle = '#d0d0d0';
+    ctx.fill();
+    ctx.stroke();
+
+    ctx.beginPath();
+    ctx.moveTo(px + unit * 0.866, py - unit * 0.5);
+    ctx.lineTo(px + unit * 0.866, py + unit * 0.5);
+    ctx.lineTo(px, py + unit);
+    ctx.lineTo(px, py);
+    ctx.closePath();
+    ctx.fillStyle = '#b0b0b0';
+    ctx.fill();
+    ctx.stroke();
+  }
+
+  function render(canvasId, blocks) {
+    const ctx = document.getElementById(canvasId).getContext('2d');
+    ctx.clearRect(0, 0, 180, 180);
+
+    const xs = blocks.map(b => b[0]);
+    const ys = blocks.map(b => b[1]);
+    const zs = blocks.map(b => b[2]);
+
+    const minX = Math.min(...xs), maxX = Math.max(...xs);
+    const minY = Math.min(...ys), maxY = Math.max(...ys);
+    const minZ = Math.min(...zs), maxZ = Math.max(...zs);
+
+    const centerX = (minX + maxX) / 2;
+    const centerY = (minY + maxY) / 2;
+    const centerZ = (minZ + maxZ) / 2;
+
+    const unit = 30;
+    const offsetX = 90 - isoX(centerX, centerY) * unit;
+    const offsetY = 90 - isoY(centerX, centerY, centerZ) * unit;
+
+    blocks.forEach(([x, y, z]) => drawCube(ctx, x, y, z, unit, offsetX, offsetY));
+  }
+  // 오답1 – 기준형 (ㄱ자 평면 + 두 군데 위 블록)
+  const shape1 = [
+    [0,0,0], [1,0,0], [2,0,0],  // 평면
+    [0,1,0],                    // 꺾임
+    [0,1,1], [1,0,1],           // 위에 쌓은 블록 2개
+    [1,0,2]                     // 제일 높은 블록
+  ];
+
+  // 오답2 – shape1을 회전한 구조 (같은 구조)
+  const shape2 = [
+    [0,0,0], [0,1,0], [0,2,0],
+    [1,0,0],
+    [1,0,1], [0,1,1],
+    [0,1,2]
+  ];
+
+  // 오답3 – shape1과 동일한 구조 (회전 대칭 형태)
+  const shape3 = [
+    [0,0,0], [-1,0,0], [-2,0,0],
+    [0,1,0],
+    [0,1,1], [-1,0,1],
+    [-1,0,2]
+  ];
+
+  // ✅ 정답 – 위 블록 위치 및 평면 구조가 완전히 다름 (회전불가)
+  const shape4 = [
+    [-1,0,0],[-1,0,1],
+    [0,-2,0],
+    [0,-1,0],[0,-1,1], [0,-1,2],
+    [0,0,0],
+  ];
+
+  render("canvas1", shape1);
+  render("canvas2", shape2);
+  render("canvas3", shape3);
+  render("canvas4", shape4);
+</script>
+</body>
+</html>
