@@ -48,8 +48,8 @@
             <div class="text-content">
                 <div class="choices" id="choices"></div>
             </div>
-            <div class="answer">정답: <span id="answer"></span></div>
         </div>
+        <div class="answer">정답: <span id="answer"></span></div>
         <div class="button">
             <a href="problem_02.html" class="btn">이전</a>
             <a href="problem_03.html" class="btn">다음</a>
@@ -59,7 +59,7 @@
 
 <script>
     const problemData = {
-        instruction: "다음 중 '양적완화(Quantitative Easing)' 정책의 주요 효과로 가장 적절한 것은 무엇인가요?",
+        instruction: "다음 보기 중에서 \n'양적완화(Quantitative Easing)' 정책의 주요 효과로 가장 적절한 내용을 골라주세요.",
         choices: [
             "중앙은행이 시중에 유동성을 공급하여 금리를 낮추고 경기 부양을 유도한다.",
             "물가 상승을 억제하기 위해 기준금리를 인상하고 통화량을 줄인다.",
@@ -69,7 +69,9 @@
         answer: 1
     };
 
-    document.getElementById('instruction').textContent = problemData.instruction;
+
+    const instructionEl = document.getElementById('instruction');
+    instructionEl.innerHTML = problemData.instruction.replace(/\n/g, '<br>');
 
     const passageEl = document.getElementById('passage');
     if (problemData.passage && problemData.passage.trim() !== '') {

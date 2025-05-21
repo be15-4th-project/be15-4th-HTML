@@ -8,6 +8,7 @@
     <style>
         .icon-content {
             display: flex;
+            align-items: center;
             justify-content: flex-start;
             margin-bottom: 3rem;
             gap: 1rem;
@@ -17,7 +18,7 @@
 
         .symbol-question {
             display: grid;
-            grid-template-columns: 48px 60px repeat(5, 44px) 56px;
+            grid-template-columns: 30px 60px repeat(5, 44px) 56px;
             gap: 0.5rem;
             align-items: center;
             margin-bottom: 0.8rem;
@@ -116,8 +117,8 @@
         <div class="container">
             <h2 class="instruction" id="instruction"></h2>
             <div class="icon-content" id="symbol-questions"></div>
-            <div class="answer">정답: <span id="answer"></span></div>
         </div>
+        <div class="answer">정답: <span id="answer"></span></div>
         <div class="button">
             <a href="problem_01.html" class="btn">이전</a>
             <a href="problem_02.html" class="btn">다음</a>
@@ -127,7 +128,7 @@
 
 <script>
     const problemData = {
-        instruction: "각 회색 상자에 제시된 도형과 같은 것을 보기 1~5 중에서 고르거나, <br> 없으면 '없음'을 선택하세요.",
+        instruction: "각 회색 상자에 제시된 도형과 같은 모양을 보기 1번부터 5번 중에서 골라주세요. <br>만약 일치하는 모양이 없다면 '없음(6번)'을 선택해주세요.",
         type: "symbol-matching",
         questions: [
             {
@@ -157,7 +158,7 @@
 
     const labelRow = document.createElement('div');
     labelRow.className = 'symbol-labels';
-    labelRow.innerHTML = `<div></div>` + ['1','2','3','4','5'].map(n => `<div>${n}</div>`).join('') + `<div>없음</div>`;
+    labelRow.innerHTML = `<div></div>` + ['1','2','3','4','5'].map(n => `<div>${n}</div>`).join('') + `<div>6</div>`;
     container.appendChild(labelRow);
 
     problemData.questions.forEach(q => {

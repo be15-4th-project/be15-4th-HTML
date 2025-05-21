@@ -57,8 +57,8 @@
             <div class="text-content">
                 <div class="choices" id="choices"></div>
             </div>
-            <div class="answer">정답: <span id="answer"></span></div>
         </div>
+        <div class="answer">정답: <span id="answer"></span></div>
         <div class="button">
             <a href="problem_01.html" class="btn">이전</a>
             <a href="problem_02.html" class="btn">다음</a>
@@ -69,7 +69,8 @@
 <script>
     // 문제 데이터 넣는 부분 (이것만 바꾸면 됨)
     const problemData = {
-        instruction: "A, B, C 세 사람이 아래와 같은 조건을 만족하며 원탁 위에 앉을 때, \n A의 위치를 첫 번째로 하여 자리의 배치 순서를 시계 방향으로 나타내시오.",
+        instruction: "A, B, C 세 사람이 아래 조건을 만족하며 원탁에 앉을 때, \n" +
+            "A를 첫 번째 위치로 하여 자리 배치 순서를 시계 방향으로 적어주세요.",
         choices: [
             "B는 A의 바로 왼쪽에 앉아 있다.",
             "C는 A의 바로 오른쪽에 앉아 있다."

@@ -56,8 +56,8 @@
             <div class="text-content">
                 <div class="choices" id="choices"></div>
             </div>
-            <div class="answer">정답: <span id="answer"></span></div>
         </div>
+        <div class="answer">정답: <span id="answer"></span></div>
         <div class="button">
             <a href="problem_01.html" class="btn">이전</a>
             <a href="problem_02.html" class="btn">다음</a>
@@ -68,10 +68,10 @@
 <script>
     // 문제 데이터 넣는 부분 (이것만 바꾸면 됨)
     const problemData = {
-        instruction: "다음 글을 읽고, 지문에서 알 수 있는 사실로 올바르지 않은 것은?",
-        passage : "최근 온라인 동영상 플랫폼의 이용률이 급격히 증가하고 있다. " +
-            "특히 10~30대 이용자의 비중이 전체의 70% 이상을 차지하며, 대부분은 스마트폰을 통해 서비스를 이용한다. " +
-            "평균 시청 시간도 전년에 비해 약 20% 증가했으며, 주 시청 시간대는 평일 오후 8시 이후로 조사되었다. " +
+        instruction: "다음 글을 읽고, 지문에서 알 수 있는 사실 중 올바르지 않은 것을 골라주세요.",
+        passage : "최근 온라인 동영상 플랫폼의 이용률이 급격히 증가하고 있다. <br>" +
+            "특히 10~30대 이용자의 비중이 전체의 70% 이상을 차지하며, 대부분은 스마트폰을 통해 서비스를 이용한다. <br>" +
+            "평균 시청 시간도 전년에 비해 약 20% 증가했으며, 주 시청 시간대는 평일 오후 8시 이후로 조사되었다. <br>" +
             "반면, 50대 이상은 여전히 TV를 주요 미디어로 이용하고 있는 것으로 나타났다.",
         choices: ["온라인 동영상 플랫폼 이용자의 다수는 젊은 세대다.",
             "스마트폰은 온라인 플랫폼 이용의 주요 수단이다.",

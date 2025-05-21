@@ -56,8 +56,8 @@
             <div class="text-content">
                 <div class="choices" id="choices"></div>
             </div>
-            <div class="answer">정답: <span id="answer"></span></div>
         </div>
+        <div class="answer">정답: <span id="answer"></span></div>
         <div class="button">
             <a href="problem_01.html" class="btn">이전</a>
             <a href="problem_03.html" class="btn">다음</a>
@@ -68,8 +68,11 @@
 <script>
     // 문제 데이터 넣는 부분 (이것만 바꾸면 됨)
     const problemData = {
-        instruction: "다음 빈 칸에 들어가기에 가장 적합한 용어를 적으시오",
-        passage: "(빈 칸)은/는 개인이나 기업이 보유한 자산에서 부채를 뺀 순수한 가치 또는 자산의 총액을 의미한다. 이는 재무 상태를 나타내는 지표로 활용되며, 부동산, 예금, 주식 등의 자산과 대출금, 카드 대금 등의 부채를 포함해 계산한다. 금융권에서는 신용 평가나 대출 한도 책정 시 (빈 칸)을 중요한 기준으로 삼는다.",
+        instruction: "다음 글의 빈칸에 들어가기에 가장 알맞은 용어를 골라주세요.",
+        passage: "(빈 칸)은/는 개인이나 기업이 보유한 자산에서 부채를 뺀 순수한 가치 또는 자산의 총액을 의미한다. \n" +
+            "이는 재무 상태를 나타내는 지표로 활용되며, \n" +
+            "부동산, 예금, 주식 등의 자산과 대출금, 카드 대금 등의 부채를 포함해 계산한다. \n" +
+            "금융권에서는 신용 평가나 대출 한도 책정 시 (빈 칸)을 중요한 기준으로 삼는다.",
         choices: [
             "매출액",
             "소득",

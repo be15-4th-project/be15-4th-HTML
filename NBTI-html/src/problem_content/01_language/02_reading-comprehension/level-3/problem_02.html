@@ -56,8 +56,8 @@
             <div class="text-content">
                 <div class="choices" id="choices"></div>
             </div>
-            <div class="answer">정답: <span id="answer"></span></div>
         </div>
+        <div class="answer">정답: <span id="answer"></span></div>
         <div class="button">
             <a href="problem_01.html" class="btn">이전</a>
             <a href="problem_03.html" class="btn">다음</a>
@@ -68,8 +68,11 @@
 <script>
     // 문제 데이터 넣는 부분 (이것만 바꾸면 됨)
     const problemData = {
-        instruction: "다음 글을 읽고, 지문에서 알 수 있는 사실로 올바른 것을 고르시오.",
-        passage: "최근 도시 지역에서 자전거 이용이 증가하고 있다. 주된 이유로는 환경 보호와 건강 관리에 대한 관심이 높아졌기 때문이다. 이에 따라 지자체에서는 자전거 도로 확충과 대여 서비스 개선에 힘쓰고 있다. 그러나 여전히 출퇴근 시간대에는 자동차 이용이 압도적으로 많다는 점도 지적되고 있다.",
+        instruction: "다음 글을 읽고, 지문에서 알 수 있는 사실 중 올바른 내용을 골라주세요.",
+        passage: "최근 도시 지역에서 자전거 이용이 증가하고 있다. <br>" +
+            "주된 이유로는 환경 보호와 건강 관리에 대한 관심이 높아졌기 때문이다. <br>" +
+            "이에 따라 지자체에서는 자전거 도로 확충과 대여 서비스 개선에 힘쓰고 있다. <br>" +
+            "그러나 여전히 출퇴근 시간대에는 자동차 이용이 압도적으로 많다는 점도 지적되고 있다.",
         choices: [
             "자전거 이용 증가의 가장 큰 원인은 대중교통 요금 인상이다.",
             "자동차 이용은 출퇴근 시간대에 여전히 많다.",

@@ -55,8 +55,8 @@
             <h2 class="instruction" id="instruction"></h2>
             <div class="passage" id="passage"></div>
             <div class="choices" id="choices"></div>
-            <div class="answer">정답: <span id="answer"></span></div>
         </div>
+        <div class="answer">정답: <span id="answer"></span></div>
         <div class="button">
             <a href="problem_01.html" class="btn">이전</a>
             <a href="problem_03.html" class="btn">다음</a>
@@ -67,7 +67,8 @@
 <script>
     // 문제 데이터 넣는 부분 (이것만 바꾸면 됨)
     const problemData = {
-        instruction: "다음 중 '겉으로는 친절한 척하지만 속으로는 악한 마음을 가진 사람'을 뜻하는 표현은?",
+        instruction: "다음 보기 중에서 \n" +
+            "'겉으로는 친절한 척하지만 속으로는 악한 마음을 가진 사람'을 뜻하는 표현을 골라주세요.",
         choices: [
             "미운 오리 새끼",
             "양의 탈을 쓴 늑대",
@@ -78,9 +79,7 @@
         explanation: "'양의 탈을 쓴 늑대'는 겉으로는 착해 보이지만 속은 나쁜 사람을 뜻하는 표현입니다."
     };
 
-
-
-    document.getElementById('instruction').textContent = problemData.instruction;
+    document.getElementById('instruction').innerHTML = problemData.instruction.replace(/\n/g, '<br>');
 
     // passage가 있으면 보여주고 없으면 숨김
     const passageEl = document.getElementById('passage');

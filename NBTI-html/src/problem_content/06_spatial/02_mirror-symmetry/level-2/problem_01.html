@@ -6,6 +6,10 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pretendard@1.3.8/dist/web/static/pretendard.css">
   <link rel="stylesheet" href="../../../problem-style-2.css">
   <style>
+    .content { margin-right : 50px; }
+    .net {
+      margin : 0 auto;
+    }
     .choices { display: grid; grid-template-columns: repeat(2, minmax(140px, 1fr)); gap: 1.5rem; justify-items: center; }
     .choice {
       background: #fff; border: 1px solid #ddd; border-radius: 12px; padding: 1rem;
@@ -82,7 +86,7 @@
 
   <main class="content-wrapper">
     <div class="container">
-      <h2 class="instruction">아래 전개도로 만들 수 있는 상자를 고르세요.</h2>
+      <h2 class="instruction">아래 숫자를 대칭했을 때, 결과와 다른 보기를 고르세요.</h2>
 
       <div class="content">
         <div class="net" style="display: flex; justify-content: center; align-items: center; background: white; padding: 1rem 2rem; border: 1px solid #ccc; border-radius: 8px; font-size: 4.5rem; font-weight: bold;">
@@ -91,8 +95,8 @@
       </div>
         <div class="choices" id="choices"></div>
       </div>
-      <div class="answer">정답: <span id="answer"></span></div>
     </div>
+    <div class="answer">정답: <span id="answer"></span></div>
     <div class="button">
       <a href="problem_01.html" class="btn">이전</a>
       <a href="problem_02.html" class="btn">다음</a>

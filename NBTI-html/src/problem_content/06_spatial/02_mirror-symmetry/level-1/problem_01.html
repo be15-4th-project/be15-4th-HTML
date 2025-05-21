@@ -6,6 +6,7 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pretendard@1.3.8/dist/web/static/pretendard.css">
   <link rel="stylesheet" href="../../../problem-style-2.css">
   <style>
+    .content { margin-right : 50px; }
     .grid {
       display: grid;
       grid-template-columns: repeat(3, 32px);
@@ -30,6 +31,7 @@
       grid-template-columns: repeat(3, 48px);
       grid-template-rows: repeat(2, 48px);
       gap: 6px;
+      margin : 0 auto;
     }
 
     .cell.example {
@@ -144,7 +146,7 @@
 
   <main class="content-wrapper">
     <div class="container">
-      <h2 class="instruction">아래 도형을 좌우 대칭했을 때, 결과와 다른 보기를 고르세요.</h2>
+      <h2 class="instruction">아래 도형을 대칭했을 때, 결과와 다른 보기를 고르세요.</h2>
 
       <div class="content">
         <!-- 제시 도형 -->
@@ -153,8 +155,8 @@
         <!-- 보기들 -->
         <div class="choices" id="choices"></div>
       </div>
-      <div class="answer">정답: <span id="answer"></span></div>
     </div>
+    <div class="answer">정답: <span id="answer"></span></div>
     <div class="button">
       <a href="problem_01.html" class="btn">이전</a>
       <a href="problem_02.html" class="btn">다음</a>

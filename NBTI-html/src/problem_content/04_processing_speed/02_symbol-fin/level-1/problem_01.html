@@ -9,6 +9,7 @@
         .symbol-section {
             display: flex;
             align-items: center;
+            justify-content: center;
             gap: 0.75rem;
             margin-bottom: 4rem;
         }
@@ -158,8 +159,8 @@
                 <div class="symbol-table" id="target-row"></div>
             </div>
 
-            <div class="answer">정답: <span id="answer"></span></div>
         </div>
+        <div class="answer">정답: <span id="answer"></span></div>
 
         <div class="button">
             <a href="problem_01.html" class="btn">이전</a>
@@ -170,7 +171,7 @@
 
 <script>
     const problemData = {
-        instruction: "기호와 숫자의 대응 관계를 보고, 아래 기호열을 숫자로 변환하세요.",
+        instruction: "아래에 제시된 기호와 숫자의 관계를 확인한 뒤, 주어진 기호들을 알맞은 숫자로 바꿔 입력해주세요.",
         symbolMap: [
             { symbol: "+", number: 1 },
             { symbol: "§", number: 2 },

@@ -2,7 +2,7 @@
 <html lang="ko">
 <head>
     <meta charset="UTF-8">
-    <title>두뇌 트레이닝 - 언어 이해 - 맞춤법</title>
+    <title>두뇌 트레이닝 - 시사 상식 - 사회</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pretendard@1.3.8/dist/web/static/pretendard.css">
     <link rel="stylesheet" href="../../../problem-style-1.css">
 </head>
@@ -11,8 +11,8 @@
 <header class="header">
     <div class="logo">두뇌 트레이닝</div>
     <nav class="menu">
-        <a href="../level-1/problem_01.html" class="active">언어 이해</a>
-        <a href="../../../02_current_affairs/01_society/level-1/problem_01.html">시사 상식</a>
+        <a href="../../../01_language/01_orthography/level-1/problem_01.html">언어 이해</a>
+        <a href="../level-1/problem_01.html" class="active">시사 상식</a>
         <a href="../../../03_reasoning/01_matrix/level-1/problem_01.html">지각 추론</a>
         <a href="../../../04_processing_speed/01_identical-find/level-1/problem_01.html">처리 속도</a>
         <a href="../../../05_working_memory/01_number-memory/level-1/problem_01.html">작업 기억</a>
@@ -22,29 +22,21 @@
 
 <div class="page-content">
     <aside class="sidebar">
-        <h2>언어 이해</h2>
+        <h2>시사 상식</h2>
         <div class="category active">
-            <div class="category-title active">맞춤법</div>
+            <div class="category-title active">사회</div>
             <ul>
-                <li><a href="../level-1/problem_01.html" class="active">레벨 1</a></li>
+                <li><a href="../level-1/problem_01.html">레벨 1</a></li>
                 <li><a href="../level-2/problem_01.html">레벨 2</a></li>
-                <li><a href="../level-3/problem_01.html">레벨 3</a></li>
+                <li><a href="../level-3/problem_01.html" class="active">레벨 3</a></li>
             </ul>
         </div>
         <div class="category">
-            <div class="category-title">문해력</div>
+            <div class="category-title">경제</div>
             <ul>
-                <li><a href="../../02_reading-comprehension/level-1/problem_01.html">레벨 1</a></li>
-                <li><a href="../../02_reading-comprehension/level-2/problem_01.html">레벨 2</a></li>
-                <li><a href="../../02_reading-comprehension/level-3/problem_01.html">레벨 3</a></li>
-            </ul>
-        </div>
-        <div class="category">
-            <div class="category-title">어휘</div>
-            <ul>
-                <li><a href="../../03_vocabulary/level-1/problem_01.html">레벨 1</a></li>
-                <li><a href="../../03_vocabulary/level-2/problem_01.html">레벨 2</a></li>
-                <li><a href="../../03_vocabulary/level-3/problem_01.html">레벨 3</a></li>
+                <li><a href="../../02_economy/level-1/problem_01.html">레벨 1</a></li>
+                <li><a href="../../02_economy/level-2/problem_01.html">레벨 2</a></li>
+                <li><a href="../../02_economy/level-3/problem_01.html">레벨 3</a></li>
             </ul>
         </div>
     </aside>
@@ -59,24 +51,28 @@
         </div>
         <div class="answer">정답: <span id="answer"></span></div>
         <div class="button">
-            <a href="problem_01.html" class="btn">이전</a>
-            <a href="problem_02.html" class="btn">다음</a>
+            <a href="problem_02.html" class="btn">이전</a>
+            <a href="problem_03.html" class="btn">다음</a>
         </div>
     </main>
 </div>
 
 <script>
-    // 문제 데이터 넣는 부분 (이것만 바꾸면 됨)
     const problemData = {
-        instruction: "보기 중에서 올바른 표현을 골라주세요.",
-        passage : null,
-        choices: ["어이가 없다.", "어의가 없다."],
-        answer: 1
+        instruction: "단일 세율 통합 법률이 평등 원칙을 위반하는 핵심 쟁점은?",
+        choices: [
+            "국회의 재정권 과도 제한 여부",
+            "행정부 예산 편성 권한 침해 여부",
+            "지방자치 자치권 침해 여부",
+            "약자에 불리한 차별효과 발생 여부"
+        ],
+        answer: 4
     };
+
+
 
     document.getElementById('instruction').textContent = problemData.instruction;
 
-    // passage가 있으면 보여주고 없으면 숨김
     const passageEl = document.getElementById('passage');
     if (problemData.passage && problemData.passage.trim() !== '') {
         passageEl.innerHTML = problemData.passage.replace(/\n/g, '<br>');
@@ -85,7 +81,6 @@
         passageEl.style.display = 'none';
     }
 
-    // 보기 렌더링
     const choicesEl = document.getElementById('choices');
     problemData.choices.forEach((text, idx) => {
         const choice = document.createElement('div');
@@ -94,10 +89,7 @@
         choicesEl.appendChild(choice);
     });
 
-    // 정답 & 해설
     document.getElementById('answer').textContent = problemData.answer;
-    document.getElementById('explanation').textContent = problemData.explanation;
-
 </script>
 
 </body>
