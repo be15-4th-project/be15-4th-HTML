@@ -94,8 +94,8 @@
             <div class="answer">정답: <span id="answer"></span></div>
         </div>
         <div class="button">
-            <a href="problem_01.html" class="btn">이전</a>
-            <a href="problem_02.html" class="btn">다음</a>
+            <a href="problem_02.html" class="btn">이전</a>
+            <a href="problem_03.html" class="btn">다음</a>
         </div>
     </main>
 </div>
@@ -103,20 +103,21 @@
 
 <script>
     const problemData = {
-        instruction: "?에는 어떤 모양이 들어가는 것이 적합한가?",
+        instruction: "?에 들어갈 알맞은 모양을 고르세요.",
         matrix: [
-            ['line-horz'], ['circle'], ['circle', 'line-horz'],
-            ['circle', 'line-horz'], ['triangle-down', 'circle'], ['triangle-down', 'line-horz'],
-            ['circle', 'dots-4'], ['line-horz'], 'question'
+            ['triangle-up', 'circle'], ['circle', 'line-horz'], ['line-horz', 'triangle-up'],
+            ['dots-4', 'circle'], ['circle', 'line-horz'], ['line-horz', 'dots-4'],
+            ['triangle-up', 'dots-4'], ['circle', 'line-horz', 'dots-4'], 'question'
         ],
         choices: [
-            ['circle', 'dots-4', 'line-horz'],
-            ['circle', 'dots-4'],
-            ['triangle-down', 'circle', 'dots-4'],
-            ['line-horz']
+            ['line-horz', 'circle'],
+            ['triangle-up', 'line-horz'],
+            ['line-horz', 'dots-4'],
+            ['circle', 'line-horz', 'dots-4']
         ],
-        answer: 1
+        answer: 4
     };
+
 
     const shapeLayerMap = {
         'circle': `<circle cx="50" cy="50" r="40" stroke="#e67e22" stroke-width="3" fill="none"/>`,

@@ -113,6 +113,11 @@
                 element.setAttribute("rx", shape.rx);
                 element.setAttribute("ry", shape.ry);
                 break;
+            case "rectangle":
+                element = document.createElementNS("http://www.w3.org/2000/svg", "polygon");
+                element.setAttribute("points", shape.points);
+                break;
+
         }
 
         element.setAttribute("class", "shape");

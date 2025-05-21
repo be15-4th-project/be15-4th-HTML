@@ -58,7 +58,7 @@
             <div class="answer">정답: <span id="answer"></span></div>
         </div>
         <div class="button">
-            <a href="problem_01.html" class="btn">이전</a>
+            <a href="problem_02.html" class="btn">이전</a>
             <a href="problem_03.html" class="btn">다음</a>
         </div>
     </main>
@@ -70,6 +70,8 @@
         answer: 3,
         shapes: [
             { type: "circle", cx: 50, cy: 50, r: 40 },
+            { type: "triangle", points: "0,100 50,0 100,100" },
+            { type: "pentagon", points: "50,0 100,35 80,100 20,100 0,35" },
             { type: "circle", cx: 25, cy: 25, r: 20 },
             { type: "circle", cx: 75, cy: 75, r: 15 },
             { type: "triangle", points: "0,100 100,100 50,0" },
@@ -110,6 +112,11 @@
                 element.setAttribute("rx", shape.rx);
                 element.setAttribute("ry", shape.ry);
                 break;
+            case "rectangle":
+                element = document.createElementNS("http://www.w3.org/2000/svg", "polygon");
+                element.setAttribute("points", shape.points);
+                break;
+
         }
 
         element.setAttribute("class", "shape");

@@ -6,12 +6,6 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pretendard@1.3.8/dist/web/static/pretendard.css">
   <link rel="stylesheet" href="../../../problem-style-2.css">
   <style>
-    .content { display: flex; align-items: center; justify-content: space-between; margin-bottom: 4rem; }
-    .net { display: grid; grid-template-columns: repeat(4, 48px); grid-template-rows: repeat(3, 48px); gap: 2px; justify-content: center; }
-    .cell { width: 48px; height: 48px; border-radius: 6px; }
-    .cell.filled { background: #555; border-color: #333; }
-    .cell.unfilled { background: #fff; border: 1px solid #555; }
-
     .choices { display: grid; grid-template-columns: repeat(2, minmax(140px, 1fr)); gap: 1.5rem; justify-items: center; }
     .choice {
       background: #fff; border: 1px solid #ddd; border-radius: 12px; padding: 1rem;
@@ -68,18 +62,18 @@
         <li><a href="../../01_rotation-puzzle/level-3/problem_01.html">레벨 3</a></li>
       </ul>
     </div>
-    <div class="category">
-      <div class="category-title">거울 대칭</div>
+    <div class="category active">
+      <div class="category-title active">거울 대칭</div>
       <ul>
-        <li><a href="../../02_mirror-symmetry/level-2/problem_01.html">레벨 1</a></li>
-        <li><a href="../../02_mirror-symmetry/level-1/problem_01.html">레벨 2</a></li>
+        <li><a href="../../02_mirror-symmetry/level-1/problem_01.html">레벨 1</a></li>
+        <li><a href="../../02_mirror-symmetry/level-2/problem_01.html" class="active">레벨 2</a></li>
         <li><a href="../../02_mirror-symmetry/level-3/problem_01.html">레벨 3</a></li>
       </ul>
     </div>
-    <div class="category active">
-      <div class="category-title active">전개도</div>
+    <div class="category">
+      <div class="category-title">전개도</div>
       <ul>
-        <li><a href="../../03_unfolded/level-1/problem_01.html" class="active">레벨 1</a></li>
+        <li><a href="../../03_unfolded/level-1/problem_01.html">레벨 1</a></li>
         <li><a href="../../03_unfolded/level-2/problem_01.html">레벨 2</a></li>
         <li><a href="../../03_unfolded/level-3/problem_01.html">레벨 3</a></li>
       </ul>
@@ -88,10 +82,13 @@
 
   <main class="content-wrapper">
     <div class="container">
-      <h2 class="instruction"> 아래 전개도로 만들 수 있는 상자를 고르세요.</h2>
+      <h2 class="instruction">아래 전개도로 만들 수 있는 상자를 고르세요.</h2>
 
       <div class="content">
-        <div class="net" id="net"></div>
+        <div class="net" style="display: flex; justify-content: center; align-items: center; background: white; padding: 1rem 2rem; border: 1px solid #ccc; border-radius: 8px; font-size: 4.5rem; font-weight: bold;">
+        <div style="margin-right: 1rem;">3</div>
+        <div>4</div>
+      </div>
         <div class="choices" id="choices"></div>
       </div>
       <div class="answer">정답: <span id="answer"></span></div>
@@ -104,48 +101,36 @@
 </div>
 
 <script>
-  const netFilled = [ [0,3], [1, 1], [1,3], [2,0] ];
-  const netUnFilled = [ [1,0], [1, 2] ];
-  const netEl = document.getElementById('net');
-  for (let r = 0; r < 3; r++) {
-    for (let c = 0; c < 4; c++) {
-      const cell = document.createElement('div');
-      cell.className = 'cell';
-      if (netFilled.some(([fr, fc]) => fr === r && fc === c)) cell.classList.add('filled');
-      if (netUnFilled.some(([fr, fc]) => fr === r && fc === c)) cell.classList.add('unfilled');
-      netEl.appendChild(cell);
-    }
-  }
-
   const choicesData = [
-    { top: 'filled', left: 'filled', right: 'filled' },
-    { top: 'empty', left: 'filled', right: 'filled' },
-    { top: 'empty', left: 'empty', right: 'filled' },
-    { top: 'filled', left: 'empty', right: 'empty' }
+    { label: "1.", flippedX: true, flippedY: false, content: ["3", "4"] },  // 좌우 대칭
+    { label: "3.", flippedX: false, flippedY: true, content: ["3", "4"] },  // 상하 대칭
+    { label: "4.", flippedX: true, flippedY: true, content: ["3", "4"] },   // 좌우 대칭 + 순서 바꿈
+    { label: "2.", flippedX: false, flippedY: false, content: ["4", "3"] } // 순서만 바꿈 (오답)
   ];
-  const answer = 2;
+  const answer = 4;
 
   const choicesEl = document.getElementById('choices');
-  choicesData.forEach((face, idx) => {
+  choicesData.forEach((item, idx) => {
     const choice = document.createElement('div');
     choice.className = 'choice';
+
+    // transform 구성
+    let transform = '';
+    if (item.flippedX) transform += 'scaleX(-1) ';
+    if (item.flippedY) transform += 'scaleY(-1) ';
+
     choice.innerHTML = `
-        <div>${idx + 1}.</div>
-        <div class="cube">
-          <div class="face top ${face.top}"></div>
-          <div class="face left ${face.left}"></div>
-          <div class="face right ${face.right}"></div>
-          <svg class="cube-svg" viewBox="0 0 60 60">
-            <polygon points="30,0 60,15 30,30 0,15" fill="none" stroke="#333" stroke-width="1"/>
-            <polygon points="0,15 30,30 30,60 0,45" fill="none" stroke="#333" stroke-width="1"/>
-            <polygon points="60,15 30,30 30,60 60,45" fill="none" stroke="#333" stroke-width="1"/>
-          </svg>
-        </div>
-      `;
+      <div>${item.label}</div>
+      <div class="cube" style="display: flex; justify-content: center; align-items: center; gap: 0.5rem; font-size: 2rem; font-weight: bold; transform: ${transform.trim()};">
+        ${item.content.map(n => `<div>${n}</div>`).join("")}
+      </div>
+    `;
+
     choicesEl.appendChild(choice);
   });
 
   document.getElementById('answer').textContent = answer;
 </script>
+
 </body>
 </html>

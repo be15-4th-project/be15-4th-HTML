@@ -6,47 +6,30 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pretendard@1.3.8/dist/web/static/pretendard.css">
   <link rel="stylesheet" href="../../../problem-style-2.css">
   <style>
+    :root {
+      --navy: #1e3a8a;
+      --blue: #3b82f6;
+      --sky: #93c5fd;
+      --dust: #a5b4fc;
+      --slate: #64748b;
+      --gray: #cbd5e1;
+      --deep: #475569;
+      --white: #f8fafc;
+      --steel: #60a5fa;
+    }
     .grid {
       display: grid;
-      grid-template-columns: repeat(3, 32px);
-      grid-template-rows: repeat(2, 32px);
+      grid-template-columns: repeat(3, 40px);
+      grid-template-rows: repeat(3, 40px);
       gap: 4px;
+      margin: 0 auto;
     }
     .cell {
-      width: 32px;
-      height: 32px;
-      border: 1px solid #ccc;
+      width: 40px;
+      height: 40px;
       border-radius: 4px;
+      border: 1px solid #ccc;
     }
-    .filled {
-      background-color: #333;
-    }
-    .empty {
-      background-color: #fff;
-    }
-
-    .grid.example {
-      display: grid;
-      grid-template-columns: repeat(3, 48px);
-      grid-template-rows: repeat(2, 48px);
-      gap: 6px;
-    }
-
-    .cell.example {
-      width: 48px;
-      height: 48px;
-      border: 2px solid #999;
-      border-radius: 6px;
-    }
-
-    .filled.example {
-      background-color: #333;
-    }
-
-    .empty.example {
-      background-color: #fff;
-    }
-
     .choices {
       display: grid;
       grid-template-columns: repeat(2, minmax(140px, 1fr));
@@ -54,49 +37,19 @@
       justify-items: center;
     }
     .choice {
-      background: #fff;
-      border: 1px solid #ddd;
-      border-radius: 12px;
-      padding: 1rem;
+      background: #fff; border: 1px solid #ddd; border-radius: 12px; padding: 1rem;
       box-shadow: 0 2px 8px rgba(0,0,0,0.03);
-      display: flex;
-      flex-direction: row;
-      align-items: center;
-      gap: 0.75rem;
-      width: 75%;
-      transition: box-shadow 0.2s ease;
-      cursor: pointer;
+      display: flex; flex-direction: row; align-items: center; gap: 0.75rem; width: 75%;
+      transition: box-shadow 0.2s ease; cursor: pointer;
     }
-    .choice:hover {
-      box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+    .choices .grid {
+      grid-template-columns: repeat(3, 30px);
+      grid-template-rows: repeat(3, 30px);
+      margin-right: 5px;
     }
-
-    .answer {
-      margin-top: 2rem;
-      font-size: 1rem;
-      color: #666;
-      text-align: center;
-    }
-
-    .button {
-      display: flex;
-      flex-direction: row;
-      align-items: center;
-      gap: 20px;
-      justify-content: center;
-      margin: 2rem 0;
-    }
-    .btn {
-      display: inline-block;
-      padding: 0.75rem 1.5rem;
-      background: #007aff;
-      color: #fff;
-      border-radius: 12px;
-      font-weight: 500;
-      text-align: center;
-      width: 100px;
-      box-sizing: border-box;
-      transition: all 0.2s ease;
+    .choice .cell {
+      width: 30px;
+      height: 30px;
     }
   </style>
 </head>
@@ -112,7 +65,6 @@
     <a href="../../01_rotation-puzzle/level-1/problem_01.html" class="active">공간 지각</a>
   </nav>
 </header>
-
 <div class="page-content">
   <aside class="sidebar">
     <h2>공간 지각</h2>
@@ -127,9 +79,9 @@
     <div class="category active">
       <div class="category-title active">거울 대칭</div>
       <ul>
-        <li><a href="../../02_mirror-symmetry/level-1/problem_01.html" class="active">레벨 1</a></li>
+        <li><a href="../../02_mirror-symmetry/level-1/problem_01.html">레벨 1</a></li>
         <li><a href="../../02_mirror-symmetry/level-2/problem_01.html">레벨 2</a></li>
-        <li><a href="../../02_mirror-symmetry/level-3/problem_01.html">레벨 3</a></li>
+        <li><a href="../../02_mirror-symmetry/level-3/problem_01.html" class="active">레벨 3</a></li>
       </ul>
     </div>
     <div class="category">
@@ -141,54 +93,97 @@
       </ul>
     </div>
   </aside>
-
   <main class="content-wrapper">
     <div class="container">
-      <h2 class="instruction">아래 도형을 좌우 대칭했을 때, 결과와 다른 보기를 고르세요.</h2>
-
+      <h2 class="instruction">아래 도형을 좌우 대칭한 결과를 고르세요.</h2>
       <div class="content">
-        <!-- 제시 도형 -->
-        <div class="grid example" id="question-grid"></div>
-
-        <!-- 보기들 -->
+        <div id="question-grid" class="grid"></div>
         <div class="choices" id="choices"></div>
       </div>
       <div class="answer">정답: <span id="answer"></span></div>
     </div>
     <div class="button">
       <a href="problem_01.html" class="btn">이전</a>
-      <a href="problem_02.html" class="btn">다음</a>
+      <a href="problem_03.html" class="btn">다음</a>
     </div>
   </main>
 </div>
-
 <script>
+  const colorMap = {
+    navy: 'var(--navy)',
+    blue: 'var(--blue)',
+    sky: 'var(--sky)',
+    dust: 'var(--dust)',
+    slate: 'var(--slate)',
+    gray: 'var(--gray)',
+    deep: 'var(--deep)',
+    white: 'var(--white)',
+    steel: 'var(--steel)'
+  };
+
+  // 문제 2
   const questionGrid = [
-    ['●', '○', '○'],
-    ['○', '○', '●']
+    ['sky', 'deep', 'gray'],
+    ['blue', 'white', 'dust'],
+    ['navy', 'slate', 'steel']
   ];
 
   const choices = [
-    { label: '2.', grid: [['○', '○', '●'], ['●', '○', '○']], isCorrect: true },
-    { label: '3.', grid: [['○', '○', '●'], ['●', '○', '○']], isCorrect: true },
-    { label: '1.', grid: [['○', '●', '○'], ['●', '○', '○']], isCorrect: false }, // 정답
-    { label: '4.', grid: [['○', '○', '●'], ['●', '○', '○']], isCorrect: true }
+    {
+      label: '1.',
+      grid: [
+        ['blue', 'slate', 'dust'],
+        ['navy', 'white', 'steel'],
+        ['sky', 'deep', 'gray']
+      ],
+      isCorrect: false
+    },
+    {
+      label: '2.',
+      grid: [
+        ['navy', 'slate', 'steel'],
+        ['blue', 'white', 'dust'],
+        ['sky', 'deep', 'gray']
+      ],
+      isCorrect: true  // 원본 그대로 (비대칭)
+    },
+    {
+      label: '3.',
+      grid: [
+        ['navy', 'slate', 'steel'],
+        ['dust', 'white', 'blue'],
+        ['sky', 'deep', 'gray']
+      ],
+      isCorrect: false
+    },
+    {
+      label: '4.',
+      grid: [
+        ['steel', 'slate', 'navy'],
+        ['dust', 'white', 'blue'],
+        ['gray', 'deep', 'sky']
+      ],
+      isCorrect: false
+    }
   ];
 
-  const renderGrid = (parentEl, grid, isExample = false) => {
+
+
+  function renderGrid(parentEl, grid) {
     const el = document.createElement('div');
-    el.className = isExample ? 'grid example' : 'grid';
+    el.className = 'grid';
     grid.forEach(row => {
-      row.forEach(cell => {
-        const div = document.createElement('div');
-        div.className = 'cell' + (isExample ? ' example' : '') + ' ' + (cell === '●' ? 'filled' : 'empty') + (isExample ? ' example' : '');
-        el.appendChild(div);
+      row.forEach(color => {
+        const cell = document.createElement('div');
+        cell.className = 'cell';
+        cell.style.background = colorMap[color];
+        el.appendChild(cell);
       });
     });
     parentEl.appendChild(el);
-  };
+  }
 
-  renderGrid(document.getElementById('question-grid'), questionGrid, true);
+  renderGrid(document.getElementById('question-grid'), questionGrid);
 
   const choicesEl = document.getElementById('choices');
   let correctIndex = -1;
@@ -199,11 +194,10 @@
     choiceEl.innerHTML = `<div>${choice.label}</div>`;
     renderGrid(choiceEl, choice.grid);
     choicesEl.appendChild(choiceEl);
-    if (!choice.isCorrect) correctIndex = idx + 1;
+    if (choice.isCorrect) correctIndex = idx + 1;
   });
 
   document.getElementById('answer').textContent = correctIndex;
 </script>
-
 </body>
 </html>

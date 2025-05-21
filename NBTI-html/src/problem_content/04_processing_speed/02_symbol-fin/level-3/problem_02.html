@@ -15,77 +15,7 @@
 
         .symbol-label {
             font-weight: 600;
-            font-size: 0.9rem;
-            color: #444;
-            width: 2rem;
-        }
-
-        .symbol-table {
-            display: grid;
-            grid-template-columns: repeat(10, minmax(28px, auto));
-            gap: 0.4rem;
-        }
-
-        .symbol-cell,
-        .target-cell {
-            padding: 4px 8px;
-            font-size: 0.9rem;
-            background: #fff;
-            border: 1px solid #ddd;
-            border-radius: 6px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-
-        .number-cell {
-            padding: 4px 8px;
-            font-size: 0.8rem;
-            background: #f9f9f9;
-            color: #777;
-            border: none;
-        }
-
-        .symbol-label.inline {
-            margin-top: 0.2rem;
-        }
-        .symbol-row,
-        .number-row,
-        .target-row {
-            display: flex;
-            gap: 0.48rem; /* 기존 0.4rem * 1.2 */
-            margin-bottom: 0.36rem; /* 기존 0.3rem * 1.2 */
-            align-items: center;
-            justify-content: flex-start;
-        }
-
-        .symbol-cell,
-        .number-cell,
-        .target-cell {
-            min-width: 26px; /* 기존 22px * 1.2 */
-            height: 36px;   /* 기존 24px * 1.2 */
-            padding: 0 9.6px; /* 기존 0 8px * 1.2 */
-            border: 1px solid #ddd;
-            border-radius: 7.2px; /* 기존 6px * 1.2 */
-            font-size: 1.02rem;   /* 기존 0.85rem * 1.2 */
-            font-weight: 400;
-            background: #fff;
-            color: #333;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-
-        .number-cell {
-            font-size: 0.96rem; /* 기존 0.8rem * 1.2 */
-            background: #f9f9f9;
-            color: #777;
-            border: none;
-        }
-
-        .symbol-label {
-            font-size: 1.08rem; /* 기존 0.9rem * 1.2 */
-            font-weight: 600;
+            font-size: 1.08rem;
             color: #444;
             width: 2.4rem;
         }
@@ -96,8 +26,65 @@
 
         .symbol-table {
             display: grid;
-            grid-template-columns: repeat(10, minmax(33.6px, auto)); /* 기존 28px * 1.2 */
+            grid-template-columns: repeat(10, minmax(33.6px, auto));
             gap: 0.48rem;
+        }
+
+        .symbol-cell,
+        .target-cell {
+            min-width: 26px;
+            height: 36px;
+            padding: 0 9.6px;
+            font-size: 1.02rem;
+            font-weight: 400;
+            background: #fff;
+            border: 1px solid #ddd;
+            border-radius: 7.2px;
+            color: #333;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .number-cell {
+            padding: 4px 8px;
+            font-size: 0.96rem;
+            background: #f9f9f9;
+            color: #777;
+            border: none;
+            min-width: 26px;
+            height: 36px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .answer {
+            font-size: 1.1rem;
+            font-weight: bold;
+            margin-top: -2rem;
+            margin-bottom: 2rem;
+        }
+
+        .button {
+            display: flex;
+            justify-content: space-between;
+            padding: 0 2rem;
+            margin-top: 2rem;
+        }
+
+        .btn {
+            padding: 0.6rem 1.2rem;
+            background-color: #3b82f6;
+            color: #fff;
+            border: none;
+            border-radius: 8px;
+            font-weight: 500;
+            text-decoration: none;
+        }
+
+        .btn:hover {
+            background-color: #2563eb;
         }
     </style>
 </head>
@@ -109,7 +96,7 @@
         <a href="../../../01_language/01_orthography/level-1/problem_01.html">언어 이해</a>
         <a href="../../../02_current_affairs/01_society/level-1/problem_01.html">시사 상식</a>
         <a href="../../../03_reasoning/01_matrix/level-1/problem_01.html">지각 추론</a>
-        <a href="../level-1/problem_01.html" class="active">처리 속도</a>
+        <a href="../level-2/problem_01.html" class="active">처리 속도</a>
         <a href="../../../05_working_memory/01_number-memory/level-1/problem_01.html">작업 기억</a>
         <a href="../../../06_spatial/01_rotation-puzzle/level-1/problem_01.html">공간 지각</a>
     </nav>
@@ -129,9 +116,9 @@
         <div class="category active">
             <div class="category-title active">기호 찾기</div>
             <ul>
-                <li><a href="../../02_symbol-fin/level-1/problem_01.html" class="active">레벨 1</a></li>
+                <li><a href="../../02_symbol-fin/level-1/problem_01.html">레벨 1</a></li>
                 <li><a href="../../02_symbol-fin/level-2/problem_01.html">레벨 2</a></li>
-                <li><a href="../../02_symbol-fin/level-3/problem_03.html">레벨 3</a></li>
+                <li><a href="../../02_symbol-fin/level-3/problem_01.html" class="active">레벨 3</a></li>
             </ul>
         </div>
     </aside>
@@ -153,44 +140,44 @@
             </div>
 
             <!-- 문제 -->
-            <div class="symbol-section">
-                <div class="symbol-label">Q1</div>
-                <div class="symbol-table" id="target-row"></div>
-            </div>
+            <div id="question-container"></div>
 
             <div class="answer">정답: <span id="answer"></span></div>
         </div>
 
         <div class="button">
             <a href="problem_01.html" class="btn">이전</a>
-            <a href="problem_02.html" class="btn">다음</a>
+            <a href="problem_03.html" class="btn">다음</a>
         </div>
     </main>
 </div>
 
 <script>
     const problemData = {
-        instruction: "기호와 숫자의 대응 관계를 보고, 아래 기호열을 숫자로 변환하세요.",
+        instruction: "아래 기호-숫자 대응표를 참고하여 각 기호열(Q1, Q2, Q3)을 숫자로 변환하세요.",
         symbolMap: [
-            { symbol: "+", number: 1 },
-            { symbol: "§", number: 2 },
-            { symbol: "≫", number: 3 },
-            { symbol: "⊥", number: 4 },
-            { symbol: "≠", number: 5 },
-            { symbol: "#", number: 6 },
-            { symbol: "≡", number: 7 },
-            { symbol: "∩", number: 8 },
-            { symbol: "◎", number: 9 },
-            { symbol: "⊙", number: 10 }
+            { symbol: "⊙", number: 1 },
+            { symbol: "⊚", number: 3 },
+            { symbol: "⊛", number: 5 },
+            { symbol: "⊜", number: 7 },
+            { symbol: "◈", number: 9 },
+            { symbol: "◉", number: 0 },
+            { symbol: "◎", number: 2 },
+            { symbol: "●", number: 4 },
+            { symbol: "○", number: 6 },
+            { symbol: "◌", number: 8 }
         ],
-        targets: ["◎", "+", "⊥", "#", "⊙", "§", "∩", "≠", "≫", "≡"]
+        questions: [
+            { label: "Q1", symbols: ["⊛", "⊙", "◉", "○", "⊜", "◌", "●", "◎", "⊚", "◈"] }, // 51460742839
+            { label: "Q2", symbols: ["⊙", "⊚", "⊜", "◈", "⊛", "◎", "○", "●", "◉", "◌"] }, // 13795162408
+            { label: "Q3", symbols: ["⊜", "⊙", "⊚", "○", "⊛", "◌", "◎", "◈", "●", "◉"] }  // 7136082940
+        ]
     };
 
     document.getElementById('instruction').innerHTML = problemData.instruction;
 
     const symbolRow = document.getElementById('symbol-row');
     const numberRow = document.getElementById('number-row');
-    const targetRow = document.getElementById('target-row');
 
     problemData.symbolMap.forEach(item => {
         const symbolEl = document.createElement('div');
@@ -204,16 +191,36 @@
         numberRow.appendChild(numberEl);
     });
 
-    problemData.targets.forEach(sym => {
-        const targetEl = document.createElement('div');
-        targetEl.className = 'target-cell';
-        targetEl.textContent = sym;
-        targetRow.appendChild(targetEl);
+    const symbolToNumber = Object.fromEntries(problemData.symbolMap.map(item => [item.symbol, item.number]));
+    const container = document.getElementById('question-container');
+    const answers = [];
+
+    problemData.questions.forEach(q => {
+        const row = document.createElement('div');
+        row.className = 'symbol-section';
+
+        const label = document.createElement('div');
+        label.className = 'symbol-label';
+        label.textContent = q.label;
+        row.appendChild(label);
+
+        const table = document.createElement('div');
+        table.className = 'symbol-table';
+
+        const result = q.symbols.map(sym => {
+            const cell = document.createElement('div');
+            cell.className = 'target-cell';
+            cell.textContent = sym;
+            table.appendChild(cell);
+            return symbolToNumber[sym];
+        }).join('');
+
+        row.appendChild(table);
+        container.appendChild(row);
+        answers.push(result);
     });
 
-    const symbolToNumber = Object.fromEntries(problemData.symbolMap.map(item => [item.symbol, item.number]));
-    const answer = problemData.targets.map(sym => symbolToNumber[sym]).join('');
-    document.getElementById('answer').textContent = answer;
+    document.getElementById('answer').textContent = answers.join(', ');
 </script>
 
 </body>

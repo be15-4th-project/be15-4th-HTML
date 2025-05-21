@@ -6,11 +6,30 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pretendard@1.3.8/dist/web/static/pretendard.css">
   <link rel="stylesheet" href="../../../problem-style-2.css">
   <style>
+    :root {
+      --color-main: #a5c8ff;  /* 파스텔 블루 */
+      --color-accent1: #c0e1ff;  /* 옅은 하늘 */
+      --color-accent2: #dbeeff;  /* 더 연한 파랑 */
+      --color-accent3: #eaf6ff;  /* 거의 흰색 */
+      --color-muted: #ccd5db;
+      --bg-light: #f8f9fa;
+      --bg-white: #fff;
+    }
+
     .content { display: flex; align-items: center; justify-content: space-between; margin-bottom: 4rem; }
-    .net { display: grid; grid-template-columns: repeat(4, 48px); grid-template-rows: repeat(3, 48px); gap: 2px; justify-content: center; }
+
+    .net { display: grid; grid-template-columns: repeat(4, 48px); grid-template-rows: repeat(3, 48px); gap: 2px; justify-content: center; margin-bottom: 3rem; }
     .cell { width: 48px; height: 48px; border-radius: 6px; }
-    .cell.filled { background: #555; border-color: #333; }
-    .cell.unfilled { background: #fff; border: 1px solid #555; }
+    .gray   { background: var(--bg-light);  border: 1px solid #999; }
+    .red    { background: var(--color-main);  border: 1px solid #999;}
+    .blue   { background: var(--color-main);  border: 1px solid #999;}
+    .green  { background: var(--color-success);  border: 1px solid #999;}
+    .yellow { background: var(--color-warning);  border: 1px solid #999;}
+    .blue1  { background: var(--color-main); border: 1px solid #999; }
+    .blue2  { background: var(--color-accent1); border: 1px solid #999; }
+    .blue3  { background: var(--color-accent2); border: 1px solid #999; }
+    .blue4  { background: var(--color-accent3); border: 1px solid #999; }
+
 
     .choices { display: grid; grid-template-columns: repeat(2, minmax(140px, 1fr)); gap: 1.5rem; justify-items: center; }
     .choice {
@@ -21,27 +40,13 @@
     }
     .choice:hover { box-shadow: 0 4px 12px rgba(0,0,0,0.05); }
 
-    .cube { position: relative; width: 60px; height: 60px; }
+    .cube { position: relative; width: 60px; height: 60px; margin-top: 0.5rem; }
     .face { position: absolute; width: 60px; height: 60px; border-radius: 6px; }
-    .top { clip-path: polygon(50% 0%, 100% 25%, 50% 50%, 0% 25%); z-index: 1; }
-    .left { clip-path: polygon(0% 25%, 50% 50%, 50% 100%, 0% 75%); z-index: 0; }
-    .right { clip-path: polygon(100% 25%, 50% 50%, 50% 100%, 100% 75%); z-index: 0; }
-    .filled { background: #444; }
-    .empty { background: #fff; border: 1px solid #ccc; }
-    .cube-svg { position: absolute; top: 0; left: 0; width: 60px; height: 60px; pointer-events: none; z-index: 2; }
-
+    .top { clip-path: polygon(50% 0%, 100% 25%, 50% 50%, 0% 25%); z-index: 2; }
+    .left { clip-path: polygon(0% 25%, 50% 50%, 50% 100%, 0% 75%); z-index: 1; }
+    .right { clip-path: polygon(100% 25%, 50% 50%, 50% 100%, 100% 75%); z-index: 1; }
+    .cube-svg { position: absolute; top: 0; left: 0; width: 60px; height: 60px; pointer-events: none; z-index: 3; }
     .answer { margin-top: 2rem; font-size: 1rem; color: #666; text-align: center; }
-
-    .button {
-      display: flex; flex-direction: row; align-items: center; gap: 20px; justify-content: center;
-      margin: 2rem 0;
-    }
-    .btn {
-      display: inline-block; padding: 0.75rem 1.5rem;
-      background: #007aff; color: #fff; border-radius: 12px;
-      font-weight: 500; text-align: center; width: 100px;
-      box-sizing: border-box; transition: all 0.2s ease;
-    }
   </style>
 </head>
 <body>
@@ -79,8 +84,8 @@
     <div class="category active">
       <div class="category-title active">전개도</div>
       <ul>
-        <li><a href="../../03_unfolded/level-1/problem_01.html" class="active">레벨 1</a></li>
-        <li><a href="../../03_unfolded/level-2/problem_01.html">레벨 2</a></li>
+        <li><a href="../../03_unfolded/level-1/problem_01.html">레벨 1</a></li>
+        <li><a href="../../03_unfolded/level-2/problem_01.html" class="active">레벨 2</a></li>
         <li><a href="../../03_unfolded/level-3/problem_01.html">레벨 3</a></li>
       </ul>
     </div>
@@ -88,7 +93,7 @@
 
   <main class="content-wrapper">
     <div class="container">
-      <h2 class="instruction"> 아래 전개도로 만들 수 있는 상자를 고르세요.</h2>
+      <h2 class="instruction">아래 전개도로 만들 수 있는 상자를 고르세요.</h2>
 
       <div class="content">
         <div class="net" id="net"></div>
@@ -97,55 +102,63 @@
       <div class="answer">정답: <span id="answer"></span></div>
     </div>
     <div class="button">
-      <a href="problem_01.html" class="btn">이전</a>
+      <a href="problem_02.html" class="btn">이전</a>
       <a href="problem_03.html" class="btn">다음</a>
     </div>
   </main>
 </div>
 
 <script>
-  const netFilled = [ [0,3], [1, 1], [1,3], [2,0] ];
-  const netUnFilled = [ [1,0], [1, 2] ];
+  const netColorMap = {
+    '0,1': 'gray',
+    '1,0': 'blue3',
+    '1,1': 'gray',
+    '1,2': 'gray',
+    '1,3': 'blue1',
+    '2,1': 'blue2'
+  };
+
   const netEl = document.getElementById('net');
   for (let r = 0; r < 3; r++) {
     for (let c = 0; c < 4; c++) {
       const cell = document.createElement('div');
       cell.className = 'cell';
-      if (netFilled.some(([fr, fc]) => fr === r && fc === c)) cell.classList.add('filled');
-      if (netUnFilled.some(([fr, fc]) => fr === r && fc === c)) cell.classList.add('unfilled');
+      const key = `${r},${c}`;
+      if (netColorMap[key]) cell.classList.add(netColorMap[key]);
       netEl.appendChild(cell);
     }
   }
 
   const choicesData = [
-    { top: 'filled', left: 'filled', right: 'filled' },
-    { top: 'empty', left: 'filled', right: 'filled' },
-    { top: 'empty', left: 'empty', right: 'filled' },
-    { top: 'filled', left: 'empty', right: 'empty' }
+    { top: 'gray', left: 'blue2', right: 'blue1' },
+    { top: 'blue1', left: 'blue2', right: 'gray' },
+    { top: 'gray', left: 'blue3', right: 'blue1' },
+    { top: 'blue2', left: 'gray', right: 'gray' }
   ];
-  const answer = 2;
+  const answer = 3;
 
   const choicesEl = document.getElementById('choices');
   choicesData.forEach((face, idx) => {
     const choice = document.createElement('div');
     choice.className = 'choice';
     choice.innerHTML = `
-        <div>${idx + 1}.</div>
-        <div class="cube">
-          <div class="face top ${face.top}"></div>
-          <div class="face left ${face.left}"></div>
-          <div class="face right ${face.right}"></div>
-          <svg class="cube-svg" viewBox="0 0 60 60">
-            <polygon points="30,0 60,15 30,30 0,15" fill="none" stroke="#333" stroke-width="1"/>
-            <polygon points="0,15 30,30 30,60 0,45" fill="none" stroke="#333" stroke-width="1"/>
-            <polygon points="60,15 30,30 30,60 60,45" fill="none" stroke="#333" stroke-width="1"/>
-          </svg>
-        </div>
-      `;
+      <div>${idx + 1}번</div>
+      <div class="cube">
+        <div class="face top ${face.top}"></div>
+        <div class="face left ${face.left}"></div>
+        <div class="face right ${face.right}"></div>
+        <svg class="cube-svg" viewBox="0 0 60 60">
+          <polygon points="30,0 60,15 30,30 0,15" fill="none" stroke="#333" stroke-width="1"/>
+          <polygon points="0,15 30,30 30,60 0,45" fill="none" stroke="#333" stroke-width="1"/>
+          <polygon points="60,15 30,30 30,60 60,45" fill="none" stroke="#333" stroke-width="1"/>
+        </svg>
+      </div>
+    `;
     choicesEl.appendChild(choice);
   });
 
   document.getElementById('answer').textContent = answer;
 </script>
+
 </body>
 </html>

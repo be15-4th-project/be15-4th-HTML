@@ -69,10 +69,13 @@
         instruction: "다음 그림에서 사각형의 개수는?",
         answer: 2,
         shapes: [
+            { type: "triangle", points: "0,100 50,0 100,100" },
+            { type: "circle", cx: 50, cy: 50, r: 40 },
+            { type: "ellipse", cx: 50, cy: 50, rx: 40, ry: 20 },
+            { type: "star", points: "50,0 61,35 100,35 68,57 79,91 50,70 21,91 32,57 0,35 39,35" },
             { type: "rectangle", points: "0,0 100,0 100,100 0,100" },
-            { type: "rectangle", points: "20,20 80,20 80,80 20,80" },
-            { type: "triangle", points: "0,100 100,100 50,0" },
-            { type: "circle", cx: 50, cy: 50, r: 30 }
+            { type: "rectangle", points: "0,0 100,0 100,100 0,100" }
+
         ]
     };
 
@@ -109,6 +112,11 @@
                 element.setAttribute("rx", shape.rx);
                 element.setAttribute("ry", shape.ry);
                 break;
+            case "rectangle":
+                element = document.createElementNS("http://www.w3.org/2000/svg", "polygon");
+                element.setAttribute("points", shape.points);
+                break;
+
         }
 
         element.setAttribute("class", "shape");

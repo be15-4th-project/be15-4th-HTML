@@ -97,15 +97,15 @@
       <div class="answer">정답: <span id="answer"></span></div>
     </div>
     <div class="button">
-      <a href="problem_01.html" class="btn">이전</a>
+      <a href="problem_02.html" class="btn">이전</a>
       <a href="problem_03.html" class="btn">다음</a>
     </div>
   </main>
 </div>
 
 <script>
-  const netFilled = [ [0,3], [1, 1], [1,3], [2,0] ];
-  const netUnFilled = [ [1,0], [1, 2] ];
+  const netFilled = [  [0,1], [1,1], [2,1], [1,0], [1,2] ];
+  const netUnFilled = [ [1, 3] ];
   const netEl = document.getElementById('net');
   for (let r = 0; r < 3; r++) {
     for (let c = 0; c < 4; c++) {
@@ -118,12 +118,12 @@
   }
 
   const choicesData = [
-    { top: 'filled', left: 'filled', right: 'filled' },
-    { top: 'empty', left: 'filled', right: 'filled' },
-    { top: 'empty', left: 'empty', right: 'filled' },
-    { top: 'filled', left: 'empty', right: 'empty' }
+    { top: 'empty', left: 'empty', right: 'filled' },   // 보기 1
+    { top: 'filled', left: 'empty', right: 'empty' },   // 보기 2
+    { top: 'filled', left: 'filled', right: 'filled' },  // 보기 3 → 정답
+    { top: 'empty', left: 'filled', right: 'empty' }    // 보기 4
   ];
-  const answer = 2;
+  const answer = 3;
 
   const choicesEl = document.getElementById('choices');
   choicesData.forEach((face, idx) => {

@@ -95,7 +95,7 @@
         </div>
         <div class="button">
             <a href="problem_01.html" class="btn">이전</a>
-            <a href="problem_02.html" class="btn">다음</a>
+            <a href="problem_03.html" class="btn">다음</a>
         </div>
     </main>
 </div>
@@ -105,18 +105,19 @@
     const problemData = {
         instruction: "?에는 어떤 모양이 들어가는 것이 적합한가?",
         matrix: [
-            ['line-horz'], ['circle'], ['circle', 'line-horz'],
-            ['circle', 'line-horz'], ['triangle-down', 'circle'], ['triangle-down', 'line-horz'],
-            ['circle', 'dots-4'], ['line-horz'], 'question'
+            ['triangle-down', 'dots-4'], ['circle'], ['triangle-down', 'circle', 'dots-4'],
+            ['triangle-down', 'line-horz'], ['circle', 'line-horz'], ['circle', 'triangle-down'],
+            ['triangle-down', 'dots-4'], ['circle', 'dots-4'], 'question'
         ],
         choices: [
-            ['circle', 'dots-4', 'line-horz'],
-            ['circle', 'dots-4'],
-            ['triangle-down', 'circle', 'dots-4'],
-            ['line-horz']
+            ['line-horz', 'dots-4'],
+            ['circle', 'line-horz', 'dots-4'],
+            ['circle', 'triangle-down'],
+            ['circle', 'triangle-down', 'dots-4']
         ],
-        answer: 1
+        answer: 3
     };
+
 
     const shapeLayerMap = {
         'circle': `<circle cx="50" cy="50" r="40" stroke="#e67e22" stroke-width="3" fill="none"/>`,

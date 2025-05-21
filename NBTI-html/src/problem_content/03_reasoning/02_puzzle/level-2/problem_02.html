@@ -138,7 +138,7 @@
             <div class="answer">정답: <span id="answer"></span></div>
             <div class="button">
                 <a href="problem_01.html" class="btn">이전</a>
-                <a href="problem_02.html" class="btn">다음</a>
+                <a href="problem_03.html" class="btn">다음</a>
             </div>
         </div>
     </main>
@@ -146,42 +146,50 @@
 
 <script>
     const puzzleData = {
-        instruction: "다음 도형에서 관찰할 수 없는 모양은?",
+        instruction: "다음 전개도에서 조립 후 나타날 수 없는 도형은?",
         shapes: [
             {
-                label: "정팔각형", draw: svg => {
-                    const el = document.createElementNS("http://www.w3.org/2000/svg", "polygon");
-                    el.setAttribute("points", "21,0 49,0 70,21 70,49 49,70 21,70 0,49 0,21");
-                    el.setAttribute("fill", "#ccc");
-                    svg.appendChild(el);
+                label: "삼각형", draw: group => {
+                    const triangle = document.createElementNS("http://www.w3.org/2000/svg", "polygon");
+                    // 중심 (50, 50) 기준 좌표를 중심으로 잡아야 하므로, 중심 기준 점들로 설정
+                    triangle.setAttribute("points", "0,-30 -30,30 30,30");
+                    triangle.setAttribute("fill", "#ccc");
+                    group.appendChild(triangle);
                 }
             },
             {
-                label: "사다리꼴", draw: svg => {
-                    const el = document.createElementNS("http://www.w3.org/2000/svg", "polygon");
-                    el.setAttribute("points", "7,49 63,49 49,7 21,7");
-                    el.setAttribute("fill", "#ccc");
-                    svg.appendChild(el);
+                label: "정사각형", draw: group => {
+                    const square = document.createElementNS("http://www.w3.org/2000/svg", "rect");
+                    square.setAttribute("x", "-30");  // 중심 기준 좌표
+                    square.setAttribute("y", "-30");
+                    square.setAttribute("width", "60");
+                    square.setAttribute("height", "60");
+                    square.setAttribute("fill", "#ccc");
+                    group.appendChild(square);
                 }
             },
             {
-                label: "평행사변형", draw: svg => {
-                    const el = document.createElementNS("http://www.w3.org/2000/svg", "polygon");
-                    el.setAttribute("points", "14,14 56,14 42,56 0,56");
-                    el.setAttribute("fill", "#ccc");
-                    svg.appendChild(el);
+                label: "직사각형", draw: group => {
+                    const rect = document.createElementNS("http://www.w3.org/2000/svg", "rect");
+                    rect.setAttribute("x", "-35");
+                    rect.setAttribute("y", "-20");
+                    rect.setAttribute("width", "70");
+                    rect.setAttribute("height", "40");
+                    rect.setAttribute("fill", "#ccc");
+                    group.appendChild(rect);
                 }
             },
             {
-                label: "십자형", draw: svg => {
-                    const el = document.createElementNS("http://www.w3.org/2000/svg", "polygon");
-                    el.setAttribute("points", "21,0 49,0 49,21 70,21 70,49 49,49 49,70 21,70 21,49 0,49 0,21 21,21");
-                    el.setAttribute("fill", "#ccc");
-                    svg.appendChild(el);
+                label: "L자형", draw: group => {
+                    const path = document.createElementNS("http://www.w3.org/2000/svg", "path");
+                    // 원점을 중심으로 한 L자형
+                    path.setAttribute("d", "M-30,-30 H0 V5 H30 V40 H-30 Z");
+                    path.setAttribute("fill", "#ccc");
+                    group.appendChild(path);
                 }
             }
         ],
-        answer: 3
+        answer: 1
     };
 
     document.getElementById('instruction').textContent = puzzleData.instruction;
@@ -199,13 +207,19 @@
         svg.setAttribute("width", "100");
         svg.setAttribute("height", "100");
 
-        shape.draw(svg);
+        // 도형을 정중앙으로 이동하고 스케일 적용
+        const group = document.createElementNS("http://www.w3.org/2000/svg", "g");
+        group.setAttribute("transform", "translate(35,35) scale(0.7)");
+
+        shape.draw(group);
+        svg.appendChild(group);
 
         wrapper.appendChild(label);
         wrapper.appendChild(svg);
         grid.appendChild(wrapper);
     });
 </script>
+
 
 </body>
 </html>

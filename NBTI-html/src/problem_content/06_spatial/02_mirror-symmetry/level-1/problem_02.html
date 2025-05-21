@@ -157,23 +157,24 @@
     </div>
     <div class="button">
       <a href="problem_01.html" class="btn">이전</a>
-      <a href="problem_02.html" class="btn">다음</a>
+      <a href="problem_03.html" class="btn">다음</a>
     </div>
   </main>
 </div>
 
 <script>
   const questionGrid = [
-    ['●', '○', '○'],
+    ['●', '○', '●'],
     ['○', '○', '●']
   ];
 
   const choices = [
-    { label: '2.', grid: [['○', '○', '●'], ['●', '○', '○']], isCorrect: true },
-    { label: '3.', grid: [['○', '○', '●'], ['●', '○', '○']], isCorrect: true },
-    { label: '1.', grid: [['○', '●', '○'], ['●', '○', '○']], isCorrect: false }, // 정답
-    { label: '4.', grid: [['○', '○', '●'], ['●', '○', '○']], isCorrect: true }
+    { label: '1.', grid: [['●', '○', '●'], ['○', '○', '●']], isCorrect: true },  // 제시 도형
+    { label: '4.', grid: [['○', '○', '●'], ['○', '●', '●']], isCorrect: false },  //  완전 다른 도형 → 정답
+    { label: '2.', grid: [['●', '○', '●'], ['●', '○', '○']], isCorrect: true },  // 좌우 대칭
+    { label: '3.', grid: [['○', '○', '●'], ['●', '○', '●']], isCorrect: true }  // 상하 대칭
   ];
+
 
   const renderGrid = (parentEl, grid, isExample = false) => {
     const el = document.createElement('div');

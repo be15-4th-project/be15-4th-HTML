@@ -97,9 +97,9 @@
         <div class="category active">
             <div class="category-title active">동형 찾기</div>
             <ul>
-                <li><a href="problem_01.html" class="active">레벨 1</a></li>
+                <li><a href="../level-1/problem_01.html">레벨 1</a></li>
                 <li><a href="../level-2/problem_01.html">레벨 2</a></li>
-                <li><a href="../level-3/problem_01.html">레벨 3</a></li>
+                <li><a href="../level-3/problem_01.html" class="active">레벨 3</a></li>
             </ul>
         </div>
         <div class="category">
@@ -119,8 +119,8 @@
             <div class="answer">정답: <span id="answer"></span></div>
         </div>
         <div class="button">
-            <a href="problem_01.html" class="btn">이전</a>
-            <a href="problem_02.html" class="btn">다음</a>
+            <a href="problem_02.html" class="btn">이전</a>
+            <a href="problem_03.html" class="btn">다음</a>
         </div>
     </main>
 </div>
@@ -130,9 +130,12 @@
         instruction: "각 회색 상자에 제시된 도형과 같은 것을 보기 1~5 중에서 고르거나, <br> 없으면 '없음'을 선택하세요.",
         type: "symbol-matching",
         questions: [
-            { label: "Q1", symbol: "◎", choices: ["⊗", "◎", "≠", "⊙", "⊘"], answer: 2 },
-            { label: "Q2", symbol: "→", choices: ["→", "≡", "≠", "⊘", "⊙"], answer: 1 }
+            { label: "Q1", symbol: "↯", choices: ["↯", "⇓", "↓", "⇊", "↧"], answer: 1 },
+            { label: "Q2", symbol: "≠", choices: ["≠", "=", "≈", "≡", "≃"], answer: 1 },
+            { label: "Q3", symbol: "⊙", choices: ["⊘", "⊗", "⊛", "⊚", "⊙"], answer: 5 },
+            { label: "Q4", symbol: "⊝", choices: ["⊖", "⊕", "⊚", "⊝", "⊘"], answer: 4 }
         ]
+
     };
 
     document.getElementById('instruction').innerHTML = problemData.instruction;
