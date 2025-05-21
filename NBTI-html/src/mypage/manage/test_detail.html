@@ -3,10 +3,37 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>마이페이지 - 검사 결과 조회</title>
+  <title>검사 상세 조회</title>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pretendard@1.3.8/dist/web/static/pretendard.css" />
   <link rel="stylesheet" href="shared-mypage.css" />
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+    .card {
+      background: #fff;
+      border-radius: 12px;
+      padding: 1.5rem;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+    .top-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1.5rem;
+    }
+    .back-button {
+      display: inline-block;
+      background: var(--color-main);
+      color: #fff;
+      padding: 0.5rem 1rem;
+      text-decoration: none;
+      border-radius: 8px;
+      font-size: 0.9rem;
+      transition: background 0.2s ease;
+    }
+    .back-button:hover {
+      background: var(--color-deep);
+    }
+  </style>
 </head>
 <body>
 
@@ -20,24 +47,28 @@
   </nav>
 </header>
 
-<!-- 레이아웃 -->
 <div class="layout">
-  <!-- 좌측 사이드바 -->
   <aside class="sidebar">
     <h3>마이페이지</h3>
-    <a href="mypage.html" class="active" aria-current="page">검사 결과 및 통계</a>
+    <a href="mypage.html" class="active">검사 결과 및 통계</a>
     <a href="study_list.html">학습 결과 내역</a>
     <a href="objection_list.html">이의제기 내역</a>
     <a href="userinfo.html">개인정보 조회</a>
   </aside>
 
-  <!-- 본문 영역 -->
   <main class="content">
-    <!-- 📊 최근 검사 결과 -->
     <section class="section">
-      <h2 class="section-title">최근 검사 결과</h2>
+      <h2 class="section-title">검사 상세 내역</h2>
 
+      <!-- 상단 바 -->
+      <div class="top-bar">
+        <a href="mypage.html" class="back-button">← 검사 결과 목록으로</a>
+        <div class="field-title">검사일: 2025년 5월 10일</div>
+      </div>
+
+      <!-- 검사 카드 -->
       <div class="card">
+        <!-- 차트 -->
         <div class="chart-row">
           <div class="chart-box radar">
             <canvas id="radarChart" aria-label="영역별 점수 레이더 차트" role="img"></canvas>
@@ -47,7 +78,7 @@
           </div>
         </div>
 
-        <!-- 세부 영역 점수 -->
+        <!-- 영역별 점수 -->
         <div class="grid">
           <div class="grid-item">
             <div class="score-header">
@@ -101,77 +132,10 @@
 
         <!-- AI 요약 -->
         <div class="ai-summary-card" aria-label="AI 분석 요약">
-        </div>
           <p><strong>AI 분석 결과:</strong></p>
           <p>지각 추론 분야는 우수하나 작업 기억과 처리 속도에서 보완이 필요합니다.</p>
           <p>추천 학습: 숫자 외우기 및 기호 찾기 훈련을 꾸준히 해보세요.</p>
         </div>
-    </section>
-
-    <!-- 📋 검사 결과 목록 -->
-    <section class="section">
-      <h2 class="section-title">검사 결과 목록</h2>
-
-      <div class="filter-bar" role="search">
-        <select aria-label="년도 선택">
-          <option selected>2025년</option>
-          <option>2024년</option>
-        </select>
-        <select aria-label="월 선택">
-          <option>전체 월</option>
-          <option>1월</option>
-          <option>2월</option>
-          <option>3월</option>
-        </select>
-        <select aria-label="정렬 기준 선택">
-          <option>최신순</option>
-          <option>과거순</option>
-        </select>
-        <button type="button">검색</button>
-      </div>
-
-      <div class="results-list">
-        <article class="result-entry">
-          <div class="card-left">
-            <div class="tags">
-              <span class="badge badge-strong">강점: 지각 추론</span>
-              <span class="badge badge-weak">약점: 작업 기억</span>
-            </div>
-            <div class="score">총점: 85점</div>
-          </div>
-          <div class="card-right">
-            <time class="datetime" datetime="2025-05-10">2025년 5월 10일</time>
-            <a href="test_detail.html" class="btn-detail" aria-label="2025년 5월 10일 검사 상세 보기">상세 보기</a>
-          </div>
-        </article>
-
-        <article class="result-entry">
-          <div class="card-left">
-            <div class="tags">
-              <span class="badge badge-strong">강점: 언어 이해</span>
-              <span class="badge badge-weak">약점: 공간 지각력</span>
-            </div>
-            <div class="score">총점: 78점</div>
-          </div>
-          <div class="card-right">
-            <time class="datetime" datetime="2025-04-25">2025년 4월 25일</time>
-            <a href="test_detail.html" class="btn-detail" aria-label="2025년 4월 25일 검사 상세 보기">상세 보기</a>
-          </div>
-        </article>
-
-        <article class="result-entry">
-          <div class="card-left">
-            <div class="tags">
-              <span class="badge badge-strong">강점: 시사 상식</span>
-              <span class="badge badge-weak">약점: 처리 속도</span>
-            </div>
-            <div class="score">총점: 82점</div>
-          </div>
-          <div class="card-right">
-            <time class="datetime" datetime="2025-04-10">2025년 4월 10일</time>
-            <a href="test_detail.html" class="btn-detail" aria-label="2025년 4월 10일 검사 상세 보기">상세 보기</a>
-          </div>
-        </article>
       </div>
     </section>
   </main>
@@ -179,24 +143,16 @@
 
 <!-- 차트 스크립트 -->
 <script>
-  const scoreData = {
-    "언어 이해": 6,
-    "시사 상식": 4,
-    "지각 추론": 5,
-    "작업 기억": 1,
-    "처리 속도": 4,
-    "공간 지각력": 3
-  };
-  const scoreLabels = Object.keys(scoreData);
-  const scoreValues6 = Object.values(scoreData);
+  const radarLabels = ['언어 이해', '시사 상식', '지각 추론', '공간 지각력', '작업 기억', '처리 속도'];
+  const radarScores = [6, 5, 1, 6, 4, 5];
 
   new Chart(document.getElementById('radarChart'), {
     type: 'radar',
     data: {
-      labels: scoreLabels,
+      labels: radarLabels,
       datasets: [{
-        label: '검사 점수 (6점 만점 환산)',
-        data: scoreValues6,
+        label: '검사 점수 (6점 만점)',
+        data: radarScores,
         backgroundColor: 'rgba(59, 130, 246, 0.2)',
         borderColor: '#3b82f6',
         pointBackgroundColor: '#3b82f6',
@@ -219,36 +175,18 @@
     }
   });
 
-  // 예시 전체 점수 이력 (최대 10건만 보여줌)
-  const scoreHistory = [
-    { date: '03-01', score: 24 },
-    { date: '03-10', score: 24 },
-    { date: '03-15', score: 14 },
-    { date: '03-20', score: 30 },
-    { date: '03-25', score: 25 },
-    { date: '04-01', score: 16 },
-    { date: '04-10', score: 18 },
-    { date: '04-20', score: 21 },
-    { date: '05-01', score: 34 },
-    { date: '05-10', score: 33 }
-    // 10건보다 적어도 상관 없음
-  ];
-
-  // 최근 10건만 추출
-  const recentData = scoreHistory.slice(-10);
-  const labels = recentData.map(item => item.date);
-  const data = recentData.map(item => item.score);
+  const lineLabels = ['03-01', '03-10', '03-20', '03-25', '04-01', '04-10', '04-20', '05-01', '05-10'];
+  const lineScores = [24, 24, 30, 25, 16, 18, 21, 34, 33];
 
   new Chart(document.getElementById('lineChart'), {
     type: 'line',
     data: {
-      labels: labels,
+      labels: lineLabels,
       datasets: [{
         label: '총점',
-        data: data,
+        data: lineScores,
         borderColor: '#3b82f6',
         backgroundColor: 'rgba(147, 197, 253, 0.3)',
-        // tension: 0.4,
         fill: true,
         pointRadius: 4,
         pointBackgroundColor: '#1e3a8a'
@@ -272,7 +210,7 @@
       }
     }
   });
-
 </script>
+
 </body>
 </html>
