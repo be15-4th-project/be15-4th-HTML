@@ -1,0 +1,2475 @@
+<!DOCTYPE html>
+<!-- saved from url=(0033)http://localhost:5173/mypage/test -->
+<html lang=""
+      style="--vueuse-safe-area-top: env(safe-area-inset-top, 0px); --vueuse-safe-area-right: env(safe-area-inset-right, 0px); --vueuse-safe-area-bottom: env(safe-area-inset-bottom, 0px); --vueuse-safe-area-left: env(safe-area-inset-left, 0px);">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <script type="module" src="./Vite App_files/virtual_vue-devtools-path_overlay.js.다운로드"></script>
+    <script type="module" src="./Vite App_files/virtual_vue-inspector-path_load.js.다운로드"></script>
+
+    <script type="module" src="./Vite App_files/client"></script>
+
+
+    <link rel="icon" href="http://localhost:5173/favicon.ico">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vite App</title>
+    <link rel="stylesheet" href="./Vite App_files/devtools-overlay.css">
+    <style type="text/css"
+           data-vite-dev-id="C:/develop/be15_project/be15-4th-DAO-NBTI-FE/be15-4th-dao-nbti-fe/node_modules/vite-plugin-vue-inspector/src/Overlay.vue?vue&amp;type=style&amp;index=0&amp;scoped=31d1379f&amp;lang.css">
+        .vue-inspector-container[data-v-31d1379f] {
+            cursor: pointer;
+            position: fixed;
+            text-align: center;
+            z-index: 2147483647;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        .vue-inspector-card[data-v-31d1379f] {
+            font-family: Arial, Helvetica, sans-serif;
+            padding: 5px 8px;
+            border-radius: 4px;
+            text-align: left;
+            color: #e9e9e9;
+            font-size: 14px;
+            background-color: #42b883;
+            box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px -1px rgba(0, 0, 0, 0.1);
+        }
+
+        .vue-inspector-card .tip[data-v-31d1379f] {
+            font-size: 11px;
+            opacity: 0.7;
+        }
+
+        .vue-inspector-banner[data-v-31d1379f] {
+            display: none;
+            position: absolute;
+            margin: 0;
+            width: 260px;
+            text-decoration: none;
+        }
+
+        .vue-inspector-container:hover .vue-inspector-banner[data-v-31d1379f] {
+            display: block;
+        }
+
+        .vue-inspector-container--disabled:hover .vue-inspector-banner[data-v-31d1379f] {
+            display: none;
+        }
+
+        .vue-inspector-floats[data-v-31d1379f] {
+            z-index: 2147483647;
+            position: fixed;
+            transform: translateX(-50%);
+            pointer-events: none;
+        }
+
+        .vue-inspector-size-indicator[data-v-31d1379f] {
+            z-index: 2147483646;
+            position: fixed;
+            background-color: #42b88325;
+            border: 1px solid #42b88350;
+            border-radius: 5px;
+            pointer-events: none;
+        }
+
+        .vue-inspector-animated[data-v-31d1379f] {
+            transition: all 0.1s ease-in;
+        }
+
+        @media (prefers-reduced-motion) {
+            .vue-inspector-animated[data-v-31d1379f] {
+                transition: none !important;
+            }
+        }
+    </style>
+    <style type="text/css"
+           data-vite-dev-id="C:/develop/be15_project/be15-4th-DAO-NBTI-FE/be15-4th-dao-nbti-fe/src/features/main/components/StudyCard.vue?vue&amp;type=style&amp;index=0&amp;scoped=77c2cafe&amp;lang.css">
+        .card[data-v-77c2cafe] {
+            cursor: pointer; /* 마우스 커서를 손가락으로 */
+            background-color: #f1f3f5;
+            border-radius: 12px;
+            box-shadow: 0px 2px 6px #0000000d;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            padding: 16px;
+            width: 156px;
+            flex: 1 1 auto;
+            transition: transform 0.2s ease, background-color 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .strong[data-v-77c2cafe] {
+            font-weight: bold;
+            color: #111;
+            font-size: 16px;
+        }
+
+        .text-wrapper[data-v-77c2cafe] {
+            color: #555;
+            font-size: 14.4px;
+        }
+    </style>
+    <style type="text/css"
+           data-vite-dev-id="C:/develop/be15_project/be15-4th-DAO-NBTI-FE/be15-4th-dao-nbti-fe/src/components/common/DifficultyModal.vue?vue&amp;type=style&amp;index=0&amp;scoped=10b99bd6&amp;lang.css">
+        .modal[data-v-10b99bd6] {
+            position: fixed;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.4);
+            outline: none;
+        }
+
+        .modal-content[data-v-10b99bd6] {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 12px;
+            width: 500px;
+            text-align: center;
+        }
+
+        .modal-content p[data-v-10b99bd6] {
+            font-size: 16px;
+            margin-bottom: 20px;
+            text-align: center;
+            white-space: pre-line;
+            word-break: keep-all;
+        }
+
+        .level-select[data-v-10b99bd6] {
+            font-size: 16px;
+            padding: 8px;
+            margin-bottom: 20px;
+            width: 60%;
+        }
+
+        .modal-buttons[data-v-10b99bd6] {
+            display: flex;
+            justify-content: space-evenly;
+        }
+
+        .modal-buttons button[data-v-10b99bd6] {
+            padding: 6px 16px;
+            font-size: 16px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .cancel-btn[data-v-10b99bd6],
+        .confirm-btn[data-v-10b99bd6] {
+            border: none;
+            background-color: #3B82F6;
+            color: #fff;
+        }
+    </style>
+    <style type="text/css"
+           data-vite-dev-id="C:/develop/be15_project/be15-4th-DAO-NBTI-FE/be15-4th-dao-nbti-fe/src/components/common/LoginRequiredModal.vue?vue&amp;type=style&amp;index=0&amp;scoped=2df1d608&amp;lang.css">
+        .modal[data-v-2df1d608] {
+            position: fixed;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.4);
+            outline: none;
+        }
+
+        .modal-content[data-v-2df1d608] {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 12px;
+            width: 400px;
+            text-align: center;
+        }
+
+        .modal-buttons[data-v-2df1d608] {
+            display: flex;
+            justify-content: space-evenly;
+            margin-top: 20px;
+        }
+
+        .modal-buttons button[data-v-2df1d608] {
+            padding: 6px 16px;
+            font-size: 16px;
+            border-radius: 4px;
+            cursor: pointer;
+            border: none;
+            background-color: #3B82F6;
+            color: #fff;
+        }
+    </style>
+    <style type="text/css"
+           data-vite-dev-id="C:/develop/be15_project/be15-4th-DAO-NBTI-FE/be15-4th-dao-nbti-fe/src/features/main/components/StudyCategoryListFrame.vue?vue&amp;type=style&amp;index=0&amp;scoped=e4fed574&amp;lang.css">
+        .frame[data-v-e4fed574] {
+            width: fit-content;
+            padding: 20px;
+            margin: 0 auto;
+        }
+
+        .heading[data-v-e4fed574] {
+            font-weight: bold;
+            font-size: 19.2px;
+            margin-bottom: 16px;
+        }
+
+        .card-container[data-v-e4fed574] {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 16px;
+        }
+    </style>
+    <style type="text/css"
+           data-vite-dev-id="C:/develop/be15_project/be15-4th-DAO-NBTI-FE/be15-4th-dao-nbti-fe/src/components/common/BigModal.vue?vue&amp;type=style&amp;index=0&amp;scoped=0038c559&amp;lang.css">
+        .modal[data-v-0038c559] {
+            position: fixed;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.4);
+            outline: none;
+        }
+
+        .modal-content[data-v-0038c559] {
+            background-color: #fff;
+            margin: 15% auto;
+            padding: 20px;
+            border-radius: 12px;
+            width: 500px;
+            text-align: center;
+        }
+
+        .modal-content p[data-v-0038c559] {
+            font-size: 16px;
+            margin-bottom: 20px;
+            text-align: center;
+            white-space: pre-line;
+            word-break: keep-all;
+        }
+
+        .modal-buttons[data-v-0038c559] {
+            display: flex;
+            justify-content: space-evenly;
+        }
+
+        .modal-buttons button[data-v-0038c559] {
+            padding: 6px 16px;
+            font-size: 16px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .cancel-btn[data-v-0038c559], .confirm-btn[data-v-0038c559] {
+            border: none;
+            background-color: #3B82F6;
+            color: #fff;
+        }
+    </style>
+    <style type="text/css"
+           data-vite-dev-id="C:/develop/be15_project/be15-4th-DAO-NBTI-FE/be15-4th-dao-nbti-fe/src/features/main/components/TestStart.vue?vue&amp;type=style&amp;index=0&amp;scoped=d1aa8d94&amp;lang.css">
+        .container[data-v-d1aa8d94] {
+            min-width: 500px;
+            margin: 4rem auto;
+            background: #fff;
+            border-radius: 16px;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+            padding: 3rem 2rem;
+            text-align: center;
+        }
+
+        .container h2[data-v-d1aa8d94] {
+            font-size: 1.8rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .container p[data-v-d1aa8d94] {
+            color: #666;
+            font-size: 1rem;
+            margin-bottom: 2rem;
+            line-height: 1.5;
+        }
+
+        .btn[data-v-d1aa8d94] {
+            display: inline-block;
+            padding: 0.75rem 1.5rem;
+            background: #3b82f6;
+            color: #fff;
+            border-radius: 12px;
+            font-weight: 500;
+            text-align: center;
+            width: 100%;
+            box-sizing: border-box;
+            transition: all 0.2s ease;
+            cursor: pointer;
+            border: none;
+            font-size: 16px;
+        }
+
+        .btn[data-v-d1aa8d94]:hover {
+            background: #1e3a8a;
+        }
+
+        .btn[data-v-d1aa8d94]:active {
+            transform: scale(0.98);
+            filter: brightness(0.95);
+        }
+    </style>
+    <style type="text/css"
+           data-vite-dev-id="C:/develop/be15_project/be15-4th-DAO-NBTI-FE/be15-4th-dao-nbti-fe/src/features/main/views/MainView.vue?vue&amp;type=style&amp;index=0&amp;scoped=9337c08e&amp;lang.css">
+        .wrapper-frame[data-v-9337c08e] {
+            background-color: #ffffff;
+            padding: 32px;
+            max-width: 1000px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            gap: 40px;
+        }
+    </style>
+    <style type="text/css"
+           data-vite-dev-id="C:/develop/be15_project/be15-4th-DAO-NBTI-FE/be15-4th-dao-nbti-fe/src/components/common/SmallModal.vue?vue&amp;type=style&amp;index=0&amp;scoped=ad80c7aa&amp;lang.css">
+        .modal[data-v-ad80c7aa] {
+            position: fixed;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.4);
+            outline: none;
+        }
+
+        .modal-content[data-v-ad80c7aa] {
+            background-color: #fff;
+            margin: 15% auto;
+            padding: 20px;
+            border-radius: 12px;
+            width: 300px;
+            text-align: center;
+        }
+
+        .modal-content p[data-v-ad80c7aa] {
+            font-size: 16px;
+            margin-bottom: 20px;
+            text-align: center;
+            white-space: pre-line;
+            word-break: keep-all;
+        }
+
+        .modal-buttons[data-v-ad80c7aa] {
+            display: flex;
+            justify-content: space-evenly;
+        }
+
+        .modal-buttons button[data-v-ad80c7aa] {
+            padding: 6px 16px;
+            font-size: 12px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .cancel-btn[data-v-ad80c7aa], .confirm-btn[data-v-ad80c7aa] {
+            width: 70px;
+            border: none;
+            background-color: #3B82F6;
+            color: #fff;
+        }
+    </style>
+    <style type="text/css"
+           data-vite-dev-id="C:/develop/be15_project/be15-4th-DAO-NBTI-FE/be15-4th-dao-nbti-fe/src/components/layout/Header.vue?vue&amp;type=style&amp;index=0&amp;lang.css">
+        .header {
+            align-items: center;
+            background-color: #ffffff;
+            justify-content: space-between; /* 핵심 */
+            border-bottom-style: solid;
+            border-bottom-width: 1px;
+            border-color: #dddddd;
+            display: flex;
+            gap: 601.86px;
+            padding: 16px 32px 17px;
+            position: relative;
+        }
+
+        .header .container {
+            align-items: flex-start;
+            display: inline-flex;
+            flex: 0 0 auto;
+            flex-direction: column;
+            position: relative;
+        }
+
+        .header .text-wrapper {
+            color: #007bff;
+            font-size: 22.5px;
+            font-weight: 700;
+            letter-spacing: 0;
+            line-height: normal;
+            margin-top: -1.00px;
+            position: relative;
+            white-space: nowrap;
+            width: fit-content;
+        }
+
+        .header .navbar {
+            align-items: flex-start;
+            display: inline-flex;
+            flex: 0 0 auto;
+            gap: 16px;
+            margin-right: -8.86px;
+            padding: 0px 0px 0px 16px;
+            position: relative;
+        }
+
+        .header .link {
+            color: #333333;
+
+            font-size: 16px;
+            font-weight: 400;
+            letter-spacing: 0;
+            line-height: normal;
+            margin-top: -1.00px;
+            position: relative;
+            white-space: nowrap;
+            width: fit-content;
+        }
+
+        .header .div {
+            color: #333333;
+            margin-top: -1.00px;
+            position: relative;
+            white-space: nowrap;
+            width: fit-content;
+        }
+
+        .button {
+            text-decoration: underline; /* 밑줄 */
+            cursor: pointer; /* 마우스를 올리면 포인터로 변경 */
+            color: #333333; /* 선택적으로 링크 스타일 색상 */
+        }
+    </style>
+    <style type="text/css"
+           data-vite-dev-id="C:/develop/be15_project/be15-4th-DAO-NBTI-FE/be15-4th-dao-nbti-fe/src/components/layout/LayoutDefault.vue?vue&amp;type=style&amp;index=0&amp;scoped=f0d316e8&amp;lang.css">
+        .layout-default[data-v-f0d316e8] {
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+            width: 100%;
+            background-color: #f9f9f9;
+            overflow: hidden;
+        }
+
+        /* 오른쪽 전체 (헤더 + 메인) */
+        .content-wrapper[data-v-f0d316e8] {
+            flex: 1;
+            display: flex;
+            flex-direction: row;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        .main-content[data-v-f0d316e8] {
+            flex: 1;
+            padding: 24px;
+            overflow-y: auto;
+            background-color: white;
+        }
+
+    </style>
+    <style type="text/css"
+           data-vite-dev-id="C:/develop/be15_project/be15-4th-DAO-NBTI-FE/be15-4th-dao-nbti-fe/src/features/mypage/components/Sidebar.vue?vue&amp;type=style&amp;index=0&amp;scoped=a990291f&amp;lang.css">
+        .sidebar[data-v-a990291f] {
+            width: 220px;
+            background: #fff;
+            border-right: 1px solid #ddd;
+            padding: 2rem 1rem;
+            box-sizing: content-box;
+            position: sticky;
+            top: 0;
+            height: 100vh;
+        / / flex-shrink: 0;
+        }
+
+        .sidebar h3[data-v-a990291f] {
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+        }
+
+        .menu-link[data-v-a990291f] {
+            display: block;
+            padding: 0.75rem 1rem;
+            margin-bottom: 0.5rem;
+            border-radius: 8px;
+            text-decoration: none;
+            color: #333;
+            transition: background 0.2s ease;
+        }
+
+        .menu-link[data-v-a990291f]:hover {
+            background: #f1f5ff;
+            color: #1e3a8a;
+        }
+
+        .menu-link.active[data-v-a990291f] {
+            background: #e9f0ff;
+            color: #3b82f6;
+            font-weight: 500;
+        }
+    </style>
+    <style type="text/css"
+           data-vite-dev-id="C:/develop/be15_project/be15-4th-DAO-NBTI-FE/be15-4th-dao-nbti-fe/src/features/mypage/components/LayoutMypage.vue?vue&amp;type=style&amp;index=0&amp;scoped=f46ba5dd&amp;lang.css">
+        .layout[data-v-f46ba5dd] {
+            display: flex;
+            min-height: 100vh;
+            background-color: var(--bg-light, #f8f9fa);
+        }
+
+        .layout-body[data-v-f46ba5dd] {
+            display: flex;
+            width: 100%;
+        }
+
+        .content[data-v-f46ba5dd] {
+            flex: 1;
+            padding: 2rem 3rem;
+            background-color: var(--bg-light, #f8f9fa);
+        }
+    </style>
+    <style type="text/css"
+           data-vite-dev-id="C:/develop/be15_project/be15-4th-DAO-NBTI-FE/be15-4th-dao-nbti-fe/src/features/mypage/components/ResultCard.vue?vue&amp;type=style&amp;index=0&amp;scoped=5a53f048&amp;lang.css">
+        .result-row[data-v-5a53f048] {
+            display: grid;
+            grid-template-columns: 1fr 100px 140px 90px;
+            align-items: center;
+            gap: 1rem;
+            padding: 1.25rem 1.5rem;
+            border-bottom: 1px solid #e5e7eb;
+            background: #ffffff;
+            font-family: 'Pretendard', sans-serif;
+        }
+
+        .info-left[data-v-5a53f048] {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .badge[data-v-5a53f048] {
+            padding: 0.35rem 0.9rem;
+            font-size: 0.85rem;
+            font-weight: 500;
+            border-radius: 9999px;
+            white-space: nowrap;
+        }
+
+        .badge-strong[data-v-5a53f048] {
+            background-color: #dbeafe;
+            color: #1e3a8a;
+        }
+
+        .badge-weak[data-v-5a53f048] {
+            background-color: #fee2e2;
+            color: #991b1b;
+        }
+
+        .score[data-v-5a53f048] {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #1e293b;
+            text-align: right;
+        }
+
+        .date[data-v-5a53f048] {
+            font-size: 0.9rem;
+            color: #6b7280;
+            text-align: right;
+        }
+
+        .btn-detail[data-v-5a53f048] {
+            background: #3b82f6;
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            text-decoration: none;
+            transition: background 0.2s;
+        }
+
+        .btn-detail[data-v-5a53f048]:hover {
+            background: #1e40af;
+        }
+
+        .loading[data-v-5a53f048],
+        .empty[data-v-5a53f048] {
+            text-align: center;
+            color: #666;
+            padding: 2rem 0;
+        }
+    </style>
+    <style type="text/css"
+           data-vite-dev-id="C:/develop/be15_project/be15-4th-DAO-NBTI-FE/be15-4th-dao-nbti-fe/src/features/mypage/components/RadarChart.vue?vue&amp;type=style&amp;index=0&amp;scoped=ea212300&amp;lang.css">
+        .chart-box.radar[data-v-ea212300] {
+            background: #fff;
+            padding: 1rem;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+            box-sizing: border-box;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+        }
+    </style>
+    <style type="text/css"
+           data-vite-dev-id="C:/develop/be15_project/be15-4th-DAO-NBTI-FE/be15-4th-dao-nbti-fe/src/features/mypage/components/LineChart.vue?vue&amp;type=style&amp;index=0&amp;scoped=f6881418&amp;lang.css">
+        .chart-box.line[data-v-f6881418] {
+            aspect-ratio: 1.6 / 1;
+            background: #fff;
+            padding: 1rem;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+            box-sizing: border-box;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+        }
+    </style>
+    <style type="text/css"
+           data-vite-dev-id="C:/develop/be15_project/be15-4th-DAO-NBTI-FE/be15-4th-dao-nbti-fe/src/features/mypage/components/Pagination.vue?vue&amp;type=style&amp;index=0&amp;scoped=cd0ec003&amp;lang.css">
+        .pagination[data-v-cd0ec003] {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.25rem;
+            padding: 2rem 0;
+        }
+
+        .page-btn[data-v-cd0ec003] {
+            width: 2.2rem;
+            height: 2.2rem;
+            border: none;
+            border-radius: 0.5rem;
+            background: #f0f4f8;
+            color: #475569;
+            font-weight: 500;
+            cursor: pointer;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+            transition: background 0.2s, transform 0.1s;
+        }
+
+        .page-btn[data-v-cd0ec003]:hover:not(:disabled) {
+            background: #e2e8f0;
+            transform: translateY(-1px);
+        }
+
+        .page-btn[data-v-cd0ec003]:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .page-btn.active[data-v-cd0ec003] {
+            background: var(--color-main, #3b82f6);
+            color: #fff;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+        }
+
+        .page-btn[data-v-cd0ec003]:first-of-type,
+        .page-btn[data-v-cd0ec003]:last-of-type {
+            font-size: 1.2rem;
+        }
+    </style>
+    <style type="text/css"
+           data-vite-dev-id="C:/develop/be15_project/be15-4th-DAO-NBTI-FE/be15-4th-dao-nbti-fe/src/features/mypage/views/TestResultListView.vue?vue&amp;type=style&amp;index=0&amp;scoped=8b8cb587&amp;lang.css">
+        .section[data-v-8b8cb587] {
+            margin-bottom: 80px;
+        }
+
+        .section-title[data-v-8b8cb587] {
+            font-size: 1.4rem;
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid #ddd;
+        }
+
+        .card[data-v-8b8cb587] {
+            background: #fff;
+            border-radius: 16px;
+            padding: 2rem;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.04);
+            margin-bottom: 3rem;
+        }
+
+        .chart-row[data-v-8b8cb587] {
+            display: flex;
+            gap: 2rem;
+            margin-bottom: 2.5rem;
+            justify-content: center;
+        }
+
+        .ai-summary-card[data-v-8b8cb587] {
+            background: #f0f4ff;
+            padding: 1.8rem;
+            border-radius: 16px;
+            border: 1px solid #dbeafe;
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        .filter-bar[data-v-8b8cb587] {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.75rem;
+            margin-bottom: 2rem;
+            align-items: center;
+        }
+
+        .filter-bar label[data-v-8b8cb587] {
+            font-size: 0.95rem;
+        }
+
+        .filter-bar select[data-v-8b8cb587] {
+            padding: 0.4rem 0.6rem;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            background: #fff;
+        }
+
+        .filter-bar button[data-v-8b8cb587] {
+            padding: 0.45rem 1.2rem;
+            background: #3b82f6;
+            color: #fff;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+
+        .loading[data-v-8b8cb587] {
+            text-align: center;
+            color: #666;
+        }
+    </style>
+    <style type="text/css"
+           data-vite-dev-id="C:/develop/be15_project/be15-4th-DAO-NBTI-FE/be15-4th-dao-nbti-fe/src/features/mypage/views/TestResultDetailView.vue?vue&amp;type=style&amp;index=0&amp;scoped=02cb78e0&amp;lang.css">
+        .top-bar[data-v-02cb78e0] {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .back-button[data-v-02cb78e0] {
+            background: #3b82f6;
+            color: #fff;
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            text-decoration: none;
+            transition: background 0.2s ease;
+        }
+
+        .back-button[data-v-02cb78e0]:hover {
+            background: #1e3a8a;
+        }
+
+        .field-title[data-v-02cb78e0] {
+            font-size: 1rem;
+            font-weight: 500;
+            color: #333;
+        }
+
+        .section[data-v-02cb78e0] {
+            margin-bottom: 80px;
+        }
+
+        .section-title[data-v-02cb78e0] {
+            font-size: 1.4rem;
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid #ddd;
+        }
+
+        .card[data-v-02cb78e0] {
+            background: #fff;
+            border-radius: 16px;
+            padding: 2rem;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.04);
+        }
+
+        .chart-row[data-v-02cb78e0] {
+            display: flex;
+            gap: 2rem;
+            margin-bottom: 2.5rem;
+            justify-content: center;
+        }
+
+        .grid[data-v-02cb78e0] {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(280px, 1fr));
+            gap: 1.8rem;
+            margin-bottom: 2rem;
+        }
+
+        .grid-item[data-v-02cb78e0] {
+            background: #f9fafb;
+            border-radius: 16px;
+            padding: 1.5rem;
+            border: 1px solid #e5e7eb;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .score-content[data-v-02cb78e0] {
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+        }
+
+        .score-header[data-v-02cb78e0] {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 0.75rem;
+        }
+
+        .category-title[data-v-02cb78e0] {
+            font-weight: 600;
+            color: #1e3a8a;
+        }
+
+        .score-num[data-v-02cb78e0] {
+            color: #3b82f6;
+            font-weight: 500;
+        }
+
+        .score-bar[data-v-02cb78e0] {
+            height: 10px;
+            background: #f1f5f9;
+            border-radius: 8px;
+            overflow: hidden;
+            margin-bottom: 0.75rem;
+        }
+
+        .score-bar .bar[data-v-02cb78e0] {
+            height: 100%;
+            background: linear-gradient(to right, #3b82f6, #93c5fd);
+        }
+
+        .category-content[data-v-02cb78e0] {
+            font-size: 0.92rem;
+            color: #555;
+        }
+
+        .ai-summary-card[data-v-02cb78e0] {
+            background: #f0f4ff;
+            padding: 1.8rem;
+            border-radius: 16px;
+            border: 1px solid #dbeafe;
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        .category-title[data-v-02cb78e0] {
+            display: flex;
+            align-items: center;
+            font-size: 1.2em;
+            font-weight: 600;
+            color: #1e3a8a;
+            gap: 0.4rem;
+        }
+
+        .category-icon[data-v-02cb78e0] {
+            width: 100px;
+            height: 100px;
+            object-fit: contain;
+        }
+
+    </style>
+    <style type="text/css"
+           data-vite-dev-id="C:/develop/be15_project/be15-4th-DAO-NBTI-FE/be15-4th-dao-nbti-fe/src/features/mypage/views/StudyListView.vue?vue&amp;type=style&amp;index=0&amp;scoped=0ff424d4&amp;lang.css">
+        .section[data-v-0ff424d4] {
+            margin-bottom: 80px;
+        }
+
+        .section-title[data-v-0ff424d4] {
+            font-size: 1.4rem;
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid #ddd;
+        }
+
+        .filter-bar[data-v-0ff424d4] {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.75rem;
+            margin-bottom: 2rem;
+            align-items: center;
+        }
+
+        .filter-bar label[data-v-0ff424d4] {
+            font-size: 0.95rem;
+        }
+
+        .filter-bar select[data-v-0ff424d4],
+        .filter-bar button[data-v-0ff424d4] {
+            padding: 0.4rem 0.6rem;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            background: #fff;
+        }
+
+        .filter-bar button[data-v-0ff424d4] {
+            background: #3b82f6;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+        }
+
+        .study-list[data-v-0ff424d4] {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .study-item[data-v-0ff424d4] {
+            background: #fff;
+            padding: 1.2rem 1.5rem;
+            border-radius: 12px;
+            border: 1px solid #e5e7eb;
+        }
+
+        .study-item-inner[data-v-0ff424d4] {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .study-content[data-v-0ff424d4] {
+            display: flex;
+            justify-content: space-between;
+            flex: 1;
+        }
+
+        .study-title[data-v-0ff424d4] {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .study-meta[data-v-0ff424d4] {
+            display: flex;
+            flex-direction: column;
+            font-size: 0.9rem;
+            color: #555;
+        }
+
+        .study-btn[data-v-0ff424d4] {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            font-size: 0.9rem;
+            color: #555;
+        }
+
+        .study-btn .date[data-v-0ff424d4] {
+            color: #888;
+        }
+
+        .category-icon[data-v-0ff424d4] {
+            width: 60px;
+            height: 60px;
+            object-fit: contain;
+        }
+
+        .btn-detail[data-v-0ff424d4] {
+            background: #3b82f6;
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            text-decoration: none;
+            transition: background 0.2s;
+        }
+
+        .btn-detail[data-v-0ff424d4]:hover {
+            background: #1e40af;
+        }
+
+        .loading[data-v-0ff424d4],
+        .empty[data-v-0ff424d4] {
+            text-align: center;
+            color: #666;
+            padding: 2rem 0;
+        }
+    </style>
+    <style type="text/css"
+           data-vite-dev-id="C:/develop/be15_project/be15-4th-DAO-NBTI-FE/be15-4th-dao-nbti-fe/src/features/mypage/views/StudyDetailView.vue?vue&amp;type=style&amp;index=0&amp;scoped=c6e77152&amp;lang.css">
+        .section[data-v-c6e77152] {
+            margin-bottom: 80px;
+        }
+
+        .section-title[data-v-c6e77152] {
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+            font-weight: bold;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid #ddd;
+        }
+
+        .top-bar[data-v-c6e77152] {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .back-button[data-v-c6e77152] {
+            background: #3b82f6;
+            color: #fff;
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            text-decoration: none;
+            transition: background 0.2s ease;
+        }
+
+        .back-button[data-v-c6e77152]:hover {
+            background: #1e3a8a;
+        }
+
+        .field-title[data-v-c6e77152] {
+            font-size: 1rem;
+            font-weight: 500;
+            color: #333;
+        }
+
+        .loading[data-v-c6e77152] {
+            text-align: center;
+            color: #666;
+            padding: 2rem 0;
+        }
+
+        .card[data-v-c6e77152] {
+            background: #fff;
+            border-radius: 16px;
+            padding: 2rem;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.04);
+        }
+
+        .summary-box[data-v-c6e77152] {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 2rem;
+            font-size: 1rem;
+            font-weight: 500;
+        }
+
+        .problem-list[data-v-c6e77152] {
+            list-style: none;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+
+        .problem-item[data-v-c6e77152] {
+            border: 1px solid #e5e7eb;
+            padding: 1.5rem;
+            border-radius: 12px;
+            background: #f9fafb;
+        }
+
+        .problem-header[data-v-c6e77152] {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .problem-title[data-v-c6e77152] {
+            font-weight: 600;
+            font-size: 1.1rem;
+            color: #1e293b;
+        }
+
+        .problem-content[data-v-c6e77152] {
+            display: flex;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+        }
+
+        .question-image[data-v-c6e77152] {
+            width: 700px;
+            height: auto;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+        }
+
+        .problem-meta[data-v-c6e77152] {
+            flex: 1;
+            font-size: 0.95rem;
+            color: #333;
+            display: flex;
+            flex-direction: column;
+            gap: 0.4rem;
+            align-items: flex-start;
+            justify-content: space-evenly;
+        }
+
+        .problem-text[data-v-c6e77152] {
+            font-weight: 500;
+        }
+
+        .answer-content[data-v-c6e77152] {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .answer-meta[data-v-c6e77152] {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            font-size: 0.9rem;
+            color: #444;
+        }
+
+        .answer-result[data-v-c6e77152] {
+            font-weight: 600;
+            margin-top: 0.5rem;
+        }
+
+        .answer-result.correct[data-v-c6e77152] {
+            color: #10b981;
+        }
+
+        .answer-result.wrong[data-v-c6e77152] {
+            color: #ef4444;
+        }
+
+        .objection-button[data-v-c6e77152] {
+            background: none;
+            border: none;
+            color: #888;
+            cursor: pointer;
+            font-size: 0.95rem;
+        }
+
+        .objection-button[data-v-c6e77152]:hover {
+            color: #1e3a8a;
+            text-decoration: underline;
+        }
+
+        .category[data-v-c6e77152] {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .category-icon[data-v-c6e77152] {
+            width: 60px;
+            height: 60px;
+            object-fit: contain;
+        }
+
+        /* 모달 내부 */
+        .modal-body[data-v-c6e77152] {
+            display: flex;
+            flex-direction: column;
+            text-align: left;
+            gap: 1em;
+            margin-bottom: 3em;
+        }
+
+        .modal-body h3[data-v-c6e77152] {
+            font-size: 1.1rem;
+            margin-bottom: 1rem;
+        }
+
+        .modal-image[data-v-c6e77152] {
+            width: 500px;
+            margin-bottom: 1rem;
+        }
+
+        .modal-body textarea[data-v-c6e77152] {
+            resize: none;
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+    </style>
+    <style type="text/css"
+           data-vite-dev-id="C:/develop/be15_project/be15-4th-DAO-NBTI-FE/be15-4th-dao-nbti-fe/src/features/mypage/views/ObjectionListView.vue?vue&amp;type=style&amp;index=0&amp;scoped=11b79fa2&amp;lang.css">
+        .section[data-v-11b79fa2] {
+            margin-bottom: 80px;
+        }
+
+        .section-title[data-v-11b79fa2] {
+            font-size: 1.4rem;
+            margin-bottom: 1rem;
+            font-weight: bold;
+            border-bottom: 2px solid #ddd;
+            padding-bottom: 0.5rem;
+        }
+
+        .filter-bar[data-v-11b79fa2] {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.75rem;
+            margin-bottom: 2rem;
+            align-items: center;
+        }
+
+        .filter-bar label[data-v-11b79fa2] {
+            font-size: 0.95rem;
+        }
+
+        .filter-bar select[data-v-11b79fa2] {
+            padding: 0.4rem 0.6rem;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            background: #fff;
+        }
+
+        .filter-bar button[data-v-11b79fa2] {
+            padding: 0.45rem 1.2rem;
+            background: #3b82f6;
+            color: #fff;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+
+        .objection-table[data-v-11b79fa2] {
+            width: 100%;
+            border-collapse: collapse;
+            background: #fff;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .objection-table th[data-v-11b79fa2] {
+            background: #f3f4f6;
+            text-align: left;
+            padding: 0.75rem;
+            font-size: 0.95rem;
+            color: #374151;
+        }
+
+        .objection-table td[data-v-11b79fa2] {
+            padding: 0.75rem;
+            border-top: 1px solid #eee;
+            font-size: 0.95rem;
+        }
+
+        .status[data-v-11b79fa2] {
+            padding: 0.35rem 0.75rem;
+            border-radius: 999px;
+            font-size: 0.82rem;
+            font-weight: 500;
+            display: inline-block;
+        }
+
+        .status.pending[data-v-11b79fa2] {
+            background: #e0f3ff;
+            color: var(--color-main, #3b82f6);
+        }
+
+        .status.accepted[data-v-11b79fa2] {
+            background: #e8f5e9;
+            color: var(--color-success, #2e7d32);
+        }
+
+        .status.rejected[data-v-11b79fa2] {
+            background: #fdecea;
+            color: var(--color-error, #d32f2f);
+        }
+
+        .detail-button[data-v-11b79fa2] {
+            background: #3b82f6;
+            color: #fff;
+            padding: 0.4rem 0.8rem;
+            border: none;
+            border-radius: 6px;
+            font-size: 0.9rem;
+            cursor: pointer;
+        }
+
+        .detail-button[data-v-11b79fa2]:hover {
+            background: #1e40af;
+        }
+
+        .modal-detail[data-v-11b79fa2] {
+            text-align: left;
+            font-size: 0.95rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1.2rem;
+            margin-bottom: 20px;
+        }
+
+        .modal-header[data-v-11b79fa2] {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .modal-meta[data-v-11b79fa2] {
+            display: flex;
+            justify-content: space-between;
+            font-weight: 500;
+            background: #f5f7fa;
+            padding: 0.75rem 1rem;
+            border-radius: 8px;
+        }
+
+        .modal-reason[data-v-11b79fa2] {
+            background: #f9fafb;
+            border: 1px solid #e5e7eb;
+            border-radius: 10px;
+            padding: 1rem;
+        }
+
+        .modal-reason .label[data-v-11b79fa2] {
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+
+        .modal-reason .value[data-v-11b79fa2] {
+            line-height: 1.6;
+            white-space: pre-wrap;
+        }
+    </style>
+    <style type="text/css"
+           data-vite-dev-id="C:/develop/be15_project/be15-4th-DAO-NBTI-FE/be15-4th-dao-nbti-fe/src/features/mypage/views/UserInfoView.vue?vue&amp;type=style&amp;index=0&amp;scoped=c1795538&amp;lang.css">
+        .container[data-v-c1795538] {
+            display: flex;
+            justify-content: center;
+            padding-top: 80px;
+            background-color: #f9f9f9;
+            min-height: 100vh;
+            box-sizing: border-box;
+        }
+
+        .card[data-v-c1795538] {
+            background-color: white;
+            width: 100%;
+            height: fit-content;
+            max-width: 600px;
+            padding: 32px;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .card-header[data-v-c1795538] {
+            display: flex;
+            align-items: center;
+            margin-bottom: 24px;
+        }
+
+        .avatar[data-v-c1795538] {
+            width: 64px;
+            height: 64px;
+            background-color: #ddd;
+            border-radius: 50%;
+            margin-right: 16px;
+        }
+
+        .greeting .name[data-v-c1795538] {
+            font-size: 20px;
+            font-weight: bold;
+        }
+
+        .greeting .message[data-v-c1795538] {
+            font-size: 14px;
+            color: #666;
+            margin-top: 4px;
+        }
+
+        .card-body[data-v-c1795538] {
+            border-top: 1px solid #eee;
+            padding-top: 16px;
+        }
+
+        .info-row[data-v-c1795538] {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 0;
+        }
+
+        .label[data-v-c1795538] {
+            color: #666;
+            font-size: 15px;
+        }
+
+        .value[data-v-c1795538] {
+            font-weight: 500;
+            font-size: 15px;
+        }
+    </style>
+    <style type="text/css"
+           data-vite-dev-id="C:/develop/be15_project/be15-4th-DAO-NBTI-FE/be15-4th-dao-nbti-fe/src/features/user/components/UserInput.vue?vue&amp;type=style&amp;index=0&amp;scoped=2c6429cd&amp;lang.css">
+        .container[data-v-2c6429cd] {
+            align-items: flex-start;
+            align-self: stretch;
+            display: flex;
+            flex: 0 0 auto;
+            flex-direction: column;
+            gap: 8px;
+            position: relative;
+            width: 100%;
+        }
+
+        .label[data-v-2c6429cd] {
+            align-items: flex-start;
+            align-self: stretch;
+            display: flex;
+            flex: 0 0 auto;
+            flex-direction: column;
+            position: relative;
+            width: 100%;
+        }
+
+        .input[data-v-2c6429cd] {
+            background-color: #ffffff;
+            border: 1px solid #cccccc;
+            border-radius: 8px;
+            padding: 12px 13px 11px;
+            width: 100%;
+            box-sizing: border-box;
+            display: block; /* 또는 생략 */
+        }
+
+        .text[data-v-2c6429cd] {
+            align-self: stretch;
+            color: #757575;
+            margin-top: -1.00px;
+            position: relative;
+        }
+
+        .input[data-v-2c6429cd]:disabled {
+            background-color: #f0f0f0; /* 연한 회색 배경 */
+            color: #a0a0a0; /* 텍스트도 회색 */
+            cursor: not-allowed;
+        }
+
+    </style>
+    <style type="text/css"
+           data-vite-dev-id="C:/develop/be15_project/be15-4th-DAO-NBTI-FE/be15-4th-dao-nbti-fe/src/features/user/components/BlueButton.vue?vue&amp;type=style&amp;index=0&amp;scoped=12fa1a83&amp;lang.css">
+        .button[data-v-12fa1a83] {
+            all: unset;
+            align-items: center;
+            align-self: stretch;
+            background-color: #3b82f6;
+            border-radius: 8px;
+            box-sizing: border-box;
+            display: flex;
+            flex: 0 0 auto;
+            justify-content: center;
+            padding: 13px 12px 15px;
+            position: relative;
+            width: 100%;
+            color: white;
+        }
+
+        .button[data-v-12fa1a83]:hover {
+            background-color: #0056b3; /* 더 어두운 색 */
+            cursor: pointer;
+        }
+    </style>
+    <style type="text/css"
+           data-vite-dev-id="C:/develop/be15_project/be15-4th-DAO-NBTI-FE/be15-4th-dao-nbti-fe/src/features/user/components/LoginForm.vue?vue&amp;type=style&amp;index=0&amp;scoped=1295b59e&amp;lang.css">
+        .section[data-v-1295b59e] {
+            align-items: center;
+            background-color: #ffffff;
+            border-radius: 12px;
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+            max-width: 464px;
+            padding: 51.91px 32px 47.99px;
+            position: relative;
+            width: 464px;
+        }
+
+        .section .form[data-v-1295b59e] {
+            align-items: center;
+            align-self: stretch;
+            display: flex;
+            flex: 0 0 auto;
+            flex-direction: column;
+            gap: 19.2px;
+            position: relative;
+            width: 100%;
+        }
+
+        .section .heading[data-v-1295b59e] {
+            align-items: center;
+            align-self: stretch;
+            display: flex;
+            flex: 0 0 auto;
+            flex-direction: column;
+            position: relative;
+            width: 100%;
+            font-size: x-large;
+            font-weight: 700;
+            color: #3b82f6;
+        }
+    </style>
+    <style type="text/css"
+           data-vite-dev-id="C:/develop/be15_project/be15-4th-DAO-NBTI-FE/be15-4th-dao-nbti-fe/src/features/user/views/LoginView.vue?vue&amp;type=style&amp;index=0&amp;lang.css">
+        .login-view {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            height: 100%;
+            padding-top: 80px;
+        }
+    </style>
+    <style type="text/css"
+           data-vite-dev-id="C:/develop/be15_project/be15-4th-DAO-NBTI-FE/be15-4th-dao-nbti-fe/src/features/user/components/GenderForm.vue?vue&amp;type=style&amp;index=0&amp;scoped=32d508e5&amp;lang.css">
+        .container[data-v-32d508e5] {
+            align-items: flex-start;
+            align-self: stretch;
+            display: flex;
+            flex: 0 0 auto;
+            flex-direction: column;
+            gap: 8px;
+            position: relative;
+            width: 100%;
+        }
+
+        .label[data-v-32d508e5] {
+            align-items: flex-start;
+            align-self: stretch;
+            display: flex;
+            flex: 0 0 auto;
+            flex-direction: column;
+            position: relative;
+            width: 100%;
+        }
+
+        .gender-form[data-v-32d508e5] {
+            background-color: #ffffff;
+            border: 1px solid #cccccc;
+            border-radius: 8px;
+            padding: 12px 13px 11px;
+            width: 100%;
+            box-sizing: border-box;
+            display: block; /* 또는 생략 */
+        }
+
+        .text[data-v-32d508e5] {
+            align-self: stretch;
+            color: #757575;
+            margin-top: -1.00px;
+            position: relative;
+        }
+    </style>
+    <style type="text/css"
+           data-vite-dev-id="C:/develop/be15_project/be15-4th-DAO-NBTI-FE/be15-4th-dao-nbti-fe/src/features/user/components/SignupForm.vue?vue&amp;type=style&amp;index=0&amp;scoped=c76cf7ed&amp;lang.css">
+        .section[data-v-c76cf7ed] {
+            align-items: center;
+            background-color: #ffffff;
+            border-radius: 12px;
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+            max-width: 464px;
+            padding: 51.91px 32px 47.99px;
+            position: relative;
+            width: 464px;
+        }
+
+        .id-form[data-v-c76cf7ed] {
+            width: 100%;
+            display: flex;
+            flex-direction: row;
+            align-items: flex-end;
+            gap: 8px;
+        }
+
+        .id-check-button[data-v-c76cf7ed] {
+            height: 50%;
+            background-color: #3b82f6;
+            border-radius: 8px;
+            border: 1px solid #cccccc;
+            padding: 8px;
+            color: white;
+        }
+
+        .id-check-button[data-v-c76cf7ed]:hover {
+            background-color: #0056b3; /* 더 어두운 색 */
+            cursor: pointer;
+        }
+
+        .section .heading[data-v-c76cf7ed] {
+            align-items: center;
+            align-self: stretch;
+            display: flex;
+            flex: 0 0 auto;
+            flex-direction: column;
+            position: relative;
+            width: 100%;
+            font-size: x-large;
+            font-weight: 700;
+            color: #3b82f6;
+        }
+
+
+    </style>
+    <style type="text/css"
+           data-vite-dev-id="C:/develop/be15_project/be15-4th-DAO-NBTI-FE/be15-4th-dao-nbti-fe/src/features/user/views/SignupView.vue?vue&amp;type=style&amp;index=0&amp;scoped=1835b230&amp;lang.css">
+        .signup-view[data-v-1835b230] {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            height: 100%;
+            padding-top: 80px;
+        }
+    </style>
+    <style type="text/css"
+           data-vite-dev-id="C:/develop/be15_project/be15-4th-DAO-NBTI-FE/be15-4th-dao-nbti-fe/node_modules/vue-toastification/dist/index.css">/* sass-plugin-1:/Users/maronato/Developer/vue-toastification/src/scss/index.scss */
+    .Vue-Toastification__container {
+        z-index: 9999;
+        position: fixed;
+        padding: 4px;
+        width: 600px;
+        box-sizing: border-box;
+        display: flex;
+        min-height: 100%;
+        color: #fff;
+        flex-direction: column;
+        pointer-events: none;
+    }
+
+    @media only screen and (min-width: 600px) {
+        .Vue-Toastification__container.top-left,
+        .Vue-Toastification__container.top-right,
+        .Vue-Toastification__container.top-center {
+            top: 1em;
+        }
+
+        .Vue-Toastification__container.bottom-left,
+        .Vue-Toastification__container.bottom-right,
+        .Vue-Toastification__container.bottom-center {
+            bottom: 1em;
+            flex-direction: column-reverse;
+        }
+
+        .Vue-Toastification__container.top-left,
+        .Vue-Toastification__container.bottom-left {
+            left: 1em;
+        }
+
+        .Vue-Toastification__container.top-left .Vue-Toastification__toast,
+        .Vue-Toastification__container.bottom-left .Vue-Toastification__toast {
+            margin-right: auto;
+        }
+
+        @supports not (-moz-appearance: none) {
+            .Vue-Toastification__container.top-left .Vue-Toastification__toast--rtl,
+            .Vue-Toastification__container.bottom-left .Vue-Toastification__toast--rtl {
+                margin-right: unset;
+                margin-left: auto;
+            }
+        }
+        .Vue-Toastification__container.top-right,
+        .Vue-Toastification__container.bottom-right {
+            right: 1em;
+        }
+
+        .Vue-Toastification__container.top-right .Vue-Toastification__toast,
+        .Vue-Toastification__container.bottom-right .Vue-Toastification__toast {
+            margin-left: auto;
+        }
+
+        @supports not (-moz-appearance: none) {
+            .Vue-Toastification__container.top-right .Vue-Toastification__toast--rtl,
+            .Vue-Toastification__container.bottom-right .Vue-Toastification__toast--rtl {
+                margin-left: unset;
+                margin-right: auto;
+            }
+        }
+        .Vue-Toastification__container.top-center,
+        .Vue-Toastification__container.bottom-center {
+            left: 50%;
+            margin-left: -300px;
+        }
+
+        .Vue-Toastification__container.top-center .Vue-Toastification__toast,
+        .Vue-Toastification__container.bottom-center .Vue-Toastification__toast {
+            margin-left: auto;
+            margin-right: auto;
+        }
+    }
+
+    @media only screen and (max-width: 600px) {
+        .Vue-Toastification__container {
+            width: 100vw;
+            padding: 0;
+            left: 0;
+            margin: 0;
+        }
+
+        .Vue-Toastification__container .Vue-Toastification__toast {
+            width: 100%;
+        }
+
+        .Vue-Toastification__container.top-left,
+        .Vue-Toastification__container.top-right,
+        .Vue-Toastification__container.top-center {
+            top: 0;
+        }
+
+        .Vue-Toastification__container.bottom-left,
+        .Vue-Toastification__container.bottom-right,
+        .Vue-Toastification__container.bottom-center {
+            bottom: 0;
+            flex-direction: column-reverse;
+        }
+    }
+
+    .Vue-Toastification__toast {
+        display: inline-flex;
+        position: relative;
+        max-height: 800px;
+        min-height: 64px;
+        box-sizing: border-box;
+        margin-bottom: 1rem;
+        padding: 22px 24px;
+        border-radius: 8px;
+        box-shadow: 0 1px 10px 0 rgba(0, 0, 0, 0.1), 0 2px 15px 0 rgba(0, 0, 0, 0.05);
+        justify-content: space-between;
+        font-family: "Lato",
+        Helvetica,
+        "Roboto",
+        Arial,
+        sans-serif;
+        max-width: 600px;
+        min-width: 326px;
+        pointer-events: auto;
+        overflow: hidden;
+        transform: translateZ(0);
+        direction: ltr;
+    }
+
+    .Vue-Toastification__toast--rtl {
+        direction: rtl;
+    }
+
+    .Vue-Toastification__toast--default {
+        background-color: #1976d2;
+        color: #fff;
+    }
+
+    .Vue-Toastification__toast--info {
+        background-color: #2196f3;
+        color: #fff;
+    }
+
+    .Vue-Toastification__toast--success {
+        background-color: #4caf50;
+        color: #fff;
+    }
+
+    .Vue-Toastification__toast--error {
+        background-color: #ff5252;
+        color: #fff;
+    }
+
+    .Vue-Toastification__toast--warning {
+        background-color: #ffc107;
+        color: #fff;
+    }
+
+    @media only screen and (max-width: 600px) {
+        .Vue-Toastification__toast {
+            border-radius: 0px;
+            margin-bottom: 0.5rem;
+        }
+    }
+
+    .Vue-Toastification__toast-body {
+        flex: 1;
+        line-height: 24px;
+        font-size: 16px;
+        word-break: break-word;
+        white-space: pre-wrap;
+    }
+
+    .Vue-Toastification__toast-component-body {
+        flex: 1;
+    }
+
+    .Vue-Toastification__toast.disable-transition {
+        animation: none !important;
+    }
+
+    .Vue-Toastification__close-button {
+        font-weight: bold;
+        font-size: 24px;
+        line-height: 24px;
+        background: transparent;
+        outline: none;
+        border: none;
+        padding: 0;
+        padding-left: 10px;
+        cursor: pointer;
+        transition: 0.3s ease;
+        align-items: center;
+        color: #fff;
+        opacity: 0.3;
+        transition: visibility 0s, opacity 0.2s linear;
+    }
+
+    .Vue-Toastification__close-button:hover,
+    .Vue-Toastification__close-button:focus {
+        opacity: 1;
+    }
+
+    .Vue-Toastification__toast:not(:hover) .Vue-Toastification__close-button.show-on-hover {
+        opacity: 0;
+    }
+
+    .Vue-Toastification__toast--rtl .Vue-Toastification__close-button {
+        padding-left: unset;
+        padding-right: 10px;
+    }
+
+    @keyframes scale-x-frames {
+        0% {
+            transform: scaleX(1);
+        }
+        100% {
+            transform: scaleX(0);
+        }
+    }
+
+    .Vue-Toastification__progress-bar {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 5px;
+        z-index: 10000;
+        background-color: rgba(255, 255, 255, 0.7);
+        transform-origin: left;
+        animation: scale-x-frames linear 1 forwards;
+    }
+
+    .Vue-Toastification__toast--rtl .Vue-Toastification__progress-bar {
+        right: 0;
+        left: unset;
+        transform-origin: right;
+    }
+
+    .Vue-Toastification__icon {
+        margin: auto 18px auto 0px;
+        background: transparent;
+        outline: none;
+        border: none;
+        padding: 0;
+        transition: 0.3s ease;
+        align-items: center;
+        width: 20px;
+        height: 100%;
+    }
+
+    .Vue-Toastification__toast--rtl .Vue-Toastification__icon {
+        margin: auto 0px auto 18px;
+    }
+
+    @keyframes bounceInRight {
+        from, 60%, 75%, 90%, to {
+            animation-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1);
+        }
+        from {
+            opacity: 0;
+            transform: translate3d(3000px, 0, 0);
+        }
+        60% {
+            opacity: 1;
+            transform: translate3d(-25px, 0, 0);
+        }
+        75% {
+            transform: translate3d(10px, 0, 0);
+        }
+        90% {
+            transform: translate3d(-5px, 0, 0);
+        }
+        to {
+            transform: none;
+        }
+    }
+
+    @keyframes bounceOutRight {
+        40% {
+            opacity: 1;
+            transform: translate3d(-20px, 0, 0);
+        }
+        to {
+            opacity: 0;
+            transform: translate3d(1000px, 0, 0);
+        }
+    }
+
+    @keyframes bounceInLeft {
+        from, 60%, 75%, 90%, to {
+            animation-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1);
+        }
+        0% {
+            opacity: 0;
+            transform: translate3d(-3000px, 0, 0);
+        }
+        60% {
+            opacity: 1;
+            transform: translate3d(25px, 0, 0);
+        }
+        75% {
+            transform: translate3d(-10px, 0, 0);
+        }
+        90% {
+            transform: translate3d(5px, 0, 0);
+        }
+        to {
+            transform: none;
+        }
+    }
+
+    @keyframes bounceOutLeft {
+        20% {
+            opacity: 1;
+            transform: translate3d(20px, 0, 0);
+        }
+        to {
+            opacity: 0;
+            transform: translate3d(-2000px, 0, 0);
+        }
+    }
+
+    @keyframes bounceInUp {
+        from, 60%, 75%, 90%, to {
+            animation-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1);
+        }
+        from {
+            opacity: 0;
+            transform: translate3d(0, 3000px, 0);
+        }
+        60% {
+            opacity: 1;
+            transform: translate3d(0, -20px, 0);
+        }
+        75% {
+            transform: translate3d(0, 10px, 0);
+        }
+        90% {
+            transform: translate3d(0, -5px, 0);
+        }
+        to {
+            transform: translate3d(0, 0, 0);
+        }
+    }
+
+    @keyframes bounceOutUp {
+        20% {
+            transform: translate3d(0, -10px, 0);
+        }
+        40%, 45% {
+            opacity: 1;
+            transform: translate3d(0, 20px, 0);
+        }
+        to {
+            opacity: 0;
+            transform: translate3d(0, -2000px, 0);
+        }
+    }
+
+    @keyframes bounceInDown {
+        from, 60%, 75%, 90%, to {
+            animation-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1);
+        }
+        0% {
+            opacity: 0;
+            transform: translate3d(0, -3000px, 0);
+        }
+        60% {
+            opacity: 1;
+            transform: translate3d(0, 25px, 0);
+        }
+        75% {
+            transform: translate3d(0, -10px, 0);
+        }
+        90% {
+            transform: translate3d(0, 5px, 0);
+        }
+        to {
+            transform: none;
+        }
+    }
+
+    @keyframes bounceOutDown {
+        20% {
+            transform: translate3d(0, 10px, 0);
+        }
+        40%, 45% {
+            opacity: 1;
+            transform: translate3d(0, -20px, 0);
+        }
+        to {
+            opacity: 0;
+            transform: translate3d(0, 2000px, 0);
+        }
+    }
+
+    .Vue-Toastification__bounce-enter-active.top-left,
+    .Vue-Toastification__bounce-enter-active.bottom-left {
+        animation-name: bounceInLeft;
+    }
+
+    .Vue-Toastification__bounce-enter-active.top-right,
+    .Vue-Toastification__bounce-enter-active.bottom-right {
+        animation-name: bounceInRight;
+    }
+
+    .Vue-Toastification__bounce-enter-active.top-center {
+        animation-name: bounceInDown;
+    }
+
+    .Vue-Toastification__bounce-enter-active.bottom-center {
+        animation-name: bounceInUp;
+    }
+
+    .Vue-Toastification__bounce-leave-active:not(.disable-transition).top-left,
+    .Vue-Toastification__bounce-leave-active:not(.disable-transition).bottom-left {
+        animation-name: bounceOutLeft;
+    }
+
+    .Vue-Toastification__bounce-leave-active:not(.disable-transition).top-right,
+    .Vue-Toastification__bounce-leave-active:not(.disable-transition).bottom-right {
+        animation-name: bounceOutRight;
+    }
+
+    .Vue-Toastification__bounce-leave-active:not(.disable-transition).top-center {
+        animation-name: bounceOutUp;
+    }
+
+    .Vue-Toastification__bounce-leave-active:not(.disable-transition).bottom-center {
+        animation-name: bounceOutDown;
+    }
+
+    .Vue-Toastification__bounce-leave-active,
+    .Vue-Toastification__bounce-enter-active {
+        animation-duration: 750ms;
+        animation-fill-mode: both;
+    }
+
+    .Vue-Toastification__bounce-move {
+        transition-timing-function: ease-in-out;
+        transition-property: all;
+        transition-duration: 400ms;
+    }
+
+    @keyframes fadeOutTop {
+        0% {
+            transform: translateY(0);
+            opacity: 1;
+        }
+        100% {
+            transform: translateY(-50px);
+            opacity: 0;
+        }
+    }
+
+    @keyframes fadeOutLeft {
+        0% {
+            transform: translateX(0);
+            opacity: 1;
+        }
+        100% {
+            transform: translateX(-50px);
+            opacity: 0;
+        }
+    }
+
+    @keyframes fadeOutBottom {
+        0% {
+            transform: translateY(0);
+            opacity: 1;
+        }
+        100% {
+            transform: translateY(50px);
+            opacity: 0;
+        }
+    }
+
+    @keyframes fadeOutRight {
+        0% {
+            transform: translateX(0);
+            opacity: 1;
+        }
+        100% {
+            transform: translateX(50px);
+            opacity: 0;
+        }
+    }
+
+    @keyframes fadeInLeft {
+        0% {
+            transform: translateX(-50px);
+            opacity: 0;
+        }
+        100% {
+            transform: translateX(0);
+            opacity: 1;
+        }
+    }
+
+    @keyframes fadeInRight {
+        0% {
+            transform: translateX(50px);
+            opacity: 0;
+        }
+        100% {
+            transform: translateX(0);
+            opacity: 1;
+        }
+    }
+
+    @keyframes fadeInTop {
+        0% {
+            transform: translateY(-50px);
+            opacity: 0;
+        }
+        100% {
+            transform: translateY(0);
+            opacity: 1;
+        }
+    }
+
+    @keyframes fadeInBottom {
+        0% {
+            transform: translateY(50px);
+            opacity: 0;
+        }
+        100% {
+            transform: translateY(0);
+            opacity: 1;
+        }
+    }
+
+    .Vue-Toastification__fade-enter-active.top-left,
+    .Vue-Toastification__fade-enter-active.bottom-left {
+        animation-name: fadeInLeft;
+    }
+
+    .Vue-Toastification__fade-enter-active.top-right,
+    .Vue-Toastification__fade-enter-active.bottom-right {
+        animation-name: fadeInRight;
+    }
+
+    .Vue-Toastification__fade-enter-active.top-center {
+        animation-name: fadeInTop;
+    }
+
+    .Vue-Toastification__fade-enter-active.bottom-center {
+        animation-name: fadeInBottom;
+    }
+
+    .Vue-Toastification__fade-leave-active:not(.disable-transition).top-left,
+    .Vue-Toastification__fade-leave-active:not(.disable-transition).bottom-left {
+        animation-name: fadeOutLeft;
+    }
+
+    .Vue-Toastification__fade-leave-active:not(.disable-transition).top-right,
+    .Vue-Toastification__fade-leave-active:not(.disable-transition).bottom-right {
+        animation-name: fadeOutRight;
+    }
+
+    .Vue-Toastification__fade-leave-active:not(.disable-transition).top-center {
+        animation-name: fadeOutTop;
+    }
+
+    .Vue-Toastification__fade-leave-active:not(.disable-transition).bottom-center {
+        animation-name: fadeOutBottom;
+    }
+
+    .Vue-Toastification__fade-leave-active,
+    .Vue-Toastification__fade-enter-active {
+        animation-duration: 750ms;
+        animation-fill-mode: both;
+    }
+
+    .Vue-Toastification__fade-move {
+        transition-timing-function: ease-in-out;
+        transition-property: all;
+        transition-duration: 400ms;
+    }
+
+    @keyframes slideInBlurredLeft {
+        0% {
+            transform: translateX(-1000px) scaleX(2.5) scaleY(0.2);
+            transform-origin: 100% 50%;
+            filter: blur(40px);
+            opacity: 0;
+        }
+        100% {
+            transform: translateX(0) scaleY(1) scaleX(1);
+            transform-origin: 50% 50%;
+            filter: blur(0);
+            opacity: 1;
+        }
+    }
+
+    @keyframes slideInBlurredTop {
+        0% {
+            transform: translateY(-1000px) scaleY(2.5) scaleX(0.2);
+            transform-origin: 50% 0%;
+            filter: blur(240px);
+            opacity: 0;
+        }
+        100% {
+            transform: translateY(0) scaleY(1) scaleX(1);
+            transform-origin: 50% 50%;
+            filter: blur(0);
+            opacity: 1;
+        }
+    }
+
+    @keyframes slideInBlurredRight {
+        0% {
+            transform: translateX(1000px) scaleX(2.5) scaleY(0.2);
+            transform-origin: 0% 50%;
+            filter: blur(40px);
+            opacity: 0;
+        }
+        100% {
+            transform: translateX(0) scaleY(1) scaleX(1);
+            transform-origin: 50% 50%;
+            filter: blur(0);
+            opacity: 1;
+        }
+    }
+
+    @keyframes slideInBlurredBottom {
+        0% {
+            transform: translateY(1000px) scaleY(2.5) scaleX(0.2);
+            transform-origin: 50% 100%;
+            filter: blur(240px);
+            opacity: 0;
+        }
+        100% {
+            transform: translateY(0) scaleY(1) scaleX(1);
+            transform-origin: 50% 50%;
+            filter: blur(0);
+            opacity: 1;
+        }
+    }
+
+    @keyframes slideOutBlurredTop {
+        0% {
+            transform: translateY(0) scaleY(1) scaleX(1);
+            transform-origin: 50% 0%;
+            filter: blur(0);
+            opacity: 1;
+        }
+        100% {
+            transform: translateY(-1000px) scaleY(2) scaleX(0.2);
+            transform-origin: 50% 0%;
+            filter: blur(240px);
+            opacity: 0;
+        }
+    }
+
+    @keyframes slideOutBlurredBottom {
+        0% {
+            transform: translateY(0) scaleY(1) scaleX(1);
+            transform-origin: 50% 50%;
+            filter: blur(0);
+            opacity: 1;
+        }
+        100% {
+            transform: translateY(1000px) scaleY(2) scaleX(0.2);
+            transform-origin: 50% 100%;
+            filter: blur(240px);
+            opacity: 0;
+        }
+    }
+
+    @keyframes slideOutBlurredLeft {
+        0% {
+            transform: translateX(0) scaleY(1) scaleX(1);
+            transform-origin: 50% 50%;
+            filter: blur(0);
+            opacity: 1;
+        }
+        100% {
+            transform: translateX(-1000px) scaleX(2) scaleY(0.2);
+            transform-origin: 100% 50%;
+            filter: blur(40px);
+            opacity: 0;
+        }
+    }
+
+    @keyframes slideOutBlurredRight {
+        0% {
+            transform: translateX(0) scaleY(1) scaleX(1);
+            transform-origin: 50% 50%;
+            filter: blur(0);
+            opacity: 1;
+        }
+        100% {
+            transform: translateX(1000px) scaleX(2) scaleY(0.2);
+            transform-origin: 0% 50%;
+            filter: blur(40px);
+            opacity: 0;
+        }
+    }
+    </style>
+</head>
+<body>
+<div id="app" data-v-app="">
+    <div data-v-f0d316e8="" class="layout-default"><!-- 상단 헤더 섹션 -->
+        <div class="header">
+            <div class="container">
+                <div class="text-wrapper">두뇌 트레이닝</div>
+            </div>
+            <div class="navbar"><a href="http://localhost:5173/" class="router-link-active link">검사</a><a
+                    href="http://localhost:5173/" class="router-link-active link">학습</a><a aria-current="page"
+                                                                                           href="http://localhost:5173/mypage/test"
+                                                                                           class="router-link-active router-link-exact-active link">마이페이지</a>
+                <div class="button">로그아웃</div>
+            </div>
+        </div><!--v-if--><!-- 좌측 사이드바 + 콘텐츠 섹션 -->
+        <div data-v-f0d316e8="" class="content-wrapper">
+            <main data-v-f0d316e8="" class="main-content">
+                <div data-v-f46ba5dd="" data-v-f0d316e8="" class="layout"><!-- <Header /> -->
+                    <div data-v-f46ba5dd="" class="layout-body">
+                        <aside data-v-a990291f="" data-v-f46ba5dd="" class="sidebar"><h3 data-v-a990291f="">마이페이지</h3><a
+                                data-v-a990291f="" aria-current="page" href="http://localhost:5173/mypage/test"
+                                class="router-link-active router-link-exact-active menu-link active">검사 결과 및 통계</a><a
+                                data-v-a990291f="" href="http://localhost:5173/mypage/study" class="menu-link">학습 결과
+                            내역</a><a data-v-a990291f="" href="http://localhost:5173/mypage/objection" class="menu-link">이의제기
+                            내역</a><a data-v-a990291f="" href="http://localhost:5173/mypage/userinfo" class="menu-link">개인정보
+                            조회</a></aside>
+                        <main data-v-f46ba5dd="" class="content" aria-label="마이페이지 콘텐츠">
+                            <main data-v-8b8cb587="" data-v-f46ba5dd=""><!-- 1) 최근 검사 결과 (Radar + AI) -->
+                                <section data-v-8b8cb587="" class="section"><h2 data-v-8b8cb587=""
+                                                                                class="section-title">최근 검사 결과</h2>
+                                    <div data-v-8b8cb587="" class="card">
+                                        <div data-v-8b8cb587="" class="chart-row">
+                                            <div data-v-ea212300="" data-v-8b8cb587="" class="chart-box radar"
+                                                 style="aspect-ratio: 1 / 1;">
+                                                <canvas data-v-ea212300="" aria-label="영역별 점수 레이더 차트" role="img"
+                                                        width="674" height="674"
+                                                        style="display: block; box-sizing: border-box; height: 562px; width: 562px;"></canvas>
+                                            </div>
+                                            <div data-v-f6881418="" data-v-8b8cb587="" class="chart-box line">
+                                                <canvas data-v-f6881418="" aria-label="총점 추이 차트" role="img" width="674"
+                                                        height="674"
+                                                        style="display: block; box-sizing: border-box; height: 562px; width: 562px;"></canvas>
+                                            </div>
+                                        </div>
+                                        <div data-v-8b8cb587="" class="ai-summary-card"><p data-v-8b8cb587=""><strong
+                                                data-v-8b8cb587="">AI 분석 결과 (2025-05-20):</strong></p>
+                                            <p data-v-8b8cb587="">언어 이해와 공간 지각력이 매우 뛰어나며, 처리 속도는 개선이 필요합니다.</p></div>
+                                    </div>
+                                </section><!-- 2) 검사 결과 목록 -->
+                                <section data-v-8b8cb587="" class="section"><h2 data-v-8b8cb587=""
+                                                                                class="section-title">검사 결과 목록</h2>
+                                    <div data-v-8b8cb587="" class="filter-bar"><label data-v-8b8cb587="">년도 <select
+                                            data-v-8b8cb587="">
+                                        <option data-v-8b8cb587="" value="">전체</option>
+                                        <option data-v-8b8cb587="" value="2025">2025년</option>
+                                        <option data-v-8b8cb587="" value="2024">2024년</option>
+                                    </select></label><label data-v-8b8cb587="">월 <select data-v-8b8cb587="">
+                                        <option data-v-8b8cb587="" value="">전체</option>
+                                        <option data-v-8b8cb587="" value="1">1월</option>
+                                        <option data-v-8b8cb587="" value="2">2월</option>
+                                        <option data-v-8b8cb587="" value="3">3월</option>
+                                        <option data-v-8b8cb587="" value="4">4월</option>
+                                        <option data-v-8b8cb587="" value="5">5월</option>
+                                        <option data-v-8b8cb587="" value="6">6월</option>
+                                        <option data-v-8b8cb587="" value="7">7월</option>
+                                        <option data-v-8b8cb587="" value="8">8월</option>
+                                        <option data-v-8b8cb587="" value="9">9월</option>
+                                        <option data-v-8b8cb587="" value="10">10월</option>
+                                        <option data-v-8b8cb587="" value="11">11월</option>
+                                        <option data-v-8b8cb587="" value="12">12월</option>
+                                    </select></label>
+                                        <button data-v-8b8cb587="">검색</button>
+                                    </div>
+                                    <div data-v-8b8cb587="">
+                                        <article data-v-5a53f048="" data-v-8b8cb587="" class="result-row">
+                                            <div data-v-5a53f048="" class="info-left"><span data-v-5a53f048=""
+                                                                                            class="badge badge-strong">강점: 언어 이해</span><span
+                                                    data-v-5a53f048="" class="badge badge-weak">약점: 처리 속도</span></div>
+                                            <div data-v-5a53f048="" class="score">26점</div>
+                                            <div data-v-5a53f048="" class="date">2025년 5월 20일</div>
+                                            <a data-v-5a53f048="" href="http://localhost:5173/mypage/test/1"
+                                               class="btn-detail" aria-label="2025년 5월 20일 검사 상세 보기"> 상세 보기 </a>
+                                        </article>
+                                    </div>
+                                    <div data-v-cd0ec003="" data-v-8b8cb587="" class="pagination">
+                                        <button data-v-cd0ec003="" class="page-btn" disabled=""> ‹</button>
+                                        <button data-v-cd0ec003="" class="page-btn active">1</button>
+                                        <button data-v-cd0ec003="" class="page-btn" disabled=""> ›</button>
+                                    </div>
+                                </section>
+                            </main>
+                        </main>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+</div>
+<script type="module" src="./Vite App_files/main.js.다운로드"></script>
+
+
+<script src="./Vite App_files/devtools-overlay.mjs" type="module"></script>
+<div id="vue-inspector-container" data-v-app="">
+    <div data-v-31d1379f="" data-v-inspector-ignore="true"><!--v-if--><!-- Overlay --><!--v-if--></div>
+</div>
+<div>
+    <div>
+        <div class="Vue-Toastification__container top-left"></div>
+    </div>
+    <div>
+        <div class="Vue-Toastification__container top-center"></div>
+    </div>
+    <div>
+        <div class="Vue-Toastification__container top-right"></div>
+    </div>
+    <div>
+        <div class="Vue-Toastification__container bottom-left"></div>
+    </div>
+    <div>
+        <div class="Vue-Toastification__container bottom-center"></div>
+    </div>
+    <div>
+        <div class="Vue-Toastification__container bottom-right"></div>
+    </div>
+</div>
+</body>
+</html>
