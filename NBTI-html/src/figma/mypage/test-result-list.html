@@ -2,181 +2,228 @@
 <html lang="ko">
 <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <title>NBTI - 검사 결과 목록</title>
-    <link rel="stylesheet" href="styles.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>검사 결과 목록</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
         body {
-            font-family: 'Pretendard', sans-serif;
             margin: 0;
-            background: #f4f6f9;
+            font-family: 'Pretendard', sans-serif;
+            background: #f9fafb;
         }
         .layout {
             display: flex;
-            min-height: 100vh;
+            height: 100vh;
         }
         .sidebar {
-            width: 240px;
-            background: #fff;
-            border-right: 1px solid #ddd;
-            padding: 24px;
+            width: 220px;
+            background: white;
+            border-right: 1px solid #e5e7eb;
+            padding: 2rem 1rem;
         }
-        .sidebar img.logo {
-            width: 120px;
-            margin-bottom: 32px;
+        .sidebar h2 {
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
         }
-        .sidebar nav a {
+        .sidebar a {
             display: block;
-            margin-bottom: 16px;
             color: #333;
+            margin-bottom: 1rem;
             text-decoration: none;
-            font-weight: 500;
         }
         .content {
-            flex: 1;
-            padding: 40px;
+            flex-grow: 1;
+            padding: 2rem;
+            overflow-y: auto;
         }
-        .header {
-            font-size: 24px;
-            font-weight: bold;
-            margin-bottom: 20px;
-        }
-        .result-card {
-            background: #fff;
-            border: 1px solid #ddd;
-            border-radius: 12px;
-            padding: 20px;
-            margin-bottom: 20px;
+        header {
             display: flex;
-            align-items: center;
             justify-content: space-between;
-        }
-        .result-info {
-            display: flex;
-            flex-direction: column;
-        }
-        .result-info .date {
-            font-size: 14px;
-            color: #888;
-        }
-        .result-info .summary {
-            font-size: 16px;
-            margin-top: 6px;
-        }
-        .result-icons {
-            display: flex;
-            gap: 12px;
             align-items: center;
+            margin-bottom: 2rem;
         }
-        .result-icons img {
-            width: 32px;
-            height: 32px;
-        }
-        .chart-section {
+        .charts {
             display: flex;
-            gap: 20px;
-            margin-top: 40px;
+            gap: 2rem;
+            margin-bottom: 2rem;
         }
         .chart-box {
             flex: 1;
-            background: #fff;
-            padding: 20px;
-            border-radius: 12px;
-            text-align: center;
+            background: white;
+            border-radius: 1rem;
+            padding: 1rem;
+            box-shadow: 0 0 0 1px #e5e7eb;
         }
-        .chart-box img {
-            max-width: 100%;
-            height: auto;
+        .cards {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1.25rem;
+            margin-bottom: 3rem;
         }
-        .pagination {
-            margin-top: 40px;
-            text-align: center;
+        .card {
+            background: white;
+            border-radius: 1rem;
+            padding: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            box-shadow: 0 0 0 1px #e5e7eb;
         }
-        .pagination button {
-            margin: 0 4px;
-            padding: 8px 14px;
-            border: none;
-            background: #eee;
-            border-radius: 6px;
-            cursor: pointer;
+        .card-left {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
         }
-        .pagination .active {
-            background: #007bff;
-            color: #fff;
+        .card-left img {
+            width: 40px;
+            height: 40px;
+        }
+        .card-info {
+            font-size: 0.9rem;
+        }
+        .card-info .title {
+            font-weight: bold;
+        }
+        .card-score {
+            font-weight: bold;
+            color: #2563eb;
+        }
+        .ai-summary {
+            background: white;
+            padding: 1rem;
+            border-radius: 1rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 0 0 1px #e5e7eb;
+        }
+        .ai-summary h3 {
+            margin-top: 0;
+        }
+        .history-list {
+            background: white;
+            padding: 1rem;
+            border-radius: 1rem;
+            box-shadow: 0 0 0 1px #e5e7eb;
+        }
+        .history-list h3 {
+            margin-top: 0;
+            margin-bottom: 1rem;
+        }
+        .history-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 0.75rem 0;
+            border-bottom: 1px solid #eee;
+        }
+        .history-item:last-child {
+            border-bottom: none;
+        }
+        .history-item .date {
+            color: #888;
         }
     </style>
 </head>
 <body>
 <div class="layout">
-    <!-- Sidebar -->
     <aside class="sidebar">
-        <img src="logo.png" alt="NBTI Logo" class="logo" />
-        <nav>
-            <a href="#">검사 결과</a>
-            <a href="#">학습 내역</a>
-            <a href="#">이의 제기</a>
-        </nav>
+        <h2>마이페이지</h2>
+        <a href="#">검사 결과 통계</a>
+        <a href="#">학습 결과 내역</a>
+        <a href="#">이의제기 내역</a>
+        <a href="#">개인정보 조회</a>
     </aside>
-
-    <!-- Main Content -->
     <main class="content">
-        <div class="header">검사 결과 목록</div>
-
-        <!-- Result Cards -->
-        <div class="result-card">
-            <div class="result-info">
-                <div class="date">2025-05-10</div>
-                <div class="summary">총점: 83점 — 최고: 언어 이해 / 최저: 작업 기억</div>
-            </div>
-            <div class="result-icons">
-                <img src="language_comprehension.png" alt="언어 이해" title="언어 이해" />
-                <img src="work_memory.png" alt="작업 기억" title="작업 기억" />
-            </div>
-        </div>
-
-        <div class="result-card">
-            <div class="result-info">
-                <div class="date">2025-05-08</div>
-                <div class="summary">총점: 76점 — 최고: 시사 상식 / 최저: 처리 속도</div>
-            </div>
-            <div class="result-icons">
-                <img src="common_sense.png" alt="시사 상식" title="시사 상식" />
-                <img src="processing_speed.png" alt="처리 속도" title="처리 속도" />
-            </div>
-        </div>
-
-        <div class="result-card">
-            <div class="result-info">
-                <div class="date">2025-05-05</div>
-                <div class="summary">총점: 68점 — 최고: 공간 지각력 / 최저: 언어 이해</div>
-            </div>
-            <div class="result-icons">
-                <img src="spatial_perception.png" alt="공간 지각력" title="공간 지각력" />
-                <img src="language_comprehension.png" alt="언어 이해" title="언어 이해" />
-            </div>
-        </div>
-
-        <!-- Chart Section -->
-        <div class="chart-section">
+        <header>
+            <h1>최근 검사 결과</h1>
+            <nav>
+                <a href="#">검사 및 학습</a>
+                <a href="#">마이페이지</a>
+                <a href="#">로그아웃</a>
+            </nav>
+        </header>
+        <div class="charts">
             <div class="chart-box">
-                <h4>분야별 점수 (레이더 차트)</h4>
-                <img src="radar-placeholder.png" alt="Radar Chart" />
+                <canvas id="radarChart" width="300" height="300"></canvas>
             </div>
             <div class="chart-box">
-                <h4>총점 변화 추이 (라인 차트)</h4>
-                <img src="line-placeholder.png" alt="Line Chart" />
+                <canvas id="lineChart" width="300" height="300"></canvas>
             </div>
         </div>
-
-        <!-- Pagination -->
-        <div class="pagination">
-            <button disabled>‹</button>
-            <button class="active">1</button>
-            <button>2</button>
-            <button>3</button>
-            <button>›</button>
+        <div class="ai-summary">
+            <h3>AI 총평</h3>
+            <p>이번 검사에서는 언어 이해와 시사 상식에서 우수한 성과를 보였으며, 처리 속도 영역은 추가 학습이 필요합니다.</p>
+        </div>
+        <div class="cards">
+            <!-- 카드 항목 여기에 추가됨 (생략) -->
+        </div>
+        <div class="history-list">
+            <h3>검사 결과 목록</h3>
+            <div class="history-item">
+                <div>2025-05-23 검사 결과</div>
+                <div class="date">총점: 18점, 최고: 언어 이해, 최저: 처리 속도</div>
+            </div>
+            <div class="history-item">
+                <div>2025-05-20 검사 결과</div>
+                <div class="date">총점: 24점, 최고: 시사 상식, 최저: 작업 기억</div>
+            </div>
+            <div class="history-item">
+                <div>2025-05-18 검사 결과</div>
+                <div class="date">총점: 27점, 최고: 공간 지각력, 최저: 지각 추론</div>
+            </div>
         </div>
     </main>
 </div>
+<script>
+    const radarCtx = document.getElementById('radarChart').getContext('2d');
+    new Chart(radarCtx, {
+        type: 'radar',
+        data: {
+            labels: ['언어 이해', '시사 상식', '지각 추론', '작업 기억', '처리 속도', '공간 지각력'],
+            datasets: [{
+                label: '점수',
+                data: [6, 6, 1, 1, 0, 3],
+                backgroundColor: 'rgba(59, 130, 246, 0.2)',
+                borderColor: '#3b82f6',
+                borderWidth: 2
+            }]
+        },
+        options: {
+            scales: {
+                r: {
+                    beginAtZero: true,
+                    min: 0,
+                    max: 6,
+                    ticks: {
+                        stepSize: 1
+                    }
+                }
+            }
+        }
+    });
+
+    const lineCtx = document.getElementById('lineChart').getContext('2d');
+    new Chart(lineCtx, {
+        type: 'line',
+        data: {
+            labels: ['05.20', '05.23'],
+            datasets: [{
+                label: '총점 변화',
+                data: [24, 18],
+                fill: true,
+                backgroundColor: 'rgba(147, 197, 253, 0.2)',
+                borderColor: '#60a5fa',
+                tension: 0.4
+            }]
+        },
+        options: {
+            responsive: true,
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    suggestedMax: 30
+                }
+            }
+        }
+    });
+</script>
 </body>
 </html>

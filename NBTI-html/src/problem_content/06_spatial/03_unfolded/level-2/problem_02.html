@@ -97,7 +97,7 @@
 
   <main class="content-wrapper">
     <div class="container">
-      <h2 class="instruction">아래 전개도로 만들 수 있는 상자를 고르세요.</h2>
+      <h2 class="instruction">아래 전개도로 만들 수 없는 상자를 고르세요.</h2>
 
       <div class="content">
         <div class="net" id="net"></div>
@@ -135,9 +135,9 @@
 
   const choicesData = [
     { top: 'blue2', left: 'gray', right: 'blue3' },
-    { top: 'blue3', left: 'blue2', right: 'gray' },
     { top: 'gray', left: 'gray', right: 'blue1' },
-    { top: 'gray', left: 'blue1', right: 'blue3' }
+    { top: 'gray', left: 'blue1', right: 'blue3' },
+    { top: 'blue3', left: 'gray', right: 'blue2' }
   ];
   const answer = 4;
 
