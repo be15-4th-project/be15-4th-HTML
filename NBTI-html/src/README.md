@@ -1,15 +1,4 @@
 
-<br>
-
-{{프로젝트 이모지 및 이름}}
-<br><br>{{짧은 프로젝트 태그라인}}
-
-</div>
-
-<br>
-
----
-
 ## 📚 목차
 
 1. [🏆 팀 소개](#1--팀-소개)
@@ -36,10 +25,10 @@
 
 ## 1. 🏆 팀 소개
 
-|                          곽진웅                           |                          김여진                           |                          김태인                          |                           김운경                           |                          정유진                          |
-|:------------------------------------------------------:|:------------------------------------------------------:|:-----------------------------------------------------:|:-------------------------------------------------------:|:-----------------------------------------------------:|
-| <img src="./assets/istj.jpg" width="100" height="100"> | <img src="./assets/istj.jpg" width="100" height="100"> | <img src="./assets/isfj.png" width="100" height="100"> | <img src="./assets/isfp.webp" width="100" height="100"> | <img src="./assets/ESTJ.png" width="100" height="100"> |
-|      [mijuckboon](https://github.com/mijuckboon)       |        [meowdule](https://github.com/meowdule)         |       [Taein5415](https://github.com/Taein5415)       |         [splguyjr](https://github.com/splguyjr)         |   [devyujinjeong](https://github.com/devyujinjeong)   |
+|                              곽진웅                              |                              김여진                              |                              김태인                              |                              김운경                               |                              정유진                              |
+|:-------------------------------------------------------------:|:-------------------------------------------------------------:|:-------------------------------------------------------------:|:--------------------------------------------------------------:|:-------------------------------------------------------------:|
+| <img src="./assets/images/istj.jpg" width="100" height="100"> | <img src="./assets/images/istj.jpg" width="100" height="100"> | <img src="./assets/images/isfj.png" width="100" height="100"> | <img src="./assets/images/isfp.webp" width="100" height="100"> | <img src="./assets/images/ESTJ.png" width="100" height="100"> |
+|          [mijuckboon](https://github.com/mijuckboon)          |            [meowdule](https://github.com/meowdule)            |           [Taein5415](https://github.com/Taein5415)           |            [splguyjr](https://github.com/splguyjr)             |       [devyujinjeong](https://github.com/devyujinjeong)       |
 
 
 <br>
@@ -259,38 +248,41 @@
 
 ```
 
-📦 {{프로젝트 루트 폴더}}
+📦 be15-4th-DAO-NBTI-devops
+├── 📁 .idea
 ├── 📁 assets
-│ ├── 📁 images
-│ ├── 📁 css
-│ └── ...
-├── 📁 src
-│ ├── 📁 api
-│ ├── 📁 components
-│ ├── 📁 views
-│ └── ...
-└── 📄 README.md
+│   ├── 📁 api-docs
+│   ├── 📁 images
+│   └── 📁 testcase
+├── 📁 backend                        # 💡 Spring Boot 백엔드 프로젝트
+│   ├── 📁 src
+│   │   └── 📁 main
+│   │       ├── 📁 java
+│   │       │   └── 📁 com.example.dao
+│   │       │       ├── 📁 controller  # 💡 REST API 엔드포인트
+│   │       │       ├── 📁 service     # 💡 비즈니스 로직 처리 계층
+│   │       │       └── 📁 repository  # 💡 DB 연동 (JPA Repository)
+│   │       └── 📁 resources
+│   │           ├── 📄 application.properties  # 💡 DB 및 서버 설정
+│   │           └── 📄 logback.xml             # 💡 로그 수집(Logstash 연동)
+│   └── 📄 build.gradle
+├── 📁 frontend                       # 💡 Vue 3 기반 SPA 프론트엔드
+│   ├── 📁 public
+│   ├── 📁 src
+│   │   ├── 📁 assets
+│   │   ├── 📁 api                     # 💡 Axios API 모듈
+│   │   ├── 📁 components
+│   │   ├── 📁 views                   # 💡 라우팅되는 페이지 단위 컴포넌트
+│   │   └── 📄 main.js                # 💡 Vue 앱 엔트리포인트
+│   └── 📄 package.json
+├── 📁 docker
+│   └── 📁 logstash
+│       └── 📄 logstash.conf          # 💡 로그 파싱 및 전송 규칙 정의
+├── 📄 docker-compose.yml            # 💡 FE/BE/ELK 포함 전체 서비스 구성 정의
+└── 📄 .gitignore
+
 
 ```
-
-<details>
-<summary>📂 src 상세</summary>
-
-```
-
-📦 src
-├── 📁 api
-│ ├── 📄 index.js
-│ └── ...
-├── 📁 components
-│ ├── 📄 Header.vue
-│ └── ...
-└── 📄 main.js
-
-```
-
-
-</details>
 
 <br>
 
@@ -301,7 +293,7 @@
 
 ### 1. 📊 WBS (작업 분배 및 일정)
 
-🔗 [WBS 명세서 링크](#)
+🔗 [WBS 명세서 링크](https://docs.google.com/spreadsheets/d/e/2PACX-1vS2PCFj3vhrSqJrXER0JPMTuIF6BAbb2YIH8Bzl6IEY3B6_UMLni89lNHIcSA1w8R8tclbtuDl1wDe2/pubhtml?gid=1971515931&single=true)
 
 <img src="assets/images/WBS.jpg" alt="wbs" width="550"/>
 
@@ -311,9 +303,9 @@
 
 ### 2. 📄 요구사항 정의서
 
-🔗 [요구사항 정의서 링크](#)
+🔗 [요구사항 정의서 링크](https://docs.google.com/spreadsheets/d/e/2PACX-1vS2PCFj3vhrSqJrXER0JPMTuIF6BAbb2YIH8Bzl6IEY3B6_UMLni89lNHIcSA1w8R8tclbtuDl1wDe2/pubhtml?gid=520517258&single=true)
 
-<img src="assets/images/WBS.jpg" alt="wbs" width="550"/>
+<img src="assets/images/requirements.jpg" alt="requirements" width="550"/>
 
 <br>
 
@@ -321,11 +313,11 @@
 
 ### 3. 🔄 플로우 차트 & UML
 
-<img src="assets/images/flowchart.jpg" alt="flowchart" width="550"/>
+<img src="assets/images/flowchart.png" alt="flowchart" width="450"/>
 
 <br>
 
-<img src="assets/images/UML.jpg" alt="UML" width="550"/>
+<img src="assets/images/UML.png" alt="UML" width="750"/>
 
 <br>
 
@@ -333,7 +325,13 @@
 
 ### 4. 📦 DDD
 
-<img src="assets/images/DDD.jpg" alt="DDD" width="550"/>
+🔗 [DDD 링크](https://miro.com/app/board/uXjVIwveahs=/?share_link_id=57339969023)
+
+<img src="assets/images/DDD_1.jpg" alt="DDD"/>
+
+<br>
+
+<img src="assets/images/DDD_2.jpg" alt="DDD" width="550"/>
 
 <br>
 
@@ -341,15 +339,17 @@
 
 ### 5. 📌 ERD & 테이블 정의서
 
-<img src="assets/images/ERD_logic.jpg" alt="ERD" width="550"/>
+<img src="assets/images/physical_erd.png" alt="ERD"/>
+
+<br>
+<br>
+
+
+<img src="assets/images/logic_erd.png" alt="ERD" width="550"/>
 
 <br>
 
-<img src="assets/images/ERD_logic.jpg" alt="ERD" width="550"/>
-
-<br>
-
-🔗 [테이블 정의서 링크](#)
+🔗 [테이블 정의서 링크](https://docs.google.com/spreadsheets/d/e/2PACX-1vS2PCFj3vhrSqJrXER0JPMTuIF6BAbb2YIH8Bzl6IEY3B6_UMLni89lNHIcSA1w8R8tclbtuDl1wDe2/pubhtml?gid=941831741&single=true)
 
 <br>
 
@@ -357,7 +357,7 @@
 
 ### 6. 🧩 기능 정의서
 
-🔗 [기능 정의서 링크](#)
+🔗 [기능 정의서 링크](https://docs.google.com/spreadsheets/d/e/2PACX-1vS2PCFj3vhrSqJrXER0JPMTuIF6BAbb2YIH8Bzl6IEY3B6_UMLni89lNHIcSA1w8R8tclbtuDl1wDe2/pubhtml?gid=797049621&single=true)
 
 <img src="assets/images/functionalDefinition.jpg" alt="functionalDefinition" width="400"/>
 
@@ -367,9 +367,9 @@
 
 ### 7. 💻 화면 설계서
 
-🔗 [화면 설계서 (Figma) 링크](#)
+🔗 [화면 설계서 (Figma) 링크](https://www.figma.com/design/F3jnZYqEHHwzUqGBeQSRJW/DAO?node-id=0-1&t=pQC5VJ1zsJBlAHc7-1)
 
-<img src="assets/images/design.png" alt="design"/>
+<img src="assets/images/figma.png" alt="figma"/>
 
 <br>
 
@@ -377,9 +377,9 @@
 
 ### 8.🧾 테스트 케이스 정의서
 
-🔗 [테스트 케이스 정의서 링크](#)
+🔗 [테스트 케이스 정의서 링크](https://docs.google.com/spreadsheets/d/e/2PACX-1vS2PCFj3vhrSqJrXER0JPMTuIF6BAbb2YIH8Bzl6IEY3B6_UMLni89lNHIcSA1w8R8tclbtuDl1wDe2/pubhtml?gid=830549809&single=true)
 
-<img src="assets/images/design.png" alt="design"/>
+<img src="assets/images/testcase.png" alt="testcase"/>
 
 <br>
 
@@ -387,9 +387,9 @@
 
 ### 9.📚 SWAGGER 문서
 
-🔗 [SWAGGER 링크](#)
+[swagger_api.pdf](assets/api-docs/Swagger_API.pdf)
 
-<img src="assets/images/design.png" alt="design"/>
+<img src="assets/images/swagger.jpg" alt="swagger"/>
 
 <br>
 
@@ -448,9 +448,45 @@
 
 ## 6. 🫂 팀원 회고
 
-| 팀원 | 회고 |
-| :--: | :--: |
-| **{{이름1}}** | > {{회고 내용}} |
-| **{{이름2}}** | > {{회고 내용}} |
-| **{{이름3}}** | > {{회고 내용}} |
-| ...  |   |
+
+
+|**곽진웅**|
+|------|
+
+> 
+
+<br>
+
+
+
+| **김여진** |
+|---------|
+
+>
+
+<br>
+
+
+
+| **김태인** |
+|---------|
+
+>
+
+<br>
+
+
+| **김운경** |
+|---------|
+
+>
+
+<br>
+
+
+| **정유진** |
+|---------|
+
+>
+
+<br>
