@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8" />
+    <title>NBTI 소개 배너</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Pretendard', sans-serif;
+            background-color: #ffffff;
+        }
+
+        .nbti-banner {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 100px 60px;
+            background-color: #f7f9fc;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .nbti-left {
+            flex: 1;
+            z-index: 2;
+        }
+
+        .nbti-left h1 {
+            font-size: 36px;
+            font-weight: 800;
+            color: #1f2d3d;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 16px;
+        }
+
+        .nbti-left h1 img {
+            width: 60px;
+        }
+
+        .nbti-left p {
+            font-size: 18px;
+            color: #4a4a4a;
+            line-height: 1.6;
+        }
+
+        .nbti-right {
+            flex: 1;
+            height: 400px;
+            position: relative;
+        }
+
+        /* 조명 라인 */
+        .light-wrap {
+            position: absolute;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .light-line {
+            width: 2px;
+            height: 100px;
+            background-color: #ccc;
+        }
+
+        .light {
+            width: 72px;
+            height: 72px;
+            border-radius: 50%;
+            background-color: #ffffff;
+            box-shadow:
+                    0 2px 4px rgba(0, 0, 0, 0.1),
+                    0 0 6px rgba(0, 0, 0, 0.06);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            font-size: 12px;
+            font-weight: 600;
+            color: #1f2d3d;
+            transition: transform 0.3s ease;
+        }
+
+        .light:hover {
+            transform: scale(1.08);
+        }
+
+        .light img {
+            width: 32px;
+            height: 32px;
+            margin-bottom: 4px;
+        }
+
+        /* 비대칭 위치 조정 */
+        .light1 { top: 20px; left: 40px; }
+        .light2 { top: 10px; left: 160px; }
+        .light3 { top: 40px; left: 300px; }
+        .light4 { top: 100px; left: 100px; }
+        .light5 { top: 140px; left: 240px; }
+        .light6 { top: 60px; left: 380px; }
+
+        @media (max-width: 768px) {
+            .nbti-banner {
+                flex-direction: column;
+                padding: 60px 20px;
+            }
+
+            .nbti-left h1 {
+                font-size: 32px;
+            }
+
+            .nbti-left p {
+                font-size: 16px;
+            }
+
+            .nbti-right {
+                width: 100%;
+                height: 320px;
+            }
+
+            .light1 { left: 10%; }
+            .light2 { left: 30%; }
+            .light3 { left: 50%; }
+            .light4 { left: 20%; top: 140px; }
+            .light5 { left: 40%; top: 160px; }
+            .light6 { left: 60%; top: 120px; }
+        }
+    </style>
+</head>
+<body>
+
+<section class="nbti-banner">
+    <div class="nbti-left">
+        <h1><img src="../../assets/images/nbti-logo.png" alt="NBTI 로고" />NBTI</h1>
+        <p>당신의 인지 능력을 빠르게 진단하고,<br>6개 영역별 훈련으로 두뇌를 성장시키세요.</p>
+    </div>
+
+    <div class="nbti-right">
+        <div class="light-wrap light1">
+            <div class="light-line"></div>
+            <div class="light">
+                <img src="../../assets/images/language_comprehension.png" alt="언어 이해">
+                언어 이해
+            </div>
+        </div>
+        <div class="light-wrap light2">
+            <div class="light-line"></div>
+            <div class="light">
+                <img src="../../assets/images/common_sense.png" alt="시사 상식">
+                시사 상식
+            </div>
+        </div>
+        <div class="light-wrap light3">
+            <div class="light-line"></div>
+            <div class="light">
+                <img src="../../assets/images/perceptual_reasoning.png" alt="지각 추론">
+                지각 추론
+            </div>
+        </div>
+        <div class="light-wrap light4">
+            <div class="light-line"></div>
+            <div class="light">
+                <img src="../../assets/images/processing_speed.png" alt="처리 속도">
+                처리 속도
+            </div>
+        </div>
+        <div class="light-wrap light5">
+            <div class="light-line"></div>
+            <div class="light">
+                <img src="../../assets/images/work_memory.png" alt="작업 기억">
+                작업 기억
+            </div>
+        </div>
+        <div class="light-wrap light6">
+            <div class="light-line"></div>
+            <div class="light">
+                <img src="../../assets/images/spatial_perception.png" alt="공간 지각력">
+                공간 지각력
+            </div>
+        </div>
+    </div>
+</section>
+
+</body>
+</html>
