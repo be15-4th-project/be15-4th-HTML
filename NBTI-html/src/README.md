@@ -384,7 +384,7 @@
 
 🔗 [테스트 케이스 정의서 링크](https://docs.google.com/spreadsheets/d/e/2PACX-1vS2PCFj3vhrSqJrXER0JPMTuIF6BAbb2YIH8Bzl6IEY3B6_UMLni89lNHIcSA1w8R8tclbtuDl1wDe2/pubhtml?gid=830549809&single=true)
 
-<img src="assets/images/testcase.png" alt="testcase"/>
+<img src="assets/images/testcase.jpg" alt="testcase"/>
 
 <br>
 
@@ -406,48 +406,558 @@
 <details>
 <summary>회원</summary>
 
-- STEP01 회원가입 테스트  
-  <img src="assets/test_cases/user/step01-register.gif" alt="STEP01 회원가입"/>
-- ...
+- 회원가입 테스트
+
+<img src="assets/testcases/user/user_signup.gif" alt="회원가입"/>
+
+- 비밀번호 찾기 테스트
+
+<img src="assets/testcases/user/user_pwd.gif" alt="비밀번호찾기"/>
+
+- 로그인 테스트
+
+<img src="assets/testcases/user/user_login.gif" alt="로그인"/>
+
+- 로그인 테스트
+
+<img src="assets/testcases/user/user_logout.gif" alt="로그아웃"/>
+
+- 회원 탈퇴 테스트
+
+<img src="assets/testcases/user/user_withdraw.gif" alt="회원 탈퇴"/>
 
 </details>
+
+<br>
 
 <details>
-<summary>모임</summary>
+<summary>검사</summary>
 
-- STEP02 모임 조회 테스트  
-  <img src="assets/test_cases/meeting/step02-list.gif" alt="STEP02 모임 조회"/>
+- 검사 진행 테스트
+
+<img src="assets/testcases/test/test_.gif" alt="비회원 검사 진행"/>
+
 - ...
 
 </details>
 
-<!-- 필요한 카테고리 추가 -->
+<br>
+
+<details>
+<summary>학습</summary>
+
+- 학습 진행 테스트  
+
+<img src="assets/testcases/study/study_01.gif" alt="학습 진행"/>
+
+
+- 학습 결과 조회 테스트
+
+<img src="assets/testcases/study/study_02.gif" alt="학습 결과"/>
+
+</details>
+
+<br>
+
+<details>
+<summary>마이페이지</summary>
+
+<br>
+
+<details>
+<summary> &emsp;검사 결과</summary>
+
+- 검사 결과 목록 조회 테스트  
+
+<img src="assets/testcases/mypage/mypage_test_01.gif" alt="검사 결과 목록 조회"/>
+
+- 검사 결과 상세 조회 테스트
+
+<img src="assets/testcases/mypage/mypage_test_02.gif" alt="검사 결과 상세"/>
+
+</details>
+
+<br>
+
+<details>
+<summary> &emsp;학습 결과</summary>
+
+- 학습 결과 목록 조회 테스트
+
+<img src="assets/testcases/mypage/mypage_study_01.gif" alt="학습 결과 목록 조회"/>
+
+- 학습 결과 상세 조회 테스트
+
+<img src="assets/testcases/mypage/mypage_study_02.gif" alt="학습 결과 상세 조회"/>
+
+</details>
+
+<br>
+
+<details>
+<summary> &emsp;이의 제기</summary>
+
+- 이의 제기 신청 테스트
+
+<img src="assets/testcases/mypage/mypage_obj_01.gif" alt="이의 제기 신청"/>
+
+- 이의 제기 내역 조회 테스트
+
+<img src="assets/testcases/mypage/mypage_obj_02.gif" alt="이의 제기 내역 조회"/>
+
+- 이의 제기 상세 조회 테스트
+
+<img src="assets/testcases/mypage/mypage_obj_03.gif" alt="이의 제기 상세 조회"/>
+
+</details>
+
+<br>
+
+<details>
+<summary> &emsp;회원 정보</summary>
+
+- 회원 정보 조회 테스트
+
+<img src="assets/testcases/mypage/mypage_userinfo.png" alt="회원 정보 조회"/>
+
+</details>
+
+<br>
+
+</details>
+
+<br>
+
+<details>
+<summary>관리자 </summary>
+
+- 회원 목록 조회 테스트  
+
+<img src="assets/testcases/admin/admin.gif" alt="회원 목록 조회"/>
+
+- ...
+
+</details>
+
+
 
 <br>
 
 ### 11. 🗄️ 빌드 및 배포
 
+
 <details>
-<summary>회원</summary>
+<summary>1. Docker File</summary>
 
-- STEP01 회원가입 테스트  
-  <img src="assets/test_cases/user/step01-register.gif" alt="STEP01 회원가입"/>
-- ...
+<details>
+<summary> &emsp;backend Dockerfile</summary>
 
+  ```dockerfile
+FROM openjdk:17-alpine
+WORKDIR /app
+COPY build/libs/*.jar ./
+COPY .env .env
+RUN mv $(ls *.jar | grep -v plain) app.jar
+ENTRYPOINT ["java", "-jar", "app.jar"]
+```
 </details>
 
 <details>
-<summary>모임</summary>
+<summary> &emsp;frontend Dockerfile</summary>
 
-- STEP02 모임 조회 테스트  
-  <img src="assets/test_cases/meeting/step02-list.gif" alt="STEP02 모임 조회"/>
-- ...
-
+  ```dockerfile
+FROM nginx:stable-alpine
+COPY dist /usr/share/nginx/html
+COPY nginx.conf /etc/nginx/conf.d/default.conf
+EXPOSE 80
+CMD ["nginx", "-g", "daemon off;"]
+```
 </details>
 
-<!-- 필요한 카테고리 추가 -->
+<details>
+<summary> &emsp;websocket Dockerfile</summary>
+
+  ```dockerfile
+FROM node:lts-alpine
+WORKDIR /app
+COPY . .
+RUN npm install
+CMD ["node", "index.js"]
+```
+</details>
+
+</details>
 
 <br>
+
+<details>
+<summary>2. Kubernetes manifest</summary>
+
+<details>
+<summary> &emsp;ingress-swc</summary>
+
+  ```yml
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: ingress-swc
+  annotations:
+    nginx.ingress.kubernetes.io/ssl-redirect: "false"
+    nginx.ingress.kubernetes.io/rewrite-target: /$2
+spec:
+  ingressClassName: nginx
+  rules:
+    - http:
+        paths:
+          - path: /()(.*)
+            pathType: ImplementationSpecific
+            backend:
+              service:
+                name: vue-swc-ser
+                port:
+                  number: 8000
+          - path: /boot(/|$)(.*)
+            pathType: ImplementationSpecific
+            backend:
+              service:
+                name: boot-swc-ser
+                port:
+                  number: 8001
+          - path: /ws(/|$)(.*)
+            pathType: ImplementationSpecific
+            backend:
+              service:
+                name: websocket-swc-ser
+                port:
+                  number: 8002
+```
+</details>
+
+<details>
+<summary> &emsp;boot-swc-ser</summary>
+
+  ```yml
+apiVersion: v1
+kind: Service
+metadata:
+  name: boot-swc-ser
+spec:
+  type: ClusterIP
+  ports:
+    - port: 8001
+      targetPort: 8080
+  selector:
+    app: boot-swc-kube
+```
+</details>
+
+<details>
+<summary> &emsp;boot-swc-dep</summary>
+
+  ```yml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: boot-swc-dep
+spec:
+  selector:
+    matchLabels:
+      app: boot-swc-kube
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: boot-swc-kube
+    spec:
+      containers:
+        - name: boot-container
+          image: seolbin/swc_boot_project:latest
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 8080
+```
+</details>
+
+<details>
+<summary> &emsp;vue-swc-ser</summary>
+
+  ```yml
+apiVersion: v1
+kind: Service
+metadata:
+  name: vue-swc-ser
+spec:
+  type: ClusterIP
+  ports:
+    - port: 8000
+      targetPort: 80
+  selector:
+    app: vue-swc-kube
+```
+</details>
+
+<details>
+<summary> &emsp;vue-swc-dep</summary>
+
+  ```yml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: vue-swc-dep
+spec:
+  selector:
+    matchLabels:
+      app: vue-swc-kube
+  template:
+    metadata:
+      labels:
+        app: vue-swc-kube
+    spec:
+      containers:
+        - name: vue-container
+          image: seolbin/swc_vue_project:latest
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 80
+```
+</details>
+
+<details>
+<summary> &emsp;websocket-swc-ser</summary>
+
+  ```yml
+apiVersion: v1
+kind: Service
+metadata:
+  name: websocket-swc-ser
+spec:
+  type: ClusterIP
+  ports:
+    - port: 8002
+      targetPort: 1234
+  selector:
+    app: websocket-swc-kube
+```
+</details>
+
+<details>
+<summary> &emsp;websocket-swc-dep</summary>
+
+  ```yml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: websocket-swc-dep
+spec:
+  selector:
+    matchLabels:
+      app: websocket-swc-kube
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: websocket-swc-kube
+    spec:
+      containers:
+        - name: websocket-container
+          image: seolbin/swc_websocket_project:latest
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 1234
+```
+</details>
+
+</details>
+
+<br>
+
+<details>
+<summary>3. Jenkins Pipeline Script</summary>
+
+<details>
+<summary> &emsp;Jenkins Pipeline Script</summary>
+
+  ```pipeline script
+pipeline {
+    agent any
+
+    tools {
+        gradle 'gradle'
+        jdk 'openJDK17'
+    }
+
+    environment {
+        SOURCE_GITHUB_URL = 'https://github.com/code-4-u/shallwecode/'
+        MANIFESTS_GITHUB_URL = 'https://github.com/seolbin01/k8s-manifests'
+        GIT_USERNAME = 'seolbin01'
+        GIT_EMAIL = 'seolbinpark01@gmail.com'
+        DOCKERHUB_CREDENTIALS = credentials('DOCKERHUB_PASSWORD')
+        GITHUB_URL = 'https://github.com/code-4-u/shallwecode'
+        FRONTEND_IMAGE = 'swc_vue_project'
+        BACKEND_IMAGE = 'swc_boot_project'
+        WEBSOCKET_IMAGE = 'swc_websocket_project'
+    }
+
+    stages {
+        stage('Source Build') {
+            steps {
+                git branch: 'main', url: "${env.SOURCE_GITHUB_URL}"
+                script {
+                    dir('backend') { 
+                        configFileProvider([configFile(fileId: 'shallwecodeenv', targetLocation: '.env')]) {
+                            if (isUnix()) {
+                                sh "chmod +x ./gradlew"
+                                sh "./gradlew clean build"
+                            } else {
+                                bat "gradlew.bat clean build"
+                            }
+                        }
+                    }
+                    dir('frontend') {
+                        if (isUnix()) {
+                            sh 'rm -rf dist'
+                            sh 'npm install'
+                            sh 'npm run build'
+                        } else {
+                            bat 'if exist dist rd /s /q dist'
+                            bat 'npm install'
+                            bat 'npm run build'
+                        }
+                    }
+                    dir('websocket-server') {
+                        if (isUnix()) {
+                            sh 'npm install'
+                        } else {
+                            bat 'npm install'
+                        }
+                    }
+                }
+            }
+        }
+
+        stage('Run Tests') {
+            steps {
+                script {
+                    dir('backend') { 
+                        configFileProvider([configFile(fileId: 'shallwecodeenv', targetLocation: '.env')]) {
+                            if (isUnix()) {
+                                sh "./gradlew test"
+                            } else {
+                                bat "gradlew.bat test"
+                            }
+                        }
+                    }
+                }
+            }
+            post {
+                always {
+                    junit '**/build/test-results/test/*.xml'
+                }
+            }
+        }
+
+        stage('Docker Build and Push') {
+            steps {
+                script {
+                    withCredentials([usernamePassword(credentialsId: 'DOCKERHUB_PASSWORD', 
+                                                    usernameVariable: 'DOCKER_USER', 
+                                                    passwordVariable: 'DOCKER_PASS')]) {
+                        dir('backend') {
+                            if (isUnix()) {
+                                sh "docker build -t ${DOCKER_USER}/${BACKEND_IMAGE}:latest ."
+                                sh "docker login -u ${DOCKER_USER} -p ${DOCKER_PASS}"
+                                sh "docker push ${DOCKER_USER}/${BACKEND_IMAGE}:latest"
+                            } else {
+                                bat "docker build -t ${DOCKER_USER}/${BACKEND_IMAGE}:latest ."
+                                bat "docker login -u %DOCKER_USER% -p %DOCKER_PASS%"
+                                bat "docker push ${DOCKER_USER}/${BACKEND_IMAGE}:latest"
+                            }
+                        }
+                        dir('frontend') {
+                            if (isUnix()) {
+                                sh "docker build -t ${DOCKER_USER}/${FRONTEND_IMAGE}:latest ."
+                                sh "docker push ${DOCKER_USER}/${FRONTEND_IMAGE}:latest"
+                            } else {
+                                bat "docker build -t ${DOCKER_USER}/${FRONTEND_IMAGE}:latest ."
+                                bat "docker push ${DOCKER_USER}/${FRONTEND_IMAGE}:latest"
+                            }
+                        }
+                        dir('websocket-server') {
+                            if (isUnix()) {
+                                sh "docker build -t ${DOCKER_USER}/${WEBSOCKET_IMAGE}:latest ."
+                                sh "docker push ${DOCKER_USER}/${WEBSOCKET_IMAGE}:latest"
+                            } else {
+                                bat "docker build -t ${DOCKER_USER}/${WEBSOCKET_IMAGE}:latest ."
+                                bat "docker push ${DOCKER_USER}/${WEBSOCKET_IMAGE}:latest"
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    post {
+        always {
+            script {
+                if (isUnix()) {
+                    sh 'docker logout'
+                } else {
+                    bat 'docker logout'
+                }
+            }
+        }
+        success {
+            withCredentials([string(credentialsId: 'discord', variable: 'DISCORD')]) {
+                discordSend(
+                    description: """
+                    **빌드 성공!** :tada:
+                    
+                    **제목**: ${currentBuild.displayName}
+                    **결과**: :white_check_mark: ${currentBuild.currentResult}
+                    **실행 시간**: ${currentBuild.duration / 1000}s
+                    **링크**: [빌드 결과 보기](${env.BUILD_URL})
+                    """,
+                    title: "${env.JOB_NAME} 빌드 성공!", 
+                    webhookURL: "$DISCORD"
+                )
+            }
+        }
+        failure {
+            withCredentials([string(credentialsId: 'discord', variable: 'DISCORD')]) {
+                discordSend(
+                    description: """
+                    **빌드 실패!** :x:
+                    
+                    **제목**: ${currentBuild.displayName}
+                    **결과**: :x: ${currentBuild.currentResult}
+                    **실행 시간**: ${currentBuild.duration / 1000}s
+                    **링크**: [빌드 결과 보기](${env.BUILD_URL})
+                    """,
+                    title: "${env.JOB_NAME} 빌드 실패!", 
+                    webhookURL: "$DISCORD"
+                )
+            }
+        }
+    }
+}
+```
+</details>
+
+</details>
+
+<br>
+
+<details>
+<summary>4. Jenkins CI/CD 테스트 결과 화면</summary>
+
+<details>
+<summary> &emsp;Jenkins CI/CD 테스트 결과 화면 (gif)</summary>
+<img src="gifs/jenkinstest.gif">
+
+</details>
+
+</details>
 
 ---
 
