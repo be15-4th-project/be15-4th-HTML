@@ -12,7 +12,7 @@
     - [📦 DDD](#4--ddd)
     - [📌 ERD & 테이블 정의서](#5--erd--테이블-정의서)
     - [🧩 기능 정의서](#6--기능-정의서)
-    - [📐 시스템 아키텍처 구조도](#7--시스템-아키텍쳐-구조도)
+    - [📐 시스템 아키텍처 구조도](#7--시스템-아키텍처-구조도)
     - [💻 화면 설계서](#8--화면-설계서)
     - [🧾 테스트 케이스 정의서](#9--테스트-케이스-정의서)
     - [📚 SWAGGER 문서](#10--swagger-문서)
@@ -427,7 +427,7 @@
 
 ---
 
-### 9.🧾 테스트 케이스 정의서
+### 9. 🧾 테스트 케이스 정의서
 
 🔗 [테스트 케이스 정의서 링크](https://docs.google.com/spreadsheets/d/e/2PACX-1vS2PCFj3vhrSqJrXER0JPMTuIF6BAbb2YIH8Bzl6IEY3B6_UMLni89lNHIcSA1w8R8tclbtuDl1wDe2/pubhtml?gid=830549809&single=true)
 
@@ -437,7 +437,7 @@
 
 ---
 
-### 10.📚 SWAGGER 문서
+### 10. 📚 SWAGGER 문서
 
 [swagger_api.pdf](assets/api-docs/Swagger_API.pdf)
 
