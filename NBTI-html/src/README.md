@@ -409,9 +409,7 @@
 
 ### 7. 📐 시스템 아키텍처 구조도
 
-🔗 [화면 설계서 (Figma) 링크](https://www.figma.com/design/F3jnZYqEHHwzUqGBeQSRJW/DAO?node-id=0-1&t=pQC5VJ1zsJBlAHc7-1)
-
-<img src="assets/images/figma.png" alt="figma"/>
+<img src="assets/images/architecture.png" alt="architecture"/>
 
 <br>
 
