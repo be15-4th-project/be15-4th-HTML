@@ -298,31 +298,31 @@
 │   ├── 📁 api-docs
 │   ├── 📁 images
 │   └── 📁 testcase
-├── 📁 backend                        # 💡 Spring Boot 백엔드 프로젝트
+├── 📁 backend                                   # 💡 Spring Boot 백엔드 프로젝트
 │   ├── 📁 src
 │   │   └── 📁 main
 │   │       ├── 📁 java
 │   │       │   └── 📁 com.example.dao
-│   │       │       ├── 📁 controller  # 💡 REST API 엔드포인트
-│   │       │       ├── 📁 service     # 💡 비즈니스 로직 처리 계층
-│   │       │       └── 📁 repository  # 💡 DB 연동 (JPA Repository)
+│   │       │       ├── 📁 controller            # 💡 REST API 엔드포인트
+│   │       │       ├── 📁 service               # 💡 비즈니스 로직 처리 계층
+│   │       │       └── 📁 repository            # 💡 DB 연동 (JPA Repository)
 │   │       └── 📁 resources
-│   │           ├── 📄 application.properties  # 💡 DB 및 서버 설정
-│   │           └── 📄 logback.xml             # 💡 로그 수집(Logstash 연동)
+│   │           ├── 📄 application.properties    # 💡 DB 및 서버 설정
+│   │           └── 📄 logback.xml               # 💡 로그 수집(Logstash 연동)
 │   └── 📄 build.gradle
-├── 📁 frontend                       # 💡 Vue 3 기반 SPA 프론트엔드
+├── 📁 frontend                                  # 💡 Vue 3 기반 SPA 프론트엔드
 │   ├── 📁 public
 │   ├── 📁 src
 │   │   ├── 📁 assets
-│   │   ├── 📁 api                     # 💡 Axios API 모듈
+│   │   ├── 📁 api                               # 💡 Axios API 모듈
 │   │   ├── 📁 components
-│   │   ├── 📁 views                   # 💡 라우팅되는 페이지 단위 컴포넌트
-│   │   └── 📄 main.js                # 💡 Vue 앱 엔트리포인트
+│   │   ├── 📁 views                             # 💡 라우팅되는 페이지 단위 컴포넌트
+│   │   └── 📄 main.js                           # 💡 Vue 앱 엔트리포인트
 │   └── 📄 package.json
 ├── 📁 docker
 │   └── 📁 logstash
-│       └── 📄 logstash.conf          # 💡 로그 파싱 및 전송 규칙 정의
-├── 📄 docker-compose.yml            # 💡 FE/BE/ELK 포함 전체 서비스 구성 정의
+│       └── 📄 logstash.conf                     # 💡 로그 파싱 및 전송 규칙 정의
+├── 📄 docker-compose.yml                        # 💡 FE/BE/ELK 포함 전체 서비스 구성 정의
 └── 📄 .gitignore
 
 
@@ -1671,7 +1671,7 @@ pipeline {
 | **김운경** |
 |---------|
 
->
+> 이번 DevOps 프로젝트에서 **Docker**, **Jenkins, Kubernetes, Argo CD**를 중심으로 한 인프라 및 배포 자동화 파트를 메인으로 맡아 진행했습니다. <br> 우선, 약 2주라는 짧은 기간 동안 **기획부터 개발, 그리고 배포 파이프라인 구축까지 책임감 있게 완수해준 팀원들에게 감사의 말을 전하고 싶습니다.** <br> 이번 프로젝트는 단순한 기능 개발을 넘어, **서비스에 필요한 문제 데이터를 직접 제작하고 검수하는 작업**까지 포함되어 있어 생각보다 훨씬 많은 시간이 요구됐습니다.  <br>  그럼에도 불구하고, 주어진 시간 안에 모든 작업을 마무리할 수 있었던 것은 각자 맡은 역할에 충실했던 팀원들 덕분이었습니다. <br> 개인적으로는 **Jenkins, Kubernetes, Argo CD 같은 DevOps 자동화 도구들을 실제 프로젝트에 적용해 본 것은 처음이었기 때문에** 많은 도전이 있었습니다. <br> 설정 과정에서 크고 작은 문제들이 계속해서 발생했고, 그때마다 로그를 분석하고 원인을 하나씩 파악하며 해결해 나갔습니다. <br>  **시간이 지날수록 문제를 빠르게 진단하고 대응하는 능력이 눈에 띄게 향상**된 것을 느낄 수 있었고, 인프라와 배포 자동화에 대한 자신감도 함께 키울 수 있었습니다. <br> 짧은 시간이었지만, 실무와 유사한 환경에서 DevOps의 전반적인 흐름을 경험할 수 있었던 값진 프로젝트였습니다.
 
 <br>
 
