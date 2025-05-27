@@ -678,6 +678,57 @@ ENTRYPOINT ["java","-jar","/app/app.jar"]
 </details>
 
 <details>
+<summary> &emsp;backend Docker-Compose</summary>
+
+  ```yml
+services:
+  db:
+    image: mariadb
+    container_name: mariadb
+    environment:
+      - MYSQL_DATABASE=${MYSQL_DATABASE}
+      - MYSQL_USER=${MYSQL_USER}
+      - MYSQL_PASSWORD=${MYSQL_PASSWORD}
+      - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
+    ports:
+      - "${DB_PORT}:3306"
+
+  redis:
+    image: redis
+    container_name: redis
+    ports:
+      - "6379:6379"
+
+  elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch:7.17.0
+    container_name: elasticsearch
+    environment:
+      - discovery.type=single-node
+      - ES_JAVA_OPTS=-Xms512m -Xmx512m
+    ports:
+      - "9200:9200"
+
+  logstash:
+    image: docker.elastic.co/logstash/logstash:7.17.0
+    container_name: logstash
+    volumes:
+      - ./docker/logstash/logstash.conf:/usr/share/logstash/pipeline/logstash.conf
+    ports:
+      - "5000:5000"
+    depends_on:
+      - elasticsearch
+
+  kibana:
+    image: docker.elastic.co/kibana/kibana:7.17.0
+    container_name: kibana
+    ports:
+      - "5601:5601"
+    depends_on:
+      - elasticsearch
+```
+</details>
+
+<details>
 <summary> &emsp;frontend Dockerfile</summary>
 
   ```dockerfile
@@ -731,7 +782,7 @@ output {
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: ingress-swc
+  name: ingress
   annotations:
     nginx.ingress.kubernetes.io/ssl-redirect: "false"
     nginx.ingress.kubernetes.io/rewrite-target: /$2
@@ -744,23 +795,35 @@ spec:
             pathType: ImplementationSpecific
             backend:
               service:
-                name: vue-swc-ser
+                name: frontend
                 port:
                   number: 8000
           - path: /boot(/|$)(.*)
             pathType: ImplementationSpecific
             backend:
               service:
-                name: boot-swc-ser
+                name: backend
                 port:
                   number: 8001
-          - path: /ws(/|$)(.*)
-            pathType: ImplementationSpecific
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: kibana-ingress
+  annotations:
+    nginx.ingress.kubernetes.io/ssl-redirect: "false"
+spec:
+  ingressClassName: nginx
+  rules:
+    - http:
+        paths:
+          - path: /kibana
+            pathType: Prefix
             backend:
               service:
-                name: websocket-swc-ser
+                name: kibana
                 port:
-                  number: 8002
+                  number: 5601
 ```
 </details>
 
@@ -768,17 +831,113 @@ spec:
 <summary> &emsp;backend</summary>
 
   ```yml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: backend
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: backend
+  template:
+    metadata:
+      labels:
+        app: backend
+    spec:
+      containers:
+        - name: backend
+          image: splguyjr/backend
+          ports:
+            - containerPort: 8080
+          readinessProbe:
+            httpGet:
+              path: /actuator/health/readiness
+              port: 8080
+            initialDelaySeconds: 10
+            periodSeconds: 5
+          envFrom:
+            - configMapRef:
+                name: service-config
+            - secretRef:
+                name: db-secret
+            - secretRef:
+                name: redis-secret
+            - secretRef:
+                name: jwt-secret
+            - secretRef:
+                name: gpt-secret
+            - secretRef:
+                name: s3-secret
+---
 apiVersion: v1
 kind: Service
 metadata:
-  name: boot-swc-ser
+  name: backend
 spec:
-  type: ClusterIP
+  selector:
+    app: backend
   ports:
     - port: 8001
       targetPort: 8080
-  selector:
-    app: boot-swc-kube
+```
+</details>
+
+<details>
+<summary> &emsp;configmap</summary>
+
+  ```yml
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: service-config
+data:
+  MYSQL_DATABASE: "nbti"
+  DB_PORT: "3308"
+  DB_URL: "jdbc:mariadb://db:3306/nbti"
+
+  REDIS_HOST: "redis"
+  REDIS_PORT: "6379"
+
+  JWT_EXPIRATION: "18000000"
+  JWT_REFRESH_EXPIRATION: "604800000"
+
+  env.js: |
+    window.env = {
+        VITE_API_BASE_URL: "/boot"
+    }
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: logstash-config
+data:
+  logstash.conf: |
+    input {
+      tcp {
+        host => "0.0.0.0"
+        port => 5000
+        codec => json_lines
+      }
+    }
+    output {
+      elasticsearch {
+        hosts => ["http://elasticsearch:9200"]
+        index => "nbti-%{+YYYY.MM.dd}"
+        ilm_enabled => false
+      }
+    }
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: kibana-config
+data:
+  kibana.yml: |
+    server.host: "0.0.0.0"
+    server.basePath: "/kibana"
+    server.rewriteBasePath: true
+    elasticsearch.hosts: [ "http://elasticsearch:9200" ]
 ```
 </details>
 
@@ -786,17 +945,44 @@ spec:
 <summary> &emsp;frontend</summary>
 
   ```yml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: frontend
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: frontend
+  template:
+    metadata:
+      labels:
+        app: frontend
+    spec:
+      containers:
+        - name: frontend
+          image: splguyjr/frontend
+          ports:
+            - containerPort: 80
+          volumeMounts:
+            - name: env-volume
+              mountPath: /usr/share/nginx/html/env.js
+              subPath: env.js
+      volumes:
+        - name: env-volume
+          configMap:
+            name: service-config
+---
 apiVersion: v1
 kind: Service
 metadata:
-  name: vue-swc-ser
+  name: frontend
 spec:
-  type: ClusterIP
+  selector:
+    app: frontend
   ports:
     - port: 8000
       targetPort: 80
-  selector:
-    app: vue-swc-kube
 ```
 </details>
 
@@ -805,16 +991,58 @@ spec:
 
   ```yml
 apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: db-pvc
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 1Gi
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: db
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: db
+  template:
+    metadata:
+      labels:
+        app: db
+    spec:
+      containers:
+        - name: db
+          image: mariadb
+          ports:
+            - containerPort: 3306
+          envFrom:
+            - configMapRef:
+                name: service-config
+            - secretRef:
+                name: db-secret
+          volumeMounts:
+            - name: db-storage
+              mountPath: /var/lib/mysql
+      volumes:
+        - name: db-storage
+          persistentVolumeClaim:
+            claimName: db-pvc
+---
+apiVersion: v1
 kind: Service
 metadata:
-  name: websocket-swc-ser
+  name: db
 spec:
-  type: ClusterIP
-  ports:
-    - port: 8002
-      targetPort: 1234
   selector:
-    app: websocket-swc-kube
+    app: db
+  ports:
+    - port: 3306
+      targetPort: 3306
 ```
 </details>
 
@@ -825,23 +1053,46 @@ spec:
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: websocket-swc-dep
+  name: logstash
 spec:
+  replicas: 1
   selector:
     matchLabels:
-      app: websocket-swc-kube
-  replicas: 1
+      app: logstash
   template:
     metadata:
       labels:
-        app: websocket-swc-kube
+        app: logstash
     spec:
       containers:
-        - name: websocket-container
-          image: seolbin/swc_websocket_project:latest
-          imagePullPolicy: Always
+        - name: logstash
+          image: docker.elastic.co/logstash/logstash:7.17.0
           ports:
-            - containerPort: 1234
+            - containerPort: 5000
+          #          readinessProbe:
+          #            tcpSocket:
+          #              port: 5000
+          #            initialDelaySeconds: 30
+          #            periodSeconds: 5
+          #            failureThreshold: 10
+          volumeMounts:
+            - name: logstash-storage
+              mountPath: /usr/share/logstash/pipeline/
+      volumes:
+        - name: logstash-storage
+          configMap:
+            name: logstash-config
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: logstash
+spec:
+  selector:
+    app: logstash
+  ports:
+    - port: 5000
+      targetPort: 5000
 ```
 </details>
 
@@ -852,23 +1103,36 @@ spec:
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: websocket-swc-dep
+  name: redis
 spec:
+  replicas: 1
   selector:
     matchLabels:
-      app: websocket-swc-kube
-  replicas: 1
+      app: redis
   template:
     metadata:
       labels:
-        app: websocket-swc-kube
+        app: redis
     spec:
       containers:
-        - name: websocket-container
-          image: seolbin/swc_websocket_project:latest
-          imagePullPolicy: Always
+        - name: redis
+          image: redis
           ports:
-            - containerPort: 1234
+            - containerPort: 6379
+          envFrom:
+            - secretRef:
+                name: redis-secret
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: redis
+spec:
+  selector:
+    app: redis
+  ports:
+    - port: 6379
+      targetPort: 6379
 ```
 </details>
 
@@ -876,26 +1140,103 @@ spec:
 <summary> &emsp;elasticsearch</summary>
 
   ```yml
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: es-pvc
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 1Gi
+---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: websocket-swc-dep
+  name: elasticsearch
 spec:
+  replicas: 1
   selector:
     matchLabels:
-      app: websocket-swc-kube
-  replicas: 1
+      app: elasticsearch
   template:
     metadata:
       labels:
-        app: websocket-swc-kube
+        app: elasticsearch
     spec:
       containers:
-        - name: websocket-container
-          image: seolbin/swc_websocket_project:latest
-          imagePullPolicy: Always
+        - name: elasticsearch
+          image: docker.elastic.co/elasticsearch/elasticsearch:7.17.0
           ports:
-            - containerPort: 1234
+            - containerPort: 9200
+          env:
+            - name: discovery.type
+              value: single-node
+            - name: ES_JAVA_OPTS
+              value: -Xms512m -Xmx512m
+          volumeMounts:
+            - name: es-storage
+              mountPath: /usr/share/elasticsearch/data
+      volumes:
+        - name: es-storage
+          persistentVolumeClaim:
+            claimName: es-pvc
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: elasticsearch
+spec:
+  selector:
+    app: elasticsearch
+  ports:
+    - port: 9200
+      targetPort: 9200
+```
+</details>
+
+<details>
+<summary> &emsp;kibana</summary>
+
+  ```yml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: kibana
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: kibana
+  template:
+    metadata:
+      labels:
+        app: kibana
+    spec:
+      containers:
+        - name: kibana
+          image: docker.elastic.co/kibana/kibana:7.17.0
+          ports:
+            - containerPort: 5601
+          volumeMounts:
+            - name: kibana-config
+              mountPath: /usr/share/kibana/config/
+      volumes:
+        - name: kibana-config
+          configMap:
+            name: kibana-config
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: kibana
+spec:
+  selector:
+    app: kibana
+  ports:
+    - port: 5601
+      targetPort: 5601
 ```
 </details>
 
@@ -906,12 +1247,379 @@ spec:
 <details>
 <summary>3. Jenkins Pipeline Script</summary>
 
+<details>
+<summary> &emsp;backend</summary>
+
   ```pipeline script
 pipeline {
+    agent any
+
+    tools {
+        gradle 'gradle'
+        jdk 'openJDK17'
+    }
+
+    environment {
+        DOCKERHUB_CREDENTIALS = credentials('DOCKERHUB_PASSWORD')
+        SOURCE_GITHUB_URL = 'https://github.com/be15-4th-project/be15-4th-DAO-NBTI-backend'
+        MANIFESTS_GITHUB_URL = 'https://github.com/splguyjr/k8s_manifests'
+        GIT_USERNAME = 'splguyjr'
+        GIT_EMAIL = 'splguyjr@naver.com'
+    }
+
+    stages {
+        stage('Preparation') {
+            steps {
+                script {
+                    if (isUnix()) {
+                        sh 'docker --version'
+                    } else {
+                        bat 'docker --version'
+                    }
+                }
+            }
+        }
+
+        stage('Clone Source') {
+            steps {
+                git branch: 'main', url: "${env.SOURCE_GITHUB_URL}"
+            }
+        }
+
+       stage('Start Containers') {
+    steps {
+        withCredentials([file(credentialsId: 'env_backend', variable: 'ENV_FILE')]) {
+            script {
+                if (isUnix()) {
+                    sh "docker-compose --env-file=${ENV_FILE} up -d"
+                    sh "sleep 30"
+                } else {
+                    bat "docker-compose --env-file=%ENV_FILE% up -d"
+                    bat "ping -n 31 127.0.0.1 > nul"
+                }
+            }
+        }
+    }
+}
+
+
+       stage('Source Build') {
+    steps {
+        withCredentials([file(credentialsId: 'env_backend_1', variable: 'ENV_FILE')]) {
+            script {
+                def envVars = readFile(ENV_FILE).split("\n")
+                    .findAll { it.trim() && !it.startsWith('#') }
+                    .collect { it.trim() }
+
+                withEnv(envVars) {
+                    if (isUnix()) {
+                        sh "chmod +x NBTI/gradlew"
+                        sh "cd NBTI && ./gradlew clean build"
+                    } else {
+                        bat "cd NBTI && gradlew.bat clean build"
+                    }
+                }
+            }
+        }
+    }
+}
+
+
+        stage('Run Tests') {
+            steps {
+                withCredentials([file(credentialsId: 'env_backend_1', variable: 'ENV_FILE')]) {
+                    script {
+                        def envVars = readFile(ENV_FILE).split("\n")
+                            .findAll { it.trim() && !it.startsWith('#') }
+                            .collect { it.trim() }
+        
+                        withEnv(envVars) {
+                            if (isUnix()) {
+                                sh "cd NBTI && ./gradlew test"
+                            } else {
+                                bat "cd NBTI && gradlew.bat test"
+                            }
+                        }
+                    }
+                }
+            }
+            post {
+                always {
+                    junit 'NBTI/build/test-results/test/*.xml'
+                }
+            }
+        }
+        
+        stage('Stop Containers') {
+            steps {
+                withCredentials([file(credentialsId: 'env_backend', variable: 'ENV_FILE')]) {
+                    script {
+                        if (isUnix()) {
+                            sh "docker-compose --env-file=${ENV_FILE} down || true"
+                        } else {
+                            bat "docker-compose --env-file=%ENV_FILE% down || exit 0"
+                        }
+                    }
+                }
+            }
+        }
+
+        
+        stage('Docker Build and Push') {
+            steps {
+                script {
+                    withCredentials([usernamePassword(credentialsId: 'DOCKERHUB_PASSWORD', usernameVariable: 'DOCKER_USER', passwordVariable: 'DOCKER_PASS')]) {
+                        if (isUnix()) {
+                            sh """
+                                docker build -t ${DOCKER_USER}/backend:${currentBuild.number} ./NBTI
+                                docker tag ${DOCKER_USER}/backend:${currentBuild.number} ${DOCKER_USER}/backend:latest
+                                echo ${DOCKER_PASS} | docker login -u ${DOCKER_USER} --password-stdin
+                                docker push ${DOCKER_USER}/backend:${currentBuild.number}
+                                docker push ${DOCKER_USER}/backend:latest
+                                docker logout
+                            """
+                        } else {
+                            bat """
+                                docker build -t %DOCKER_USER%/backend:${currentBuild.number} NBTI
+                                docker tag %DOCKER_USER%/backend:${currentBuild.number} %DOCKER_USER%/backend:latest
+                                docker login -u %DOCKER_USER% -p %DOCKER_PASS%
+                                docker push %DOCKER_USER%/backend:${currentBuild.number}
+                                docker push %DOCKER_USER%/backend:latest
+                                docker logout
+                            """
+                        }
+                    }
+                }
+            }
+        }
+
+
+        stage('K8S Manifest Update') {
+            steps {
+                git credentialsId: 'github',
+                    url: "${env.MANIFESTS_GITHUB_URL}",
+                    branch: 'main'
+
+                script {
+                    if (isUnix()) {
+                        sh """
+                            sed -i 's|image: splguyjr/backend.*|image: splguyjr/backend:${currentBuild.number}|' backend.yml
+                            git add backend.yml
+                            git config --global user.name '${env.GIT_USERNAME}'
+                            git config --global user.email '${env.GIT_EMAIL}'
+                            git commit -m '[UPDATE] ${currentBuild.number} image versioning' || echo 'No changes to commit'
+                            git push -u origin main
+                        """
+                    } else {
+                        bat "git remote -v"
+                        bat """
+                            powershell -Command "(Get-Content backend.yml) -replace 'image: splguyjr/backend.*', 'image: splguyjr/backend:${currentBuild.number}' | Set-Content backend.yml"
+                            git add backend.yml
+                            git config --global user.name '${env.GIT_USERNAME}'
+                            git config --global user.email '${env.GIT_EMAIL}'
+                            git commit -m \"[UPDATE] ${currentBuild.number} image versioning\" || echo 'No changes to commit'
+                            git push -u origin main
+                        """
+                    }
+                }
+            }
+        }
+    }
+
+    post {
+        success {
+            withCredentials([string(credentialsId: 'discord_be', variable: 'DISCORD')]) {
+                discordSend(
+                    description: """
+                    **빌드 성공!** :tada:
+
+                    **제목**: ${currentBuild.displayName}
+                    **결과**: :white_check_mark: ${currentBuild.currentResult}
+                    **실행 시간**: ${currentBuild.duration / 1000}s
+                    **링크**: [빌드 결과 보기](${env.BUILD_URL})
+                    """,
+                    title: "${env.JOB_NAME} 빌드 성공!",
+                    webhookURL: "$DISCORD"
+                )
+            }
+        }
+        failure {
+            withCredentials([string(credentialsId: 'discord_be', variable: 'DISCORD')]) {
+                discordSend(
+                    description: """
+                    **빌드 실패!** :x:
+
+                    **제목**: ${currentBuild.displayName}
+                    **결과**: :x: ${currentBuild.currentResult}
+                    **실행 시간**: ${currentBuild.duration / 1000}s
+                    **링크**: [빌드 결과 보기](${env.BUILD_URL})
+                    """,
+                    title: "${env.JOB_NAME} 빌드 실패!",
+                    webhookURL: "$DISCORD"
+                )
+            }
+        }
+    }
+}
+
+```
+
+</details>
+
+<details>
+<summary> &emsp;frontend</summary>
+
+  ```pipeline script
+pipeline {
+    agent any
+
+    environment {
+        DOCKERHUB_CREDENTIALS = credentials('DOCKERHUB_PASSWORD')
+        SOURCE_GITHUB_URL = 'https://github.com/be15-4th-project/be15-4th-DAO-NBTI-front'
+        MANIFESTS_GITHUB_URL = 'https://github.com/splguyjr/k8s_manifests'
+        GIT_USERNAME = 'splguyjr'
+        GIT_EMAIL = 'splguyjr@naver.com'
+    }
+
+    stages {
+        stage('Preparation') {
+            steps {
+                script {
+                    if (isUnix()) {
+                        sh 'docker --version'
+                    } else {
+                        bat 'docker --version'
+                    }
+                }
+            }
+        }
+
+        stage('Clone Source') {
+            steps {
+                git branch: 'main', url: "${env.SOURCE_GITHUB_URL}"
+            }
+        }
+
+        stage('Frontend Build') {
+            steps {
+                script {
+                    if (isUnix()) {
+                        sh """
+                            cd be15-4th-dao-nbti-fe
+                            npm ci
+                            npm run build
+                        """
+                    } else {
+                        bat """
+                            cd be15-4th-dao-nbti-fe
+                            npm ci
+                            npm run build
+                        """
+                    }
+                }
+            }
+        }
+
+        stage('Docker Build and Push') {
+            steps {
+                script {
+                    withCredentials([usernamePassword(credentialsId: 'DOCKERHUB_PASSWORD', usernameVariable: 'DOCKER_USER', passwordVariable: 'DOCKER_PASS')]) {
+                        if (isUnix()) {
+                            sh """
+                                docker build -t ${DOCKER_USER}/frontend:${currentBuild.number} ./be15-4th-dao-nbti-fe
+                                docker tag ${DOCKER_USER}/frontend:${currentBuild.number} ${DOCKER_USER}/frontend:latest
+                                echo ${DOCKER_PASS} | docker login -u ${DOCKER_USER} --password-stdin
+                                docker push ${DOCKER_USER}/frontend:${currentBuild.number}
+                                docker push ${DOCKER_USER}/frontend:latest
+                                docker logout
+                            """
+                        } else {
+                            bat """
+                                docker build -t %DOCKER_USER%/frontend:${currentBuild.number} be15-4th-dao-nbti-fe
+                                docker tag %DOCKER_USER%/frontend:${currentBuild.number} %DOCKER_USER%/frontend:latest
+                                docker login -u %DOCKER_USER% -p %DOCKER_PASS%
+                                docker push %DOCKER_USER%/frontend:${currentBuild.number}
+                                docker push %DOCKER_USER%/frontend:latest
+                                docker logout
+                            """
+                        }
+                    }
+                }
+            }
+        }
+
+        stage('K8S Manifest Update') {
+            steps {
+                git credentialsId: 'github',
+                    url: "${env.MANIFESTS_GITHUB_URL}",
+                    branch: 'main'
+
+                script {
+                    if (isUnix()) {
+                        sh """
+                            sed -i 's|image: splguyjr/frontend.*|image: splguyjr/frontend:${currentBuild.number}|' frontend.yml
+                            git add frontend.yml
+                            git config --global user.name '${env.GIT_USERNAME}'
+                            git config --global user.email '${env.GIT_EMAIL}'
+                            git commit -m '[UPDATE] ${currentBuild.number} image versioning' || echo 'No changes to commit'
+                            git push -u origin main
+                        """
+                    } else {
+                        bat "git remote -v"
+                        bat """
+                            powershell -Command "(Get-Content frontend.yml) -replace 'image: splguyjr/frontend.*', 'image: splguyjr/frontend:${currentBuild.number}' | Set-Content frontend.yml"
+                            git add frontend.yml
+                            git config --global user.name '${env.GIT_USERNAME}'
+                            git config --global user.email '${env.GIT_EMAIL}'
+                            git commit -m \"[UPDATE] ${currentBuild.number} image versioning\" || echo 'No changes to commit'
+                            git push -u origin main
+                        """
+                    }
+                }
+            }
+        }
+    }
+
+    post {
+        success {
+            withCredentials([string(credentialsId: 'discord_be', variable: 'DISCORD')]) {
+                discordSend(
+                    description: """
+                    **프론트엔드 빌드 성공!** :sparkles:
+
+                    **제목**: ${currentBuild.displayName}
+                    **결과**: ✅ ${currentBuild.currentResult}
+                    **시간**: ${currentBuild.duration / 1000}s
+                    **[빌드 확인](${env.BUILD_URL})**
+                    """,
+                    title: "Frontend Build Success",
+                    webhookURL: "$DISCORD"
+                )
+            }
+        }
+        failure {
+            withCredentials([string(credentialsId: 'discord_be', variable: 'DISCORD')]) {
+                discordSend(
+                    description: """
+                    **프론트엔드 빌드 실패!** :x:
+
+                    **제목**: ${currentBuild.displayName}
+                    **결과**: ❌ ${currentBuild.currentResult}
+                    **시간**: ${currentBuild.duration / 1000}s
+                    **[빌드 확인](${env.BUILD_URL})**
+                    """,
+                    title: "Frontend Build Failed",
+                    webhookURL: "$DISCORD"
+                )
+            }
+        }
+    }
 }
 ```
 
 </details>
+</details>
+
 
 <br>
 
